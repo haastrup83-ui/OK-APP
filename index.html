@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oddset klubben – Mockup v20</title>
+<title>Oddset klubben – Mockup v23</title>
 <style>
 :root{--bg:#08110f;--panel:#121817;--panel2:#171f1d;--line:#2b3733;--text:#f3f6f5;--muted:#93a19d;--green:#12a665;--green2:#0b6f47;--gold:#e4b84b;--red:#e95b64}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07120f,#0d1110);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}.app{min-height:100vh}.stickyShell{position:fixed;top:0;left:0;right:0;z-index:100;background:#073927;box-shadow:0 10px 24px rgba(0,0,0,.28)}.top{background:linear-gradient(90deg,#073927,#075036);padding:14px 20px;display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;position:relative;z-index:2}.brand{font-weight:800;letter-spacing:.5px}.seasonPick{background:#0b3c2c;border:1px solid #2d7257;color:#fff;border-radius:8px;padding:9px 12px}.profile{font-size:13px;color:#dce7e3;display:flex;align-items:center;gap:9px;cursor:pointer}.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #70b497}.avatarSm{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#24473a;border:1px solid #52635d;vertical-align:middle;margin-right:8px}.nameCell{display:flex;align-items:center;min-width:0}.topTools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.iconBtn{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:18px}.autosave{font-size:11px;color:#7fd7ab;margin-top:7px;min-height:16px}.adminGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adminList{display:grid;gap:7px;margin-top:10px}.adminPerson{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#0d1311;border:1px solid #2a3833;border-radius:8px;padding:9px}.adminActions{display:flex;gap:7px;flex-wrap:wrap}.loginUsers{display:grid;gap:8px;margin-top:12px}.loginUser{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #2b3934;border-radius:9px;background:#0d1311;cursor:pointer}.loginUser:hover{background:#14241f}.profileGrid{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start}.profilePreview{width:86px;height:86px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #5b776d}.fieldInput{width:100%;background:#090e0d;border:1px solid #3a4743;border-radius:8px;color:white;padding:10px}.adminOnly{display:none}.adminOnly.show{display:block}.layout{display:block}.main{padding:18px;min-width:0;max-width:1500px;margin:0 auto}.clubStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}.stat,.card{background:linear-gradient(145deg,#131a18,#101514);border:1px solid #293733;border-radius:11px;padding:16px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:23px;font-weight:750;margin-top:5px}.stat .s{font-size:11px;color:#b5c1bd;margin-top:3px}.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:14px}.card h2,.card h3{margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;background:#163b2d;color:#9ee2c0}.roundHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.balanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field label{display:block;font-size:12px;color:#bec9c5;margin-bottom:6px}.bigInput,.bigDisplay{display:flex;align-items:center;background:#090e0d;border:1px solid #3a4743;border-radius:9px;padding:7px 10px}.bigInput input{width:100%;min-width:0;background:transparent;border:0;color:#fff;font-size:28px;font-weight:700;outline:none}.bigInput span,.bigDisplay span{font-size:12px;color:var(--muted)}.bigDisplay strong{font-size:28px;margin-right:auto}.hint{font-size:11px;color:var(--muted);margin-top:5px}.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.quick button,.btn{border:1px solid #40504a;background:#151e1b;color:#fff;border-radius:8px;padding:9px 11px;cursor:pointer}.quick button:hover,.btn:hover{background:#1d2925}.btn.green{background:#0b6f47;border-color:#17865a}.btn.gold{background:#4b3b17;border-color:#806423}.btn.red{background:#4a2024;border-color:#753139}.btn:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.actions .btn{flex:1 1 150px}.roundStrip{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap}.r{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid #3d4b46;color:#9da9a5;background:#0c1210}.r.done{background:#0d5a39;color:#fff;border-color:#249867}.r.active{background:#68551a;color:#fff;border-color:#cba93e}.members{margin-top:10px}.memberHeader,.memberRow{display:grid;grid-template-columns:28px minmax(0,1fr) 90px 80px 62px 70px;gap:6px;align-items:center;padding:9px 7px;font-size:12px}.memberHeader{color:var(--muted);border-bottom:1px solid #26322e}.memberRow{border-top:1px solid #26322e;cursor:pointer}.memberRow:hover,.memberRow.me{background:#153025}.memberRow .name{font-weight:650}.memberRow .bank{font-weight:700}.small{font-size:11px;color:var(--muted)}.second{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}.table th{text-align:left;color:#93a19d;padding:9px;border-bottom:1px solid #2b3733}.table td{padding:10px 9px;border-bottom:1px solid #202b27}.statusDone{color:#54d294}.statusActive{color:#ebc95f}.winnerGrid{display:grid;gap:7px;margin-top:10px}.winnerRow{display:grid;grid-template-columns:72px 1fr 88px;gap:8px;padding:9px;background:#0e1513;border:1px solid #26342f;border-radius:8px;font-size:12px}.winnerRow b{color:var(--gold)}.rankBadge{font-weight:800}.roundState{display:inline-flex;align-items:center;justify-content:center;min-width:42px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.2px;white-space:nowrap}.roundState.active{background:rgba(228,184,75,.16);border:1px solid rgba(228,184,75,.45);color:#f5d37a}.roundState.done{background:rgba(18,166,101,.16);border:1px solid rgba(18,166,101,.45);color:#8fe3ba}.roundState.idle{background:rgba(147,161,157,.12);border:1px solid rgba(147,161,157,.3);color:#cbd4d1}.medalGold{background-color:rgba(228,184,75,.14);background-image:linear-gradient(90deg,rgba(228,184,75,.24),rgba(228,184,75,.08));border-left:4px solid #e4b84b;box-shadow:inset 0 0 0 1px rgba(228,184,75,.16)}.medalSilver{background-color:rgba(186,193,203,.14);background-image:linear-gradient(90deg,rgba(186,193,203,.24),rgba(186,193,203,.08));border-left:4px solid #bac1cb;box-shadow:inset 0 0 0 1px rgba(186,193,203,.16)}.medalBronze{background-color:rgba(193,124,77,.14);background-image:linear-gradient(90deg,rgba(193,124,77,.24),rgba(193,124,77,.08));border-left:4px solid #c17c4d;box-shadow:inset 0 0 0 1px rgba(193,124,77,.16)}.dangerLast{background-color:rgba(233,91,100,.14);background-image:linear-gradient(90deg,rgba(233,91,100,.22),rgba(233,91,100,.07));border-left:4px solid #e95b64;box-shadow:inset 0 0 0 1px rgba(233,91,100,.16)}.medalGold,.medalSilver,.medalBronze,.dangerLast{border-radius:8px}.members .memberRow.medalGold:hover,.members .memberRow.medalGold.me{background-color:rgba(228,184,75,.18);background-image:linear-gradient(90deg,rgba(228,184,75,.30),rgba(228,184,75,.10))}.members .memberRow.medalSilver:hover,.members .memberRow.medalSilver.me{background-color:rgba(186,193,203,.18);background-image:linear-gradient(90deg,rgba(186,193,203,.30),rgba(186,193,203,.10))}.members .memberRow.medalBronze:hover{background-color:rgba(193,124,77,.18);background-image:linear-gradient(90deg,rgba(193,124,77,.30),rgba(193,124,77,.10))}.members .memberRow.dangerLast:hover{background-color:rgba(233,91,100,.18);background-image:linear-gradient(90deg,rgba(233,91,100,.28),rgba(233,91,100,.10))}.medalGold .rankBadge{color:#f0cf69}.medalSilver .rankBadge{color:#d7dde4}.medalBronze .rankBadge{color:#d99a6d}.dangerLast .rankBadge{color:#ff9ca3}#roundWinnersCard{margin-top:14px}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);align-items:center;justify-content:center;padding:18px;z-index:40}.overlay.open{display:flex}.modal{width:min(560px,96%);background:#151c1a;border:1px solid #3b4a45;border-radius:12px;padding:18px;max-height:90vh;overflow:auto}.modal h3{font-size:20px;margin:0 0 8px}.modalActions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.confirmValue{background:#0c1210;border:1px solid #35433e;border-radius:8px;padding:12px;margin-top:10px}.checkline{display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:12px}.memberDetail .metricGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.memberDetail .metric{background:#0d1311;border:1px solid #2b3833;border-radius:8px;padding:10px}.memberDetail .metric b{font-size:19px;display:block}.toast{display:none;margin-top:10px;padding:9px 11px;border-radius:8px;background:#113a2a;border:1px solid #286d4d;color:#bdebd2;font-size:12px}.toast.show{display:block}.error{color:#ff9a9f;font-size:12px;margin-top:8px}.summaryLine{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #26332f}.summaryLine:last-child{border-bottom:0}
@@ -259,6 +259,182 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   #standingsSection .memberRow.medalSilver,
   #standingsSection .memberRow.medalBronze,
   #standingsSection .memberRow.dangerLast{border-left-width:4px}
+}
+
+/* v21 portrait standings: authoritative one-row layout */
+@media (max-width:520px) and (orientation:portrait){
+  #standingsSection .members{overflow:visible!important}
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{
+    grid-template-columns:26px minmax(82px,1fr) 55px 43px 48px 54px!important;
+    grid-template-areas:none!important;
+    column-gap:3px!important;
+  }
+  #standingsSection .memberRow{
+    min-height:42px!important;
+    padding:6px 2px!important;
+  }
+  #standingsSection .memberRow>span:nth-child(1),
+  #standingsSection .memberRow>span:nth-child(2),
+  #standingsSection .memberRow>span:nth-child(3),
+  #standingsSection .memberRow>span:nth-child(4),
+  #standingsSection .memberRow>span:nth-child(5),
+  #standingsSection .memberRow>span:nth-child(6){
+    grid-column:auto!important;
+    grid-row:auto!important;
+    align-self:center!important;
+    min-width:0!important;
+    white-space:nowrap!important;
+  }
+  #standingsSection .memberRow>span:nth-child(4)::before,
+  #standingsSection .memberRow>span:nth-child(5)::before,
+  #standingsSection .memberRow>span:nth-child(6)::before{content:none!important}
+  #standingsSection .memberRow>span:nth-child(3),
+  #standingsSection .memberRow>span:nth-child(5),
+  #standingsSection .memberRow>span:nth-child(6){text-align:right!important}
+  #standingsSection .memberRow>span:nth-child(4){text-align:center!important}
+  #standingsSection .nameCell{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    overflow:hidden!important;
+    gap:3px!important;
+  }
+  #standingsSection .nameCell>span{
+    display:block!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:9px!important;
+  }
+  #standingsSection .avatarSm{
+    width:21px!important;height:21px!important;flex:0 0 21px!important;margin-right:2px!important
+  }
+  #standingsSection .rankBadge{font-size:8.5px!important;overflow:visible!important;text-overflow:clip!important}
+  #standingsSection .bank,#standingsSection .bufferVal,#standingsSection .memberRow>span:nth-child(5){font-size:8.7px!important}
+  #standingsSection .roundState{min-width:32px!important;padding:2px 4px!important;font-size:8px!important}
+}
+@media (max-width:390px) and (orientation:portrait){
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{
+    grid-template-columns:24px minmax(70px,1fr) 49px 39px 44px 49px!important;
+    column-gap:2px!important;
+  }
+  #standingsSection .nameCell>span{font-size:8.4px!important}
+  #standingsSection .bank,#standingsSection .bufferVal,#standingsSection .memberRow>span:nth-child(5){font-size:8px!important}
+  #standingsSection .roundState{min-width:29px!important;font-size:7.5px!important;padding:2px 3px!important}
+  #standingsSection .avatarSm{width:19px!important;height:19px!important;flex-basis:19px!important}
+}
+</style>
+
+<style>
+/* v22: one-line standings for every narrow viewport, including resized desktop/tablet */
+@media (max-width:760px){
+  #standingsSection{padding:10px 7px!important}
+  #standingsSection .members{margin-top:6px!important;overflow:hidden!important}
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{
+    display:grid!important;
+    grid-template-columns:32px minmax(95px,1fr) 66px 50px 55px 61px!important;
+    grid-template-areas:none!important;
+    column-gap:4px!important;
+    align-items:center!important;
+  }
+  #standingsSection .memberHeader{padding:0 3px 6px!important;font-size:9px!important}
+  #standingsSection .memberRow{padding:7px 3px!important;min-height:44px!important;font-size:10px!important}
+  #standingsSection .memberRow>span:nth-child(1),
+  #standingsSection .memberRow>span:nth-child(2),
+  #standingsSection .memberRow>span:nth-child(3),
+  #standingsSection .memberRow>span:nth-child(4),
+  #standingsSection .memberRow>span:nth-child(5),
+  #standingsSection .memberRow>span:nth-child(6){
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-width:0!important;
+    white-space:nowrap!important;
+    align-self:center!important;
+  }
+  #standingsSection .memberRow>span:nth-child(4)::before,
+  #standingsSection .memberRow>span:nth-child(5)::before,
+  #standingsSection .memberRow>span:nth-child(6)::before{content:none!important}
+  #standingsSection .memberRow>span:nth-child(3),
+  #standingsSection .memberRow>span:nth-child(5),
+  #standingsSection .memberRow>span:nth-child(6){text-align:right!important}
+  #standingsSection .memberRow>span:nth-child(4){text-align:center!important;color:inherit!important}
+  #standingsSection .nameCell{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;overflow:hidden!important;gap:3px!important}
+  #standingsSection .nameCell>span{display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9.5px!important}
+  #standingsSection .avatarSm{width:23px!important;height:23px!important;flex:0 0 23px!important;margin-right:2px!important}
+  #standingsSection .rankBadge{font-size:9px!important;overflow:visible!important;text-overflow:clip!important}
+  #standingsSection .bank,#standingsSection .bufferVal,#standingsSection .memberRow>span:nth-child(5){font-size:9px!important}
+  #standingsSection .roundState{min-width:31px!important;padding:2px 4px!important;font-size:8px!important}
+  #standingsSection .memberRow.medalGold,
+  #standingsSection .memberRow.medalSilver,
+  #standingsSection .memberRow.medalBronze,
+  #standingsSection .memberRow.dangerLast{border-left-width:4px!important}
+}
+@media (max-width:430px){
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{grid-template-columns:25px minmax(68px,1fr) 49px 38px 43px 48px!important;column-gap:2px!important}
+  #standingsSection .nameCell>span{font-size:8px!important}
+  #standingsSection .avatarSm{width:19px!important;height:19px!important;flex-basis:19px!important}
+  #standingsSection .rankBadge{font-size:7.8px!important}
+  #standingsSection .bank,#standingsSection .bufferVal,#standingsSection .memberRow>span:nth-child(5){font-size:7.8px!important}
+  #standingsSection .roundState{min-width:27px!important;padding:2px!important;font-size:7px!important}
+}
+</style>
+
+<style>
+/* v23: exact standings column alignment on narrow/mobile screens */
+@media(max-width:760px){
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{
+    grid-template-columns:32px minmax(0,1fr) 72px 58px 64px 68px !important;
+    column-gap:6px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+  #standingsSection .memberHeader>span:nth-child(1),
+  #standingsSection .memberRow>span:nth-child(1){text-align:center !important}
+  #standingsSection .memberHeader>span:nth-child(2),
+  #standingsSection .memberRow>span:nth-child(2){text-align:left !important}
+  #standingsSection .memberHeader>span:nth-child(3),
+  #standingsSection .memberRow>span:nth-child(3){text-align:right !important}
+  #standingsSection .memberHeader>span:nth-child(4),
+  #standingsSection .memberRow>span:nth-child(4){text-align:center !important}
+  #standingsSection .memberHeader>span:nth-child(5),
+  #standingsSection .memberRow>span:nth-child(5),
+  #standingsSection .memberHeader>span:nth-child(6),
+  #standingsSection .memberRow>span:nth-child(6){text-align:right !important}
+
+  /* Color strip without changing the grid width */
+  #standingsSection .memberRow.medalGold,
+  #standingsSection .memberRow.medalSilver,
+  #standingsSection .memberRow.medalBronze,
+  #standingsSection .memberRow.dangerLast{
+    position:relative;
+    border-left:0 !important;
+  }
+  #standingsSection .memberRow.medalGold::before,
+  #standingsSection .memberRow.medalSilver::before,
+  #standingsSection .memberRow.medalBronze::before,
+  #standingsSection .memberRow.dangerLast::before{
+    content:"";position:absolute;left:0;top:5px;bottom:5px;width:4px;border-radius:4px;
+  }
+  #standingsSection .memberRow.medalGold::before{background:#e4b84b}
+  #standingsSection .memberRow.medalSilver::before{background:#bac1cb}
+  #standingsSection .memberRow.medalBronze::before{background:#c17c4d}
+  #standingsSection .memberRow.dangerLast::before{background:#e95b64}
+}
+@media(max-width:520px) and (orientation:portrait){
+  #standingsSection .memberHeader,
+  #standingsSection .memberRow{
+    grid-template-columns:28px minmax(0,1fr) 58px 46px 50px 56px !important;
+    column-gap:3px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+  #standingsSection .memberHeader{font-size:8.5px !important}
+  #standingsSection .memberRow{font-size:9.5px !important}
 }
 </style>
 </head>
