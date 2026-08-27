@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oddset klubben – Mockup v8 responsive</title>
+<style>
+:root{--bg:#08110f;--panel:#121817;--panel2:#171f1d;--line:#2b3733;--text:#f3f6f5;--muted:#93a19d;--green:#12a665;--green2:#0b6f47;--gold:#e4b84b;--red:#e95b64}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07120f,#0d1110);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}.app{min-height:100vh}.top{background:linear-gradient(90deg,#073927,#075036);padding:14px 20px;display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;position:sticky;top:0;z-index:10}.brand{font-weight:800;letter-spacing:.5px}.seasonPick{background:#0b3c2c;border:1px solid #2d7257;color:#fff;border-radius:8px;padding:9px 12px}.profile{font-size:13px;color:#dce7e3;display:flex;align-items:center;gap:9px;cursor:pointer}.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #70b497}.avatarSm{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#24473a;border:1px solid #52635d;vertical-align:middle;margin-right:8px}.nameCell{display:flex;align-items:center;min-width:0}.topTools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.iconBtn{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:18px}.autosave{font-size:11px;color:#7fd7ab;margin-top:7px;min-height:16px}.adminGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adminList{display:grid;gap:7px;margin-top:10px}.adminPerson{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#0d1311;border:1px solid #2a3833;border-radius:8px;padding:9px}.adminActions{display:flex;gap:7px;flex-wrap:wrap}.loginUsers{display:grid;gap:8px;margin-top:12px}.loginUser{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #2b3934;border-radius:9px;background:#0d1311;cursor:pointer}.loginUser:hover{background:#14241f}.profileGrid{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start}.profilePreview{width:86px;height:86px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #5b776d}.fieldInput{width:100%;background:#090e0d;border:1px solid #3a4743;border-radius:8px;color:white;padding:10px}.adminOnly{display:none}.adminOnly.show{display:block}.layout{display:block}.main{padding:18px;min-width:0;max-width:1500px;margin:0 auto}.clubStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}.stat,.card{background:linear-gradient(145deg,#131a18,#101514);border:1px solid #293733;border-radius:11px;padding:16px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:23px;font-weight:750;margin-top:5px}.stat .s{font-size:11px;color:#b5c1bd;margin-top:3px}.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:14px}.card h2,.card h3{margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;background:#163b2d;color:#9ee2c0}.roundHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.balanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field label{display:block;font-size:12px;color:#bec9c5;margin-bottom:6px}.bigInput,.bigDisplay{display:flex;align-items:center;background:#090e0d;border:1px solid #3a4743;border-radius:9px;padding:7px 10px}.bigInput input{width:100%;min-width:0;background:transparent;border:0;color:#fff;font-size:28px;font-weight:700;outline:none}.bigInput span,.bigDisplay span{font-size:12px;color:var(--muted)}.bigDisplay strong{font-size:28px;margin-right:auto}.hint{font-size:11px;color:var(--muted);margin-top:5px}.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.quick button,.btn{border:1px solid #40504a;background:#151e1b;color:#fff;border-radius:8px;padding:9px 11px;cursor:pointer}.quick button:hover,.btn:hover{background:#1d2925}.btn.green{background:#0b6f47;border-color:#17865a}.btn.gold{background:#4b3b17;border-color:#806423}.btn.red{background:#4a2024;border-color:#753139}.btn:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.actions .btn{flex:1 1 150px}.roundStrip{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap}.r{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid #3d4b46;color:#9da9a5;background:#0c1210}.r.done{background:#0d5a39;color:#fff;border-color:#249867}.r.active{background:#68551a;color:#fff;border-color:#cba93e}.members{margin-top:10px}.memberHeader,.memberRow{display:grid;grid-template-columns:28px minmax(0,1fr) 90px 70px 70px;gap:6px;align-items:center;padding:9px 7px;font-size:12px}.memberHeader{color:var(--muted);border-bottom:1px solid #26322e}.memberRow{border-top:1px solid #26322e;cursor:pointer}.memberRow:hover,.memberRow.me{background:#153025}.memberRow .name{font-weight:650}.memberRow .bank{font-weight:700}.small{font-size:11px;color:var(--muted)}.second{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}.table th{text-align:left;color:#93a19d;padding:9px;border-bottom:1px solid #2b3733}.table td{padding:10px 9px;border-bottom:1px solid #202b27}.statusDone{color:#54d294}.statusActive{color:#ebc95f}.winnerGrid{display:grid;gap:7px;margin-top:10px}.winnerRow{display:grid;grid-template-columns:72px 1fr 88px;gap:8px;padding:9px;background:#0e1513;border:1px solid #26342f;border-radius:8px;font-size:12px}.winnerRow b{color:var(--gold)}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);align-items:center;justify-content:center;padding:18px;z-index:40}.overlay.open{display:flex}.modal{width:min(560px,96%);background:#151c1a;border:1px solid #3b4a45;border-radius:12px;padding:18px;max-height:90vh;overflow:auto}.modal h3{font-size:20px;margin:0 0 8px}.modalActions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.confirmValue{background:#0c1210;border:1px solid #35433e;border-radius:8px;padding:12px;margin-top:10px}.checkline{display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:12px}.memberDetail .metricGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.memberDetail .metric{background:#0d1311;border:1px solid #2b3833;border-radius:8px;padding:10px}.memberDetail .metric b{font-size:19px;display:block}.toast{display:none;margin-top:10px;padding:9px 11px;border-radius:8px;background:#113a2a;border:1px solid #286d4d;color:#bdebd2;font-size:12px}.toast.show{display:block}.error{color:#ff9a9f;font-size:12px;margin-top:8px}.summaryLine{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #26332f}.summaryLine:last-child{border-bottom:0}
+@media(max-width:1000px){
+  .clubStats{grid-template-columns:1fr 1fr}
+  .grid,.second{grid-template-columns:1fr}
+  .top{grid-template-columns:minmax(0,1fr) auto;gap:10px}
+  .profile{display:flex;grid-column:1/-1;justify-self:end}
+}
+@media(max-width:700px){
+  body{background:#07120f}
+  .top{position:static;grid-template-columns:1fr;gap:10px;padding:12px}
+  .brand{font-size:18px}
+  .topTools{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px}
+  .seasonPick{width:100%;min-height:44px;font-size:16px}
+  .topTools .btn{min-height:44px}
+  .profile{grid-column:auto;justify-self:stretch;width:100%!important;justify-content:flex-start!important;padding:8px!important;border-radius:10px!important;background:rgba(0,0,0,.12)!important}
+  .avatar{width:44px;height:44px}
+  .main{padding:10px}
+  .clubStats{grid-template-columns:1fr 1fr;gap:8px}
+  .stat,.card{padding:13px;border-radius:10px}
+  .stat .v{font-size:19px}
+  .stat .k{font-size:10px}
+  .stat .s{font-size:10px}
+  .grid,.second{gap:10px;margin-top:10px}
+  .roundHead{flex-direction:column;align-items:stretch}
+  .roundHead .btn{width:100%}
+  .balanceGrid{grid-template-columns:1fr}
+  .bigInput,.bigDisplay{min-height:54px}
+  .bigInput input,.bigDisplay strong{font-size:26px}
+  .quick{display:grid;grid-template-columns:repeat(4,1fr)}
+  .quick button{min-height:44px;padding:8px 4px}
+  .actions{display:grid;grid-template-columns:1fr 1fr}
+  .actions .btn{min-height:48px;flex:auto}
+  .roundStrip{justify-content:space-between;gap:5px}
+  .r{width:38px;height:38px}
+  .members{overflow:visible}
+  .memberHeader{display:none}
+  .memberRow{grid-template-columns:36px minmax(0,1fr) auto;gap:8px;padding:11px 8px;border:1px solid #26322e;border-radius:9px;margin-top:7px;background:#0d1311}
+  .memberRow>span:first-child{grid-row:1/3;align-self:center;text-align:center;color:var(--muted)}
+  .memberRow .name{grid-column:2;grid-row:1;min-width:0}
+  .memberRow .bank{grid-column:3;grid-row:1;text-align:right}
+  .memberRow>span:nth-child(4){grid-column:2;grid-row:2;font-size:11px;color:var(--muted)}
+  .memberRow>span:nth-child(4)::before{content:'Runde ';}
+  .memberRow>span:nth-child(5){grid-column:3;grid-row:2;display:block!important;text-align:right;font-size:11px;color:var(--muted)}
+  .memberRow>span:nth-child(5)::before{content:'Saldo ';}
+  .avatarSm{width:34px;height:34px;margin-right:7px}
+  .tableWrap{margin:0 -4px;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table{min-width:620px}
+  .winnerRow{grid-template-columns:66px minmax(0,1fr) auto}
+  .modal{width:100%;max-height:88vh;padding:15px;border-radius:12px}
+  .modalActions{display:grid;grid-template-columns:1fr 1fr}
+  .modalActions .btn{min-height:46px}
+  .profileGrid{grid-template-columns:72px minmax(0,1fr)}
+  .profilePreview{width:68px;height:68px}
+  .adminGrid{grid-template-columns:1fr}
+  .adminPerson{grid-template-columns:1fr;align-items:start}
+  .adminActions{display:grid;grid-template-columns:1fr 1fr}
+  .memberDetail .metricGrid{grid-template-columns:1fr 1fr 1fr}
+  .memberDetail .metric b{font-size:16px}
+}
+@media(max-width:430px){
+  .clubStats{grid-template-columns:1fr}
+  .topTools{grid-template-columns:1fr auto auto}
+  .actions{grid-template-columns:1fr}
+  .modalActions{grid-template-columns:1fr}
+  .memberDetail .metricGrid{grid-template-columns:1fr}
+  .winnerRow{grid-template-columns:62px minmax(0,1fr);}
+  .winnerRow span:last-child{grid-column:2;text-align:left;color:#dce7e3}
+  .quick{grid-template-columns:repeat(2,1fr)}
+  .profileGrid{grid-template-columns:1fr;text-align:center}
+  .profilePreview{margin:auto}
+}
+
+/* v8: fluid responsive layout */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+.app{width:100%;min-width:0}
+.main{width:min(100%,1500px);padding:clamp(10px,2vw,22px)}
+.clubStats{grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr))}
+.grid{grid-template-columns:minmax(0,1.25fr) minmax(min(320px,100%),.75fr)}
+.second{grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr))}
+.card,.stat,.field,.members,.tableWrap{min-width:0;max-width:100%}
+.top{grid-template-columns:minmax(160px,1fr) auto auto;padding-inline:clamp(10px,2vw,20px)}
+.topTools{min-width:0}.topTools>*{max-width:100%}
+.mobileNav{display:none;background:#0a2119;border-bottom:1px solid #244034;padding:7px;gap:6px;position:sticky;top:66px;z-index:9}
+.mobileNav button{flex:1 1 0;min-width:0;background:#102e24;color:#dce9e4;border:1px solid #285242;border-radius:8px;padding:9px 6px;font-size:12px;cursor:pointer;touch-action:manipulation}
+button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-highlight-color:rgba(18,166,101,.22)}
+@media(max-width:760px){
+  .top{position:sticky;top:0;grid-template-columns:1fr auto;gap:8px}
+  .brand{font-size:clamp(16px,5vw,20px)}
+  .topTools{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto auto;width:100%}
+  .profile{grid-column:2;grid-row:1;justify-self:end;width:auto!important;padding:4px!important}
+  .profile span{display:none}
+  .mobileNav{display:flex;top:110px}
+  .main{padding:8px}
+  .clubStats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .grid,.second{grid-template-columns:1fr;gap:8px}
+  .balanceGrid{grid-template-columns:1fr}
+  .actions{display:grid;grid-template-columns:1fr;gap:8px}
+  .actions .btn{width:100%;min-height:48px}
+  .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .quick button{min-width:0;min-height:44px;padding:8px 2px}
+  .memberHeader{display:none}
+  .memberRow{grid-template-columns:34px minmax(0,1fr) auto;grid-template-areas:"rank name bank" "rank round saldo";padding:11px 6px;gap:5px 8px}
+  .memberRow>span:nth-child(1){grid-area:rank;align-self:center}
+  .memberRow>span:nth-child(2){grid-area:name}
+  .memberRow>span:nth-child(3){grid-area:bank;text-align:right}
+  .memberRow>span:nth-child(4){grid-area:round;text-align:left;color:var(--muted)}
+  .memberRow>span:nth-child(4)::before{content:"Runde ";font-size:10px}
+  .memberRow>span:nth-child(5){grid-area:saldo;text-align:right;color:var(--muted)}
+  .memberRow>span:nth-child(5)::before{content:"Saldo ";font-size:10px}
+  .avatarSm{width:34px;height:34px}
+  .table{min-width:560px}
+  .modal{width:100%;max-width:100%;border-radius:12px;padding:14px;max-height:86vh}
+  .modalActions{display:grid;grid-template-columns:1fr;gap:8px}.modalActions .btn{width:100%;min-height:46px}
+  .memberDetail .metricGrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){
+  .mobileNav{top:108px;padding:5px;gap:4px}.mobileNav button{font-size:11px;padding:8px 3px}
+  .clubStats{grid-template-columns:1fr 1fr}.stat .v{font-size:18px}.stat{padding:10px}
+  .topTools{grid-template-columns:1fr auto auto}.seasonPick{font-size:15px;min-width:0;padding:8px}
+  .topTools .btn{padding:8px 9px;min-width:44px}.topTools #rulesBtn{font-size:0}.topTools #rulesBtn::after{content:"📖";font-size:18px}
+  .bigInput input,.bigDisplay strong{font-size:24px}
+  .memberDetail .metricGrid{grid-template-columns:1fr}
+  .table{min-width:500px}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand">🏆 ODDSET KLUBBEN</div><div class="topTools"><select id="season" class="seasonPick"><option>Sæson 1</option><option>Sæson 2</option><option selected>Sæson 3</option></select><button id="rulesBtn" class="btn" type="button">📖 Regler</button><button id="adminBtn" class="btn iconBtn" type="button" title="Administration">⚙</button></div><button id="profileBtn" class="profile" type="button" style="background:none;border:0;color:inherit"><img id="topAvatar" class="avatar" alt="Profilbillede"><span><b id="topNickname">Lasse</b><br><span class="small" id="topRole">Administrator</span></span></button></header>
+<nav class="mobileNav" aria-label="Mobil navigation">
+  <button type="button" data-jump="overviewSection">Overblik</button>
+  <button type="button" data-jump="playSection">Min runde</button>
+  <button type="button" data-jump="standingsSection">Stilling</button>
+  <button type="button" data-jump="historyCard">Historik</button>
+</nav>
+<div class="layout">
+
+<main class="main">
+<section class="clubStats" id="overviewSection"><div class="stat"><div class="k">Klubben har banket</div><div class="v">9.000 kr.</div><div class="s">Sæson 3 samlet</div></div><div class="stat"><div class="k">Samlet aktiv saldo</div><div class="v">2.550 kr.</div><div class="s">På tværs af aktive runder</div></div><div class="stat"><div class="k">Samlet buffer</div><div class="v">4.100 kr.</div><div class="s">Hos alle medlemmer</div></div><div class="stat"><div class="k">Lukkede runder</div><div class="v">21 / 56</div><div class="s">Alle kører i eget tempo</div></div></section>
+<section class="grid" id="playSection">
+<div class="card"><div class="roundHead"><div><span class="badge">AKTIV RUNDE</span><h2 id="roundTitle" style="margin-top:7px">Runde 3</h2><div class="sub">Runden starter med 200 kr. · Justér selv saldoen efter kupon og gevinst</div></div><button class="btn" id="historyBtn" type="button">Tidligere runder</button></div>
+<div class="balanceGrid"><div class="field"><label for="roundBalance">Saldo i runden</label><div class="bigInput"><input id="roundBalance" type="number" min="0" value="450"><span>kr.</span></div><div class="quick"><button type="button" data-round="-100">−100</button><button type="button" data-round="-50">−50</button><button type="button" data-round="50">+50</button><button type="button" data-round="100">+100</button></div><div class="hint">Nedjustér ved kupon. Opjustér ved gevinst.</div></div><div class="field"><label>Min buffer</label><div class="bigDisplay"><strong id="bufferDisplay">1.250</strong><span>kr.</span></div><div class="hint">Bufferen kan ikke redigeres manuelt. Den ændres kun ved flytning fra en runde eller ved bankning fra buffer.</div></div></div>
+<div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn" id="bufferBtn" type="button">🪙 Flyt til buffer</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="autoSave" class="autosave">✓ Ændringer gemmes automatisk</div><div id="toast" class="toast"></div>
+<div style="margin-top:17px;font-weight:650">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub" style="margin-top:8px">Du bestemmer selv tempoet. Når en runde lukkes, starter næste runde automatisk med 200 kr.</div></div>
+<div class="card" id="standingsSection"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><div><h3>Klubstatus</h3><div class="sub">Klik på et medlem for at se detaljer</div></div><span class="small">Bank · Runde · Saldo</span></div><div class="members"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Runde</span><span>Saldo</span></div><div class="memberRow"><span>1</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="KW" alt=""><span>Kristian Winther</span></span><span class="bank">2.850 kr.</span><span>7 / 7</span><span>0 kr.</span></div><div class="memberRow me"><span>2</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="LH" alt=""><span>Lasse Haastrup</span></span><span class="bank" id="meBankRow">1.850 kr.</span><span id="meRoundRow">3 / 7</span><span id="sideBalance">450 kr.</span></div><div class="memberRow"><span>3</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="TH" alt=""><span>Tobias Hallingskog</span></span><span class="bank">1.600 kr.</span><span>5 / 7</span><span>320 kr.</span></div><div class="memberRow"><span>4</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="JB" alt=""><span>Jonas Breum</span></span><span class="bank">1.250 kr.</span><span>4 / 7</span><span>175 kr.</span></div><div class="memberRow"><span>5</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="JO" alt=""><span>Jesper Olsen</span></span><span class="bank">900 kr.</span><span>2 / 7</span><span>610 kr.</span></div><div class="memberRow"><span>6</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="CM" alt=""><span>Christian Mainz Møller</span></span><span class="bank">750 kr.</span><span>0 / 7</span><span>—</span></div><div class="memberRow"><span>7</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="DH" alt=""><span>Djonni Højholt</span></span><span class="bank">500 kr.</span><span>1 / 7</span><span>95 kr.</span></div><div class="memberRow"><span>8</span><span class="name nameCell"><img class="avatarSm memberAvatar" data-initials="SH" alt=""><span>Simon Haagensen</span></span><span class="bank">300 kr.</span><span>6 / 7</span><span>240 kr.</span></div></div></div>
+</section>
+<section class="second"><div class="card" id="historyCard"><h3>Tidligere runder</h3><div class="sub">Dine afsluttede og aktive runder</div><div class="tableWrap"><table class="table"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th><th>Til buffer</th><th>Slutsaldo</th></tr></thead><tbody id="historyBody"></tbody></table></div></div><div class="card"><h3>Vindere pr. runde</h3><div class="sub">Største bankning i hver runde på tværs af klubben</div><div class="winnerGrid"><div class="winnerRow"><b>Runde 1</b><span>Tobias Hallingskog</span><span>1.100 kr.</span></div><div class="winnerRow"><b>Runde 2</b><span>Kristian Winther</span><span>1.950 kr.</span></div><div class="winnerRow"><b>Runde 3</b><span>Lasse Haastrup</span><span>1.300 kr.</span></div><div class="winnerRow"><b>Runde 4</b><span>Jonas Breum</span><span>900 kr.</span></div><div class="winnerRow"><b>Runde 5</b><span>—</span><span>—</span></div><div class="winnerRow"><b>Runde 6</b><span>—</span><span>—</span></div><div class="winnerRow"><b>Runde 7</b><span>—</span><span>—</span></div></div></div></section>
+</main></div>
+
+<div id="memberOverlay" class="overlay"><div class="modal memberDetail"><h3 id="memberName">Medlem</h3><div class="sub">Status i den valgte sæson</div><div class="metricGrid"><div class="metric"><span class="small">Banket</span><b id="memberBank">0 kr.</b></div><div class="metric"><span class="small">Runder gennemført</span><b id="memberRound">0 / 7</b></div><div class="metric"><span class="small">Aktiv saldo</span><b id="memberSaldo">0 kr.</b></div></div><div class="tableWrap"><table class="table"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th><th>Til buffer</th><th>Slutsaldo</th></tr></thead><tbody id="memberRounds"></tbody></table></div><div class="modalActions"><button class="btn closeMember" type="button">Luk</button></div></div></div>
+
+<div id="rulesOverlay" class="overlay"><div class="modal"><h3>Regler – Oddset klubben</h3><div class="sub">Sæson 3 · 9 medlemmer · 7 runder · 1 vinder</div><div style="margin-top:14px;line-height:1.55;font-size:13px;color:#d7e0e5"><p><b>Hver deltager spiller 7 runder.</b> Hver runde starter med 200 kr. Du bestemmer selv, hvornår og hvor hurtigt du gennemfører dine runder.</p><p>Du spiller på din egen spilkonto. Når du spiller en kupon, nedjusterer du selv saldoen på den aktive runde. Ved gevinst opjusterer du selv saldoen.</p><p><b>Du kan gøre fire ting med dine penge:</b></p><ol><li>Spille videre i samme runde.</li><li>Banke penge. Bankede penge tæller i konkurrencen og er låst.</li><li>Flytte penge til din personlige buffer. Bufferen er tilgængelig på tværs af alle runder.</li><li>Tage dit oprindelige indskud hjem til egen konto.</li></ol><p><b>Buffer:</b> Penge kan kun komme i buffer ved at blive flyttet fra en rundes saldo. Ved bankning kan du vælge at banke fra både aktiv rundes saldo og din buffer.</p><p><b>Lukning af runde:</b> En runde lukkes aktivt af dig eller når saldoen går i nul. Hvis der er penge tilbage ved lukning, skal hele restsaldoen fordeles mellem bank og buffer. Derefter åbner næste runde automatisk med 200 kr.</p><p><b>Minimumsindsats:</b> Alle kuponer skal være på minimum 100 kr.</p><p><b>Kuponer og gevinster:</b> Meldes ind i fælles Messengergruppe med angivelse af runde.</p><p><b>Vinderen:</b> Når sæsonen slutter, vinder den deltager, der samlet har banket flest penge.</p></div><div class="modalActions"><button class="btn green closeRules" type="button">Luk regler</button></div></div></div>
+
+<div id="bankOverlay" class="overlay"><div class="modal"><h3>Bank penge</h3><div class="sub">Vælg hvor meget der skal bankes fra rundens saldo og fra buffer.</div><div class="confirmValue"><div class="summaryLine"><span>Tilgængelig rundesaldo</span><strong id="bankAvailRound">0 kr.</strong></div><div class="summaryLine"><span>Tilgængelig buffer</span><strong id="bankAvailBuffer">0 kr.</strong></div><label class="small" for="bankFromRound" style="display:block;margin-top:12px">Fra rundens saldo</label><div class="bigInput"><input id="bankFromRound" type="number" min="0" value="0"><span>kr.</span></div><label class="small" for="bankFromBuffer" style="display:block;margin-top:10px">Fra buffer</label><div class="bigInput"><input id="bankFromBuffer" type="number" min="0" value="0"><span>kr.</span></div><div class="summaryLine" style="margin-top:8px"><span>Bankes i alt</span><strong id="bankTotal">0 kr.</strong></div><div id="bankError" class="error"></div></div><div class="modalActions"><button class="btn cancelBank">Annuller</button><button class="btn green confirmBank">Bekræft bankning</button></div></div></div>
+
+<div id="bufferOverlay" class="overlay"><div class="modal"><h3>Flyt til buffer</h3><div class="sub">Beløbet trækkes fra den aktive rundes saldo og lægges i din buffer.</div><div class="confirmValue"><div class="summaryLine"><span>Tilgængelig rundesaldo</span><strong id="bufferAvailRound">0 kr.</strong></div><label class="small" for="moveToBuffer" style="display:block;margin-top:12px">Beløb til buffer</label><div class="bigInput"><input id="moveToBuffer" type="number" min="0" value="0"><span>kr.</span></div><div id="bufferError" class="error"></div></div><div class="modalActions"><button class="btn cancelBuffer">Annuller</button><button class="btn green confirmBuffer">Bekræft flytning</button></div></div></div>
+
+<div id="closeOverlay" class="overlay"><div class="modal"><h3>Luk runde?</h3><div class="sub">Hele restsaldoen skal fordeles, før runden kan lukkes.</div><div class="confirmValue"><div class="summaryLine"><span>Resterende saldo</span><strong id="closeBalance">0 kr.</strong></div><label class="small" for="closeBank" style="display:block;margin-top:12px">Bank ved lukning</label><div class="bigInput"><input id="closeBank" type="number" min="0" value="0"><span>kr.</span></div><label class="small" for="closeBuffer" style="display:block;margin-top:10px">Flyt til buffer</label><div class="bigInput"><input id="closeBuffer" type="number" min="0" value="0"><span>kr.</span></div><div class="summaryLine" style="margin-top:8px"><span>Fordelt</span><strong id="closeDistributed">0 kr.</strong></div><div id="closeError" class="error"></div></div><label class="checkline"><input id="closeConfirm" type="checkbox"><span>Jeg bekræfter, at fordelingen er korrekt, og at runden skal lukkes.</span></label><div class="modalActions"><button class="btn cancelClose">Annuller</button><button class="btn green confirmClose">Bekræft og luk runde</button></div></div></div>
+
+<div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value="Lasse"><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">Lasse Haastrup</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
+<div id="loginOverlay" class="overlay"><div class="modal"><h3>Log ind</h3><div class="sub">Mockup-login – vælg hvem du vil se siden som.</div><div id="loginUsers" class="loginUsers"></div></div></div>
+<div id="adminOverlay" class="overlay"><div class="modal" style="width:min(760px,96%)"><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div><div class="adminGrid" style="margin-top:14px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div><h3 style="font-size:16px;margin-top:18px">Deltagere og adgang</h3><div id="adminPeople" class="adminList"></div><div class="adminActions" style="margin-top:14px"><button class="btn" id="addMemberBtn" type="button">＋ Tilføj deltager</button><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div><div id="adminMessage" class="toast"></div><div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div></div></div>
+</div>
+<script>
+const round=document.getElementById('roundBalance');
+const toast=document.getElementById('toast');
+let bufferBalance=1250;
+let totalBank=1850;
+let activeRound=3;
+const rounds=[
+ {n:1,status:'Lukket',start:200,bank:600,buffer:300,end:0},
+ {n:2,status:'Lukket',start:200,bank:850,buffer:200,end:0},
+ {n:3,status:'Aktiv',start:200,bank:400,buffer:150,end:450},
+ {n:4,status:'Ikke startet',start:200,bank:0,buffer:0,end:200},
+ {n:5,status:'Ikke startet',start:200,bank:0,buffer:0,end:200},
+ {n:6,status:'Ikke startet',start:200,bank:0,buffer:0,end:200},
+ {n:7,status:'Ikke startet',start:200,bank:0,buffer:0,end:200}
+];
+const money=n=>(Math.max(0,Number(n)||0)).toLocaleString('da-DK')+' kr.';
+const overlays={bank:document.getElementById('bankOverlay'),buffer:document.getElementById('bufferOverlay'),close:document.getElementById('closeOverlay'),member:document.getElementById('memberOverlay'),rules:document.getElementById('rulesOverlay'),profile:document.getElementById('profileOverlay'),login:document.getElementById('loginOverlay'),admin:document.getElementById('adminOverlay')};
+function showToast(t){toast.textContent=t;toast.classList.add('show')}
+function sync(){
+ let n=Math.max(0,Number(round.value)||0);round.value=Math.round(n);
+ document.getElementById('sideBalance').textContent=money(n);
+ document.getElementById('bufferDisplay').textContent=(bufferBalance||0).toLocaleString('da-DK');
+ document.getElementById('meBankRow').textContent=money(totalBank);
+ document.getElementById('meRoundRow').textContent=activeRound+' / 7';
+ document.getElementById('roundTitle').textContent='Runde '+activeRound;
+ const active=rounds.find(r=>r.n===activeRound); if(active){active.end=n;active.status='Aktiv'}
+ renderRounds();renderHistory();
+}
+function renderRounds(){const s=document.getElementById('roundStrip');s.innerHTML='';rounds.forEach(r=>{const d=document.createElement('div');d.className='r'+(r.status==='Lukket'?' done':r.status==='Aktiv'?' active':'');d.textContent=r.n;s.appendChild(d)})}
+function renderHistory(){const b=document.getElementById('historyBody');b.innerHTML=rounds.map(r=>`<tr><td>Runde ${r.n}</td><td class="${r.status==='Lukket'?'statusDone':r.status==='Aktiv'?'statusActive':''}">${r.status}</td><td>${money(r.start)}</td><td>${money(r.bank)}</td><td>${money(r.buffer)}</td><td>${money(r.end)}</td></tr>`).join('')}
+function clampInput(el,max){let v=Math.max(0,Number(el.value)||0);if(max!=null)v=Math.min(v,max);el.value=Math.round(v);return v}
+document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{round.value=Math.max(0,(Number(round.value)||0)+Number(b.dataset.round));sync();markAutoSave()}));
+round.addEventListener('input',()=>{sync();markAutoSave()});
+function markAutoSave(){const a=document.getElementById('autoSave');a.textContent='Gemmer…';clearTimeout(markAutoSave.t);markAutoSave.t=setTimeout(()=>a.textContent='✓ Gemt automatisk',350)}
+
+document.getElementById('bankBtn').onclick=()=>{const rb=Number(round.value)||0;document.getElementById('bankAvailRound').textContent=money(rb);document.getElementById('bankAvailBuffer').textContent=money(bufferBalance);document.getElementById('bankFromRound').value=rb>0?Math.min(200,rb):0;document.getElementById('bankFromBuffer').value=0;document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
+function updateBankTotal(){const a=Math.max(0,Number(document.getElementById('bankFromRound').value)||0),b=Math.max(0,Number(document.getElementById('bankFromBuffer').value)||0);document.getElementById('bankTotal').textContent=money(a+b)}
+document.getElementById('bankFromRound').oninput=updateBankTotal;document.getElementById('bankFromBuffer').oninput=updateBankTotal;
+document.querySelector('.cancelBank').onclick=()=>overlays.bank.classList.remove('open');
+document.querySelector('.confirmBank').onclick=()=>{const rb=Number(round.value)||0,a=Math.max(0,Number(document.getElementById('bankFromRound').value)||0),b=Math.max(0,Number(document.getElementById('bankFromBuffer').value)||0),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb){err.textContent='Du kan ikke banke mere fra runden end den aktuelle saldo.';return}if(b>bufferBalance){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}round.value=rb-a;bufferBalance-=b;totalBank+=a+b;const rr=rounds.find(r=>r.n===activeRound);if(rr)rr.bank+=a+b;sync();markAutoSave();overlays.bank.classList.remove('open');showToast(money(a+b)+' er banket ('+money(a)+' fra runden og '+money(b)+' fra buffer).')};
+
+document.getElementById('bufferBtn').onclick=()=>{const rb=Number(round.value)||0;document.getElementById('bufferAvailRound').textContent=money(rb);document.getElementById('moveToBuffer').value=rb>0?Math.min(100,rb):0;document.getElementById('bufferError').textContent='';overlays.buffer.classList.add('open')};
+document.querySelector('.cancelBuffer').onclick=()=>overlays.buffer.classList.remove('open');
+document.querySelector('.confirmBuffer').onclick=()=>{const rb=Number(round.value)||0,a=Math.max(0,Number(document.getElementById('moveToBuffer').value)||0),err=document.getElementById('bufferError');if(a<=0){err.textContent='Vælg et beløb større end 0.';return}if(a>rb){err.textContent='Du kan ikke flytte mere end rundens aktuelle saldo.';return}round.value=rb-a;bufferBalance+=a;const rr=rounds.find(r=>r.n===activeRound);if(rr)rr.buffer+=a;sync();markAutoSave();overlays.buffer.classList.remove('open');showToast(money(a)+' er flyttet fra runden til buffer.')};
+
+document.getElementById('closeBtn').onclick=()=>{const rb=Number(round.value)||0;document.getElementById('closeBalance').textContent=money(rb);document.getElementById('closeBank').value=0;document.getElementById('closeBuffer').value=rb;document.getElementById('closeConfirm').checked=false;document.getElementById('closeError').textContent='';updateClose();overlays.close.classList.add('open')};
+function updateClose(){const a=Math.max(0,Number(document.getElementById('closeBank').value)||0),b=Math.max(0,Number(document.getElementById('closeBuffer').value)||0);document.getElementById('closeDistributed').textContent=money(a+b)}
+document.getElementById('closeBank').oninput=updateClose;document.getElementById('closeBuffer').oninput=updateClose;
+document.querySelector('.cancelClose').onclick=()=>overlays.close.classList.remove('open');
+document.querySelector('.confirmClose').onclick=()=>{const rb=Number(round.value)||0,a=Math.max(0,Number(document.getElementById('closeBank').value)||0),b=Math.max(0,Number(document.getElementById('closeBuffer').value)||0),err=document.getElementById('closeError');if(!document.getElementById('closeConfirm').checked){err.textContent='Bekræft fordelingen før runden lukkes.';return}if(a+b!==rb){err.textContent='Hele restsaldoen på '+money(rb)+' skal fordeles mellem bank og buffer.';return}totalBank+=a;bufferBalance+=b;const rr=rounds.find(r=>r.n===activeRound);if(rr){rr.status='Lukket';rr.bank+=a;rr.buffer+=b;rr.end=0}round.value=0;const closed=activeRound;if(activeRound<7){activeRound++;const next=rounds.find(r=>r.n===activeRound);if(next){next.status='Aktiv';next.start=200;next.end=200}round.value=200;showToast('Runde '+closed+' er lukket. '+money(a)+' banket og '+money(b)+' flyttet til buffer. Runde '+activeRound+' er åbnet med 200 kr.')}else{showToast('Runde 7 er lukket. Alle dine runder er nu gennemført.')}sync();markAutoSave();overlays.close.classList.remove('open')};
+
+
+const memberData=[
+ {name:'Kristian Winther',bank:2850,round:7,saldo:0},
+ {name:'Lasse Haastrup',bank:1850,round:3,saldo:450},
+ {name:'Tobias Hallingskog',bank:1600,round:5,saldo:320},
+ {name:'Jonas Breum',bank:1250,round:4,saldo:175},
+ {name:'Jesper Olsen',bank:900,round:2,saldo:610},
+ {name:'Christian Mainz Møller',bank:750,round:0,saldo:null},
+ {name:'Djonni Højholt',bank:500,round:1,saldo:95},
+ {name:'Simon Haagensen',bank:300,round:6,saldo:240}
+];
+function memberRoundRows(m){return Array.from({length:7},(_,i)=>{const n=i+1;let status='Ikke startet',bank=0,buf=0,end=200;if(n<m.round){status='Lukket';bank=Math.max(100,Math.round((m.bank/Math.max(1,m.round))*((8-n)/7)));buf=n%2?100:200;end=0}else if(n===m.round&&m.round>0&&m.round<8){status='Aktiv';bank=Math.max(0,Math.round(m.bank/Math.max(1,m.round)));end=m.saldo??0}else if(m.round===7&&n===7){status='Lukket';bank=Math.max(0,Math.round(m.bank/7));end=0}return `<tr><td>Runde ${n}</td><td class="${status==='Lukket'?'statusDone':status==='Aktiv'?'statusActive':''}">${status}</td><td>200 kr.</td><td>${money(bank)}</td><td>${money(buf)}</td><td>${money(end)}</td></tr>`}).join('')}
+document.querySelectorAll('.memberRow').forEach((row,i)=>row.addEventListener('click',()=>{const m=memberData[i];if(i===1){m.bank=totalBank;m.round=activeRound;m.saldo=Number(round.value)||0}document.getElementById('memberName').textContent=m.name;document.getElementById('memberBank').textContent=money(m.bank);document.getElementById('memberRound').textContent=m.round+' / 7';document.getElementById('memberSaldo').textContent=m.saldo==null?'Ikke startet':money(m.saldo);document.getElementById('memberRounds').innerHTML=memberRoundRows(m);overlays.member.classList.add('open')}));
+document.querySelector('.closeMember').onclick=()=>overlays.member.classList.remove('open');
+document.getElementById('rulesBtn').onclick=()=>overlays.rules.classList.add('open');
+document.querySelector('.closeRules').onclick=()=>overlays.rules.classList.remove('open');
+
+document.getElementById('historyBtn').onclick=()=>document.getElementById('historyCard').scrollIntoView({behavior:'smooth',block:'start'});
+// v8 mobile navigation and touch-friendly controls
+document.querySelectorAll('[data-jump]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const target=document.getElementById(btn.dataset.jump);
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+
+const people=[
+ {real:'Kristian Winther',nick:'Kristian',initials:'KW',admin:false},
+ {real:'Lasse Haastrup',nick:'Lasse',initials:'LH',admin:true},
+ {real:'Tobias Hallingskog',nick:'Tobias',initials:'TH',admin:false},
+ {real:'Jonas Breum',nick:'Jonas',initials:'JB',admin:false},
+ {real:'Jesper Olsen',nick:'Jesper',initials:'JO',admin:false},
+ {real:'Christian Mainz Møller',nick:'Mainz',initials:'CM',admin:false},
+ {real:'Djonni Højholt',nick:'Djonni',initials:'DH',admin:false},
+ {real:'Simon Haagensen',nick:'Simon',initials:'SH',admin:false}
+];
+let currentUser=1;
+const avatarSvg=(initials)=>'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" rx="60" fill="#24473a"/><text x="60" y="69" text-anchor="middle" fill="#ffffff" font-family="Arial" font-weight="700" font-size="38">${initials}</text></svg>`);
+people.forEach(p=>p.image=avatarSvg(p.initials));
+function refreshProfileUI(){const p=people[currentUser];document.getElementById('topAvatar').src=p.image;document.getElementById('topNickname').textContent=p.nick;document.getElementById('topRole').textContent=p.admin?'Administrator':'Liga-medlem';document.getElementById('profilePreview').src=p.image;document.getElementById('nicknameInput').value=p.nick;document.getElementById('profileRealName').textContent=p.real;document.getElementById('adminBtn').style.display=p.admin?'grid':'none';document.querySelectorAll('.memberRow').forEach((row,i)=>{const img=row.querySelector('.memberAvatar');if(img)img.src=people[i].image;const nm=row.querySelector('.name span');if(nm)nm.textContent=people[i].nick})}
+function renderLogin(){const box=document.getElementById('loginUsers');box.innerHTML=people.map((p,i)=>`<button type="button" class="loginUser" data-login="${i}" style="color:white;text-align:left;width:100%"><img class="avatarSm" src="${p.image}" alt=""><span><b>${p.nick}</b><br><span class="small">${p.real}${p.admin?' · Administrator':''}</span></span></button>`).join('');box.querySelectorAll('[data-login]').forEach(b=>b.addEventListener('click',()=>{currentUser=Number(b.dataset.login);refreshProfileUI();overlays.login.classList.remove('open');showToast('Logget ind som '+people[currentUser].nick+'.')}))}
+document.getElementById('profileBtn').onclick=()=>overlays.profile.classList.add('open');
+document.getElementById('logoutBtn').onclick=()=>{overlays.profile.classList.remove('open');renderLogin();overlays.login.classList.add('open')};
+document.getElementById('saveProfileBtn').onclick=()=>{const p=people[currentUser];const nick=document.getElementById('nicknameInput').value.trim();if(nick)p.nick=nick;refreshProfileUI();overlays.profile.classList.remove('open');showToast('Profilen er opdateret.')};
+document.getElementById('profileImageInput').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{people[currentUser].image=r.result;document.getElementById('profilePreview').src=r.result;refreshProfileUI()};r.readAsDataURL(f)});
+function renderAdmin(){const p=people[currentUser];if(!p.admin)return;const box=document.getElementById('adminPeople');box.innerHTML=people.map((m,i)=>`<div class="adminPerson"><span class="nameCell"><img class="avatarSm" src="${m.image}" alt=""><span><b>${m.nick}</b><br><span class="small">${m.real}</span></span></span><label class="small"><input type="checkbox" data-member="${i}" checked> Deltager</label><label class="small"><input type="checkbox" data-admin="${i}" ${m.admin?'checked':''}> Admin</label></div>`).join('');box.querySelectorAll('[data-admin]').forEach(c=>c.addEventListener('change',()=>{people[Number(c.dataset.admin)].admin=c.checked;refreshProfileUI()}))}
+document.getElementById('adminBtn').onclick=()=>{renderAdmin();overlays.admin.classList.add('open')};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');
+['addMemberBtn','transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id).addEventListener('click',()=>{const msg=document.getElementById('adminMessage');const labels={addMemberBtn:'Tilføj deltager er klar som admin-funktion i mockuppen.',transactionsBtn:'Transaktionsoversigten vil vise alle bank-, buffer- og saldoændringer.',correctBtn:'Admin kan rette en forkert registrering og få ændringen logget.',lockRoundBtn:'Den valgte runde kan låses, så medlemmet ikke længere kan ændre den.',newSeasonBtn:'Ny sæson oprettes med de valgte indstillinger og alle runder starter med startbeløbet.'};msg.textContent=labels[id];msg.classList.add('show')}));
+refreshProfileUI();renderLogin();
+
+Object.values(overlays).forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+sync();
+</script>
+</body>
+</html>
