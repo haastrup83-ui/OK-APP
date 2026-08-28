@@ -1125,6 +1125,32 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   .hallHeader{font-size:8px!important}
 }
 
+
+/* v78 MobilePay Box handoff */
+.mobilePayModal{width:min(430px,94%)}
+.mobilePayAmount{
+  margin:14px 0 4px;
+  padding:14px 12px;
+  text-align:center;
+  font-size:26px;
+  font-weight:850;
+  background:#0d1311;
+  border:1px solid #2d443a;
+  border-radius:10px;
+}
+@media(max-width:760px){
+  #mobilePayOverlay{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:calc(var(--sticky-h,105px) + 8px) 8px 8px!important;
+  }
+  #mobilePayOverlay .mobilePayModal{
+    width:100%!important;
+    max-width:430px!important;
+    padding:14px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1162,6 +1188,19 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <section class="card formCard" id="formCurveCard"><div class="formHeader"><div><h3>Min formkurve</h3><div class="sub">Banket beløb pr. runde · opdateres automatisk, når du banker</div></div><div class="formSummary"><div class="mini"><span>Bedste runde</span><b id="bestRound">—</b></div><div class="mini"><span>Gns. pr. startet runde</span><b id="avgBank">0 kr.</b></div><div class="mini"><span>Seneste udvikling</span><b id="formTrend" class="trendFlat">—</b></div></div></div><div class="chartWrap"><svg id="formChart" class="formSvg" viewBox="0 0 900 280" role="img" aria-label="Formkurve over banket beløb pr. runde"></svg></div><div class="chartLegend">Kurven viser det samlede bankede beløb i hver enkelt runde. Ikke-startede runder vises som 0 kr.</div></section>
 </main></div>
 
+
+
+<div id="mobilePayOverlay" class="overlay">
+  <div class="modal mobilePayModal">
+    <h3>✓ Banket</h3>
+    <div class="sub">Beløbet er registreret. Overfør beløbet til Oddsklubben bank · Box 0863TU.</div>
+    <div class="mobilePayAmount" id="mobilePayAmount">—</div>
+    <div class="modalActions">
+      <button class="btn" id="mobilePayCloseBtn" type="button">Luk</button>
+      <button class="btn green" id="mobilePayOpenBtn" type="button">Åbn MobilePay</button>
+    </div>
+  </div>
+</div>
 
 <div id="hallOfFameOverlay" class="overlay">
   <div class="modal hallModal">
@@ -1263,7 +1302,7 @@ let balanceBufferDirty=false;
 const rounds=[];
 const round=document.getElementById('roundBalance');
 const toast=document.getElementById('toast');
-const overlays={bank:document.getElementById('bankOverlay'),close:document.getElementById('closeOverlay'),member:document.getElementById('memberOverlay'),rules:document.getElementById('rulesOverlay'),profile:document.getElementById('profileOverlay'),login:document.getElementById('loginOverlay'),admin:document.getElementById('adminOverlay'),hall:document.getElementById('hallOfFameOverlay')};
+const overlays={bank:document.getElementById('bankOverlay'),close:document.getElementById('closeOverlay'),member:document.getElementById('memberOverlay'),rules:document.getElementById('rulesOverlay'),profile:document.getElementById('profileOverlay'),login:document.getElementById('loginOverlay'),admin:document.getElementById('adminOverlay'),hall:document.getElementById('hallOfFameOverlay'),mobilepay:document.getElementById('mobilePayOverlay')};
 const money=n=>(Math.max(0,Number(n)||0)).toLocaleString('da-DK',{minimumFractionDigits:0,maximumFractionDigits:2})+' kr.';
 const money2=n=>(Math.max(0,Number(n)||0)).toLocaleString('da-DK',{minimumFractionDigits:2,maximumFractionDigits:2})+' kr.';
 const parseDecimalValue=v=>{let s=String(v??'').trim().replace(/\s/g,'');if(!s)return 0;if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else if(s.includes(','))s=s.replace(',','.');const n=Number(s);return Number.isFinite(n)?Math.max(0,n):0};
@@ -1601,8 +1640,19 @@ if(bufferInput){
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
 document.getElementById('bankFromRound').type='text';document.getElementById('bankFromBuffer').type='text';document.getElementById('bankFromRound').oninput=updateBankTotal;document.getElementById('bankFromBuffer').oninput=updateBankTotal;document.querySelector('.cancelBank').onclick=()=>overlays.bank.classList.remove('open');
-document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();showToast(money2(a+b)+' er banket.');openMobilePay()}catch(e){console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
-function openMobilePay(){const ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/i.test(ua),android=/Android/i.test(ua);if(!ios&&!android)return;const started=Date.now();window.location.href='mobilepay://';setTimeout(()=>{if(document.visibilityState==='visible'&&Date.now()-started<2500)window.location.href=ios?'https://apps.apple.com/dk/app/mobilepay/id624499138':'https://play.google.com/store/apps/details?id=dk.danskebank.mobilepay'},1200)}
+document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();showToast(money2(a+b)+' er banket.');showMobilePayHandoff(a+b)}catch(e){console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
+const MOBILEPAY_BOX_URL='https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in';
+function showMobilePayHandoff(amount){
+ const el=document.getElementById('mobilePayAmount');
+ if(el)el.textContent=money2(amount);
+ if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
+}
+document.getElementById('mobilePayOpenBtn')?.addEventListener('click',()=>{
+ window.location.href=MOBILEPAY_BOX_URL;
+});
+document.getElementById('mobilePayCloseBtn')?.addEventListener('click',()=>{
+ overlays.mobilepay?.classList.remove('open');
+});
 
 document.getElementById('closeBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('closeBalance').textContent=money2(rb);document.getElementById('closeBank').value='0.00';document.getElementById('closeBuffer').value=rb.toFixed(2);document.getElementById('closeConfirm').checked=false;document.getElementById('closeError').textContent='';updateClose();overlays.close.classList.add('open')};
 function updateClose(){const a=parseDecimalValue(document.getElementById('closeBank').value),b=parseDecimalValue(document.getElementById('closeBuffer').value);document.getElementById('closeDistributed').textContent=money2(a+b)}document.getElementById('closeBank').oninput=updateClose;document.getElementById('closeBuffer').oninput=updateClose;document.querySelector('.cancelClose').onclick=()=>overlays.close.classList.remove('open');
