@@ -852,6 +852,25 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   }
 }
 
+
+
+/* v70: keep the round comment reachable at the bottom of Overview */
+@media(max-width:760px){
+  #oddsetApp>.main{padding-bottom:calc(28px + env(safe-area-inset-bottom))!important}
+  .overviewMode #playSection.mobileOnlyRound{
+    padding-bottom:calc(20px + env(safe-area-inset-bottom))!important;
+  }
+  .overviewMode #playSection.mobileOnlyRound #roundPep{
+    display:block!important;
+    visibility:visible!important;
+    margin:10px 0 18px!important;
+    padding:9px 10px!important;
+    min-height:34px!important;
+    flex:none!important;
+    opacity:1!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1473,6 +1492,7 @@ function setMobileView(view){
     overview.classList.remove('mobileViewHidden'); overview.classList.add('mobileViewScreen');
     play.classList.remove('mobileViewHidden'); play.classList.add('mobileOnlyRound');
     renderRounds(); updateRoundPep();
+    const pep=document.getElementById('roundPep');if(pep&&!pep.innerHTML.trim())pep.innerHTML='<strong>Kommentar til runden:</strong> '+getPepText(0);
   } else if(view==='standings'){
     play.classList.remove('mobileViewHidden'); play.classList.add('mobileOnlyStandings'); standings.classList.add('mobileViewScreen');
   } else if(view==='winners'){
