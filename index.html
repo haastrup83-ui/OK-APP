@@ -417,6 +417,49 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
  .loginModal{max-height:none!important;overflow:visible!important;padding:16px!important}
  .loginCompact{gap:7px;margin-top:12px}
 }
+
+/* v52 profile mobile positioning + avatar upload feedback */
+#profileOverlay{z-index:260}
+#profileOverlay .modal{position:relative}
+#profileImageStatus.uploadOk{color:#7fe0ad}
+#profileImageStatus.uploadError{color:#ff9a9f}
+#profileImageStatus.uploading{color:#f0d278}
+@media(max-width:760px){
+  #profileOverlay{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:calc(var(--sticky-h,105px) + 8px) 8px 8px!important;
+    overflow-y:auto!important;
+  }
+  #profileOverlay .modal{
+    width:100%!important;
+    max-width:430px!important;
+    max-height:calc(100dvh - var(--sticky-h,105px) - 16px)!important;
+    overflow-y:auto!important;
+    padding:12px!important;
+    border-radius:12px!important;
+  }
+  #profileOverlay .modal h3{font-size:18px;margin:0 0 3px}
+  #profileOverlay .modal>.sub{font-size:10.5px;line-height:1.25}
+  #profileOverlay .profileGrid{
+    grid-template-columns:72px minmax(0,1fr)!important;
+    gap:10px!important;
+    margin-top:10px!important;
+    text-align:left!important;
+    align-items:start!important;
+  }
+  #profileOverlay .profilePreview{width:68px!important;height:68px!important;margin:0 auto!important}
+  #profileOverlay #profileImageLabel{font-size:10.5px;padding:7px 5px!important;margin-top:5px!important}
+  #profileOverlay #profileImageStatus{font-size:9.5px;line-height:1.15;margin-top:4px!important}
+  #profileOverlay .fieldInput{padding:9px!important;font-size:15px}
+  #profileOverlay .hint{font-size:9.5px}
+  #profileOverlay .modalActions{grid-template-columns:1fr 1fr!important;gap:7px!important;margin-top:10px!important}
+  #profileOverlay .modalActions .btn{min-height:40px!important;padding:8px!important;font-size:13px}
+}
+@media(max-width:390px){
+  #profileOverlay .profileGrid{grid-template-columns:64px minmax(0,1fr)!important;gap:8px!important}
+  #profileOverlay .profilePreview{width:60px!important;height:60px!important}
+}
 </style>
 
 <style>
@@ -776,7 +819,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 <div id="closeOverlay" class="overlay"><div class="modal"><h3>Luk runde?</h3><div class="sub">Hele restsaldoen skal fordeles, før runden kan lukkes.</div><div class="confirmValue"><div class="summaryLine"><span>Resterende saldo</span><strong id="closeBalance">0 kr.</strong></div><label class="small" for="closeBank" style="display:block;margin-top:12px">Bank ved lukning</label><div class="bigInput"><input id="closeBank" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><label class="small" for="closeBuffer" style="display:block;margin-top:10px">Flyt til buffer</label><div class="bigInput"><input id="closeBuffer" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><div class="summaryLine" style="margin-top:8px"><span>Fordelt</span><strong id="closeDistributed">0 kr.</strong></div><div id="closeError" class="error"></div></div><label class="checkline"><input id="closeConfirm" type="checkbox"><span>Jeg bekræfter, at fordelingen er korrekt, og at runden skal lukkes.</span></label><div class="modalActions"><button class="btn cancelClose">Annuller</button><button class="btn green confirmClose">Bekræft og luk runde</button></div></div></div>
 
-<div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value=""><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">—</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
+<div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" id="profileImageLabel" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label><div id="profileImageStatus" class="hint" role="status" style="text-align:center;margin-top:6px;min-height:16px"></div></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value=""><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">—</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
 <div id="loginOverlay" class="overlay"><div class="modal loginModal"><h3>Log ind</h3><div class="sub">Vælg din bruger og indtast PIN. Denne enhed husker dig automatisk efter første login.</div><div class="loginCompact"><label class="small" for="loginUserSelect">Bruger</label><select id="loginUserSelect" class="fieldInput loginSelect"><option value="">Vælg bruger…</option></select><label class="small" for="loginPinInput">PIN</label><input id="loginPinInput" class="fieldInput" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="4-cifret PIN"><div id="loginPinError" class="error"></div><button id="loginSubmitBtn" class="btn green" type="button">Log ind</button></div></div></div>
 <div id="adminOverlay" class="overlay"><div class="modal" style="width:min(760px,96%)"><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div><div class="adminGrid" style="margin-top:14px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div><h3 style="font-size:16px;margin-top:18px">Deltagere og adgang</h3><div id="adminPeople" class="adminList"></div><div class="adminActions" style="margin-top:14px"><button class="btn" id="addMemberBtn" type="button">＋ Tilføj deltager</button><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div><div id="adminMessage" class="toast"></div><div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div></div></div>
 </div>
@@ -943,7 +986,73 @@ document.getElementById('loginSubmitBtn').addEventListener('click',submitLogin);
 document.getElementById('loginPinInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submitLogin()}});
 document.getElementById('profileBtn').onclick=()=>{if(currentUser<0){overlays.login.classList.add('open');return}refreshProfileUI();overlays.profile.classList.add('open')};document.getElementById('logoutBtn').onclick=()=>{localStorage.removeItem('oddset_member_id');localStorage.removeItem('oddset_remember_login');currentUser=-1;overlays.profile.classList.remove('open');renderAll();overlays.login.classList.add('open')};
 document.getElementById('saveProfileBtn').onclick=async()=>{const p=currentPerson();if(!p)return;const nick=document.getElementById('nicknameInput').value.trim();if(!nick)return;const btn=document.getElementById('saveProfileBtn');btn.disabled=true;try{const {error}=await supabaseClient.from('members').update({nickname:nick}).eq('id',p.id);if(error)throw error;p.nick=nick;const dbPerson=people.find(x=>String(x.id)===String(p.id));if(dbPerson)dbPerson.nick=nick;refreshProfileUI();renderStandings();renderRoundWinners();overlays.profile.classList.remove('open');overlays.login.classList.remove('open');showToast('Profilen er opdateret.')}catch(e){console.error(e);showToast('Kunne ikke gemme kaldenavn.')}finally{btn.disabled=false}};
-document.getElementById('profileImageInput').addEventListener('change',()=>showToast('Profilbilleder kobles på Supabase Storage i næste trin.'));
+
+function getAvatarExtension(file){
+  const name=String(file?.name||'').toLowerCase();
+  const byName=name.includes('.')?name.split('.').pop().replace(/[^a-z0-9]/g,''):'';
+  if(byName && byName.length<=5)return byName;
+  const type=String(file?.type||'').toLowerCase();
+  const map={'image/jpeg':'jpg','image/jpg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','image/heic':'heic','image/heif':'heif','image/bmp':'bmp'};
+  return map[type]||'img';
+}
+
+document.getElementById('profileImageInput').addEventListener('change',async e=>{
+ const file=e.target.files&&e.target.files[0];
+ const p=currentPerson();
+ const status=document.getElementById('profileImageStatus');
+ const label=document.getElementById('profileImageLabel');
+ const preview=document.getElementById('profilePreview');
+ if(!file||!p)return;
+ const setStatus=(msg,cls='')=>{if(!status)return;status.textContent=msg;status.classList.remove('uploadOk','uploadError','uploading');if(cls)status.classList.add(cls)};
+ if(file.size>12*1024*1024){setStatus('Billedet må højst fylde 12 MB.','uploadError');e.target.value='';return}
+ const looksLikeImage=String(file.type||'').startsWith('image/') || /\.(jpe?g|png|webp|gif|heic|heif|bmp)$/i.test(file.name||'');
+ if(!looksLikeImage){setStatus('Vælg en billedfil.','uploadError');e.target.value='';return}
+ if(label){label.style.pointerEvents='none';label.style.opacity='.65'}
+ let localUrl='';
+ try{
+   // Direct upload: do not require browser image decoding/canvas conversion.
+   // This is more robust across Chrome/Edge/Windows and mobile photo formats.
+   try{
+     localUrl=URL.createObjectURL(file);
+     if(preview)preview.src=localUrl;
+   }catch(_){ /* preview is optional; upload can still continue */ }
+   setStatus('Uploader billede…','uploading');
+   const ext=getAvatarExtension(file);
+   const safeExt=ext==='img'?'jpg':ext;
+   const path=`${p.id}/avatar-${Date.now()}.${safeExt}`;
+   const uploadOptions={cacheControl:'3600',upsert:false};
+   if(file.type)uploadOptions.contentType=file.type;
+   const {error:uploadError}=await supabaseClient.storage.from('avatars').upload(path,file,uploadOptions);
+   if(uploadError)throw uploadError;
+   const {data:publicData}=supabaseClient.storage.from('avatars').getPublicUrl(path);
+   const publicUrl=publicData&&publicData.publicUrl;
+   if(!publicUrl)throw new Error('Kunne ikke hente offentlig billed-URL.');
+   const displayUrl=publicUrl+(publicUrl.includes('?')?'&':'?')+'v='+Date.now();
+   const {error:updateError}=await supabaseClient.from('members').update({avatar_url:publicUrl}).eq('id',p.id);
+   if(updateError)throw updateError;
+   p.image=displayUrl;p.avatar_url=publicUrl;
+   const dbPerson=people.find(x=>String(x.id)===String(p.id));
+   if(dbPerson){dbPerson.image=displayUrl;dbPerson.avatar_url=publicUrl}
+   if(preview)preview.src=displayUrl;
+   const topAvatar=document.getElementById('topAvatar');if(topAvatar)topAvatar.src=displayUrl;
+   renderStandings();renderRoundWinners();
+   setStatus('Billedet er gemt.','uploadOk');
+   showToast('Profilbilledet er opdateret.');
+ }catch(err){
+   console.error('Avatar upload failed',err);
+   const raw=(err&&err.message?String(err.message):'Ukendt fejl');
+   let msg='Kunne ikke gemme billedet: '+raw;
+   if(/bucket.*not found/i.test(raw)) msg='Bucket "avatars" mangler i Supabase.';
+   else if(/row-level security|policy|unauthorized|permission|403/i.test(raw)) msg='Supabase afviser uploaden. Kontrollér Storage-policy for avatars.';
+   else if(/mime|content.?type/i.test(raw)) msg='Supabase afviser billedformatet: '+(file.type||file.name||'ukendt format')+'.';
+   setStatus(msg,'uploadError');
+   showToast('Kunne ikke gemme profilbilledet. Se fejl under billedet.');
+ }finally{
+   if(localUrl)setTimeout(()=>URL.revokeObjectURL(localUrl),3000);
+   if(label){label.style.pointerEvents='';label.style.opacity=''}
+   e.target.value='';
+ }
+});
 function renderAdmin(){const p=currentPerson();if(!p?.admin)return;const box=document.getElementById('adminPeople');box.innerHTML=people.map(m=>`<div class="adminPerson"><span class="nameCell"><img class="avatarSm" src="${m.image}" alt=""><span><b>${m.nick}</b><br><span class="small">${m.real}</span></span></span><span class="small">${m.admin?'Admin':'Medlem'}</span></div>`).join('')}
 document.getElementById('adminBtn').onclick=()=>{renderAdmin();overlays.admin.classList.add('open')};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');['addMemberBtn','transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Admin-funktionen kobles på databasen i et senere trin.')));
 
