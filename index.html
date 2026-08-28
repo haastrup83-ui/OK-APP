@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oddset klubben – Mockup v42</title>
+<title>Oddset klubben – v43 Supabase</title>
 <style>
 :root{--bg:#08110f;--panel:#121817;--panel2:#171f1d;--line:#2b3733;--text:#f3f6f5;--muted:#93a19d;--green:#12a665;--green2:#0b6f47;--gold:#e4b84b;--red:#e95b64}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07120f,#0d1110);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}.app{min-height:100vh}.stickyShell{position:fixed;top:0;left:0;right:0;z-index:100;background:#073927;box-shadow:0 10px 24px rgba(0,0,0,.28)}.top{background:linear-gradient(90deg,#073927,#075036);padding:14px 20px;display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;position:relative;z-index:2}.brand{font-weight:800;letter-spacing:.5px}.seasonPick{background:#0b3c2c;border:1px solid #2d7257;color:#fff;border-radius:8px;padding:9px 12px}.profile{font-size:13px;color:#dce7e3;display:flex;align-items:center;gap:9px;cursor:pointer}.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #70b497}.avatarSm{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#24473a;border:1px solid #52635d;vertical-align:middle;margin-right:8px}.nameCell{display:flex;align-items:center;min-width:0}.topTools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.iconBtn{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:18px}.autosave{font-size:11px;color:#7fd7ab;margin-top:7px;min-height:16px}.adminGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adminList{display:grid;gap:7px;margin-top:10px}.adminPerson{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#0d1311;border:1px solid #2a3833;border-radius:8px;padding:9px}.adminActions{display:flex;gap:7px;flex-wrap:wrap}.loginUsers{display:grid;gap:8px;margin-top:12px}.loginUser{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #2b3934;border-radius:9px;background:#0d1311;cursor:pointer}.loginUser:hover{background:#14241f}.profileGrid{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start}.profilePreview{width:86px;height:86px;border-radius:50%;object-fit:cover;background:#24473a;border:2px solid #5b776d}.fieldInput{width:100%;background:#090e0d;border:1px solid #3a4743;border-radius:8px;color:white;padding:10px}.adminOnly{display:none}.adminOnly.show{display:block}.layout{display:block}.main{padding:18px;min-width:0;max-width:1500px;margin:0 auto}.clubStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}.stat,.card{background:linear-gradient(145deg,#131a18,#101514);border:1px solid #293733;border-radius:11px;padding:16px}.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:23px;font-weight:750;margin-top:5px}.stat .s{font-size:11px;color:#b5c1bd;margin-top:3px}.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:14px}.card h2,.card h3{margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;background:#163b2d;color:#9ee2c0}.roundHead{display:block}.roundTitleWrap{min-width:0}.roundTitleLine{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.roundTitleLine h2{margin:7px 0 0}.roundMetric{display:flex;align-items:baseline;gap:8px;min-width:0;padding:0;background:transparent;border:0;text-align:right;white-space:nowrap;flex:0 0 auto}.roundMetric span{display:block;font-size:11px;color:#9eb0a8;margin:0}.roundMetric strong{display:block;font-size:18px;line-height:1.05}.balanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field label{display:block;font-size:12px;color:#bec9c5;margin-bottom:6px}.bigInput,.bigDisplay{display:flex;align-items:center;background:#090e0d;border:1px solid #3a4743;border-radius:9px;padding:7px 10px}.bigInput input{width:100%;min-width:0;background:transparent;border:0;color:#fff;font-size:28px;font-weight:700;outline:none}.bigInput span,.bigDisplay span{font-size:12px;color:var(--muted)}.bigDisplay strong{font-size:28px;margin-right:auto}.hint{font-size:11px;color:var(--muted);margin-top:5px}.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.quick button,.btn{border:1px solid #40504a;background:#151e1b;color:#fff;border-radius:8px;padding:9px 11px;cursor:pointer}.quick button:hover,.btn:hover{background:#1d2925}.btn.green{background:#0b6f47;border-color:#17865a}.btn.gold{background:#4b3b17;border-color:#806423}.btn.red{background:#4a2024;border-color:#753139}.btn:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.actions .btn{flex:1 1 150px}.roundHead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}.roundTitleWrap{min-width:0}.roundInfoText{margin:10px 0 0;color:#c3ceca}.roundStrip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:16px}.roundItem{display:flex;flex-direction:column;align-items:center;gap:6px}.r{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid #3d4b46;color:#9da9a5;background:#0c1210;font-weight:700}.r.done{background:#0d5a39;color:#fff;border-color:#249867}.r.active{background:#68551a;color:#fff;border-color:#cba93e}.roundBankMini{font-size:10px;color:#b7c3bf;line-height:1;text-align:center;white-space:nowrap}.roundPep{margin-top:12px;padding:10px 12px;border:1px solid #2b3a35;border-radius:10px;background:rgba(10,18,16,.66);font-size:13px}.members{margin-top:10px}.memberHeader,.memberRow{display:grid;grid-template-columns:28px minmax(0,1fr) 90px 80px 62px 70px;gap:6px;align-items:center;padding:9px 7px;font-size:12px;position:relative;overflow:hidden;background:rgba(7,18,15,.55)}.memberHeader{color:var(--muted);border-bottom:1px solid #26322e;background:transparent}.memberRow{border-top:1px solid #26322e;cursor:pointer}.memberRow:hover{background:rgba(18,37,31,.72)}.memberRow.me{outline:2px solid rgba(232,237,235,.40);outline-offset:-2px}.memberRow .name{font-weight:650}.memberRow .bank{font-weight:700}.small{font-size:11px;color:var(--muted)}.second{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}.table th{text-align:left;color:#93a19d;padding:9px;border-bottom:1px solid #2b3733}.table td{padding:10px 9px;border-bottom:1px solid #202b27}.statusDone{color:#54d294}.statusActive{color:#ebc95f}.winnerGrid{display:grid;gap:7px;margin-top:10px}.winnerRow{display:grid;grid-template-columns:72px 1fr 88px;gap:8px;padding:9px;background:#0e1513;border:1px solid #26342f;border-radius:8px;font-size:12px}.winnerRow b{color:var(--gold)}.rankBadge{font-weight:800}.roundState{display:inline-flex;align-items:center;justify-content:center;min-width:42px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.2px;white-space:nowrap}.roundState.active{background:rgba(228,184,75,.16);border:1px solid rgba(228,184,75,.45);color:#f5d37a}.roundState.done{background:rgba(18,166,101,.16);border:1px solid rgba(18,166,101,.45);color:#8fe3ba}.roundState.idle{background:rgba(147,161,157,.12);border:1px solid rgba(147,161,157,.3);color:#cbd4d1}.members .memberRow.medalGold{border-left:5px solid #f0c44c;background:linear-gradient(90deg,rgba(240,196,76,.42),rgba(240,196,76,.18) 52%,rgba(240,196,76,.08) 78%,rgba(7,18,15,.92) 100%);box-shadow:inset 0 0 0 1px rgba(240,196,76,.46)}.members .memberRow.medalSilver{border-left:5px solid #d5dbe5;background:linear-gradient(90deg,rgba(213,219,229,.42),rgba(213,219,229,.18) 52%,rgba(213,219,229,.08) 78%,rgba(7,18,15,.92) 100%);box-shadow:inset 0 0 0 1px rgba(213,219,229,.46)}.members .memberRow.medalBronze{border-left:5px solid #da9160;background:linear-gradient(90deg,rgba(218,145,96,.44),rgba(218,145,96,.18) 52%,rgba(218,145,96,.08) 78%,rgba(7,18,15,.92) 100%);box-shadow:inset 0 0 0 1px rgba(218,145,96,.46)}.members .memberRow.dangerLast{border-left:5px solid #ee6672;background:linear-gradient(90deg,rgba(238,102,114,.28),rgba(238,102,114,.12) 50%,rgba(238,102,114,.05) 76%,rgba(7,18,15,.92) 100%);box-shadow:inset 0 0 0 1px rgba(238,102,114,.32)}.members .memberRow.medalGold:hover{background:linear-gradient(90deg,rgba(240,196,76,.50),rgba(240,196,76,.22) 54%,rgba(240,196,76,.10) 80%,rgba(10,21,17,.94) 100%)}.members .memberRow.medalSilver:hover{background:linear-gradient(90deg,rgba(213,219,229,.50),rgba(213,219,229,.22) 54%,rgba(213,219,229,.10) 80%,rgba(10,21,17,.94) 100%)}.members .memberRow.medalBronze:hover{background:linear-gradient(90deg,rgba(218,145,96,.52),rgba(218,145,96,.22) 54%,rgba(218,145,96,.10) 80%,rgba(10,21,17,.94) 100%)}.members .memberRow.dangerLast:hover{background:linear-gradient(90deg,rgba(238,102,114,.34),rgba(238,102,114,.15) 50%,rgba(238,102,114,.07) 78%,rgba(10,21,17,.94) 100%)}.medalGold .rankBadge{color:#ffd76a}.medalSilver .rankBadge{color:#eef2f7}.medalBronze .rankBadge{color:#f0ad82}.dangerLast .rankBadge{color:#ffb1b8}#roundWinnersCard{margin-top:14px}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);align-items:center;justify-content:center;padding:18px;z-index:40}.overlay.open{display:flex}.modal{width:min(560px,96%);background:#151c1a;border:1px solid #3b4a45;border-radius:12px;padding:18px;max-height:90vh;overflow:auto}.modal h3{font-size:20px;margin:0 0 8px}.modalActions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.confirmValue{background:#0c1210;border:1px solid #35433e;border-radius:8px;padding:12px;margin-top:10px}.checkline{display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:12px}.memberDetail .metricGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.memberDetail .metric{background:#0d1311;border:1px solid #2b3833;border-radius:8px;padding:10px}.memberDetail .metric b{font-size:19px;display:block}.toast{display:none;margin-top:10px;padding:9px 11px;border-radius:8px;background:#113a2a;border:1px solid #286d4d;color:#bdebd2;font-size:12px}.toast.show{display:block}.error{color:#ff9a9f;font-size:12px;margin-top:8px}.summaryLine{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #26332f}.summaryLine:last-child{border-bottom:0}
@@ -726,10 +726,15 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <div id="closeOverlay" class="overlay"><div class="modal"><h3>Luk runde?</h3><div class="sub">Hele restsaldoen skal fordeles, før runden kan lukkes.</div><div class="confirmValue"><div class="summaryLine"><span>Resterende saldo</span><strong id="closeBalance">0 kr.</strong></div><label class="small" for="closeBank" style="display:block;margin-top:12px">Bank ved lukning</label><div class="bigInput"><input id="closeBank" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><label class="small" for="closeBuffer" style="display:block;margin-top:10px">Flyt til buffer</label><div class="bigInput"><input id="closeBuffer" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><div class="summaryLine" style="margin-top:8px"><span>Fordelt</span><strong id="closeDistributed">0 kr.</strong></div><div id="closeError" class="error"></div></div><label class="checkline"><input id="closeConfirm" type="checkbox"><span>Jeg bekræfter, at fordelingen er korrekt, og at runden skal lukkes.</span></label><div class="modalActions"><button class="btn cancelClose">Annuller</button><button class="btn green confirmClose">Bekræft og luk runde</button></div></div></div>
 
 <div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value="Lasse"><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">Lasse Haastrup</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
-<div id="loginOverlay" class="overlay"><div class="modal"><h3>Log ind</h3><div class="sub">Mockup-login – vælg hvem du vil se siden som.</div><div id="loginUsers" class="loginUsers"></div></div></div>
+<div id="loginOverlay" class="overlay"><div class="modal"><h3>Log ind</h3><div class="sub">Vælg bruger og indtast din 4-cifrede PIN.</div><div id="loginUsers" class="loginUsers"></div></div></div>
 <div id="adminOverlay" class="overlay"><div class="modal" style="width:min(760px,96%)"><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div><div class="adminGrid" style="margin-top:14px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div><h3 style="font-size:16px;margin-top:18px">Deltagere og adgang</h3><div id="adminPeople" class="adminList"></div><div class="adminActions" style="margin-top:14px"><button class="btn" id="addMemberBtn" type="button">＋ Tilføj deltager</button><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div><div id="adminMessage" class="toast"></div><div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div></div></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL="https://yfmmrfqlwblvotitmuqc.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_NgPLOMSWUU4HefQjyvFSvg_CB6T8_cL";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let dbSeason=null, dbSeasonMember=null, dbRound=null, dbReady=false;
 const round=document.getElementById('roundBalance');
 const toast=document.getElementById('toast');
 let bufferBalance=1250;
@@ -847,10 +852,10 @@ function renderFormCurve(){
 }
 
 function clampInput(el,max){let v=parseDecimalValue(el.value);if(max!=null)v=Math.min(v,max);el.value=formatDecimalInput(v);return v}
-document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));sync();markAutoSave()}));
-round.addEventListener('input',()=>{sync();markAutoSave()});
+document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));sync();markAutoSave();queueDbSave()}));
+round.addEventListener('input',()=>{sync();markAutoSave();queueDbSave()});
 round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);sync()});
-document.getElementById('bufferInput').addEventListener('input',e=>{bufferBalance=parseDecimalValue(e.target.value);sync();markAutoSave()});
+document.getElementById('bufferInput').addEventListener('input',e=>{bufferBalance=parseDecimalValue(e.target.value);sync();markAutoSave();queueDbSave()});
 document.getElementById('bufferInput').addEventListener('blur',e=>{bufferBalance=parseDecimalValue(e.target.value);e.target.value=formatDecimalInput(bufferBalance);sync()});
 function markAutoSave(){const a=document.getElementById('autoSave');a.textContent='Gemmer…';clearTimeout(markAutoSave.t);markAutoSave.t=setTimeout(()=>a.textContent='✓ Gemt automatisk',350)}
 
@@ -938,6 +943,94 @@ document.querySelectorAll('[data-jump]').forEach(btn=>{
 });
 
 
+
+async function loadSupabaseData(){
+ try{
+   const {data:season,error:seasonErr}=await supabaseClient.from('seasons').select('*').eq('active',true).order('season_number',{ascending:false}).limit(1).maybeSingle();
+   if(seasonErr) throw seasonErr;
+   if(!season) throw new Error('Ingen aktiv sæson fundet.');
+   dbSeason=season;
+   const [{data:dbMembers,error:membersErr},{data:seasonMembers,error:smErr},{data:dbRounds,error:roundsErr}]=await Promise.all([
+     supabaseClient.from('members').select('id,full_name,nickname,pin,avatar_url,is_admin,active').eq('active',true).order('full_name'),
+     supabaseClient.from('season_members').select('*').eq('season_id',season.id),
+     supabaseClient.from('member_rounds').select('*').eq('season_id',season.id).order('round_number')
+   ]);
+   if(membersErr) throw membersErr;if(smErr) throw smErr;if(roundsErr) throw roundsErr;
+   if(!dbMembers?.length) throw new Error('Ingen medlemmer fundet.');
+   people.splice(0,people.length,...dbMembers.map(m=>({id:m.id,real:m.full_name,nick:m.nickname||m.full_name,initials:(m.full_name||'?').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase(),admin:!!m.is_admin,pin:String(m.pin||''),image:m.avatar_url||null})));
+   people.forEach(p=>{if(!p.image)p.image=avatarSvg(p.initials)});
+   memberData.splice(0,memberData.length,...people.map(p=>{
+      const sm=seasonMembers?.find(x=>x.member_id===p.id);
+      const rs=(dbRounds||[]).filter(x=>x.member_id===p.id);
+      const active=rs.find(x=>x.status==='active') || rs.find(x=>x.status==='not_started') || rs[rs.length-1];
+      const bank=rs.reduce((s,r)=>s+Number(r.banked||0),0);
+      const completed=rs.filter(r=>r.status==='closed').length;
+      const roundNo=active?.round_number || Math.min(7,completed+1);
+      return {id:p.id,name:p.real,bank,buffer:Number(sm?.buffer||0),round:roundNo,saldo:active?Number(active.balance||0):0,dbSeasonMemberId:sm?.id||null,dbRoundId:active?.id||null};
+   }));
+   dbReady=true;
+   renderLogin();
+   return true;
+ }catch(err){
+   console.error('Supabase load failed',err);
+   dbReady=false;
+   showToast('Database kunne ikke indlæses – mockdata bruges.');
+   return false;
+ }
+}
+async function loadCurrentDbState(){
+ if(!dbReady||!people[currentUser]?.id||!dbSeason)return;
+ const memberId=people[currentUser].id;
+ const [{data:sm},{data:rs}]=await Promise.all([
+   supabaseClient.from('season_members').select('*').eq('season_id',dbSeason.id).eq('member_id',memberId).maybeSingle(),
+   supabaseClient.from('member_rounds').select('*').eq('season_id',dbSeason.id).eq('member_id',memberId).order('round_number')
+ ]);
+ dbSeasonMember=sm||null;
+ const active=(rs||[]).find(r=>r.status==='active')||(rs||[]).find(r=>r.status==='not_started')||(rs||[])[(rs||[]).length-1];
+ dbRound=active||null;
+ bufferBalance=Number(sm?.buffer||0);
+ activeRound=Number(active?.round_number||1);
+ round.value=formatDecimalInput(active?.balance||200);
+ totalBank=(rs||[]).reduce((s,r)=>s+Number(r.banked||0),0);
+ rounds.splice(0,rounds.length,...Array.from({length:7},(_,i)=>{
+   const r=(rs||[]).find(x=>Number(x.round_number)===i+1);
+   return {n:i+1,status:r?.status==='closed'?'Lukket':r?.status==='active'?'Aktiv':'–',start:Number(dbSeason.start_amount||200),bank:Number(r?.banked||0),buffer:0,end:Number(r?.balance||0),dbId:r?.id||null};
+ }));
+ sync();
+}
+let dbSaveTimer;
+function queueDbSave(){
+ if(!dbReady)return;
+ clearTimeout(dbSaveTimer);
+ dbSaveTimer=setTimeout(saveCurrentDbState,450);
+}
+async function saveCurrentDbState(){
+ if(!dbReady||!people[currentUser]?.id||!dbSeason)return;
+ try{
+   const memberId=people[currentUser].id;
+   if(dbRound?.id){
+     const balance=parseDecimalValue(round.value);
+     const {error}=await supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',dbRound.id);
+     if(error) throw error;
+   }
+   if(dbSeasonMember?.id){
+     const {error}=await supabaseClient.from('season_members').update({buffer:Number(bufferBalance||0)}).eq('id',dbSeasonMember.id);
+     if(error) throw error;
+   }
+ }catch(err){console.error('Supabase save failed',err);showToast('Kunne ikke gemme ændringen i databasen.');}
+}
+async function dbLogin(index){
+ const p=people[index]; if(!p)return;
+ const entered=prompt('PIN for '+p.nick+':','');
+ if(entered===null)return;
+ if(String(entered)!==String(p.pin)){alert('Forkert PIN.');return;}
+ currentUser=index;
+ localStorage.setItem('oddset_member_id',p.id||String(index));
+ await loadCurrentDbState();
+ refreshProfileUI();
+ overlays.login.classList.remove('open');
+ showToast('Logget ind som '+p.nick+'.');
+}
 const people=[
  {real:'Kristian Winther',nick:'Kristian',initials:'KW',admin:false},
  {real:'Lasse Haastrup',nick:'Lasse',initials:'LH',admin:true},
@@ -953,15 +1046,15 @@ let currentUser=1;
 const avatarSvg=(initials)=>'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" rx="60" fill="#24473a"/><text x="60" y="69" text-anchor="middle" fill="#ffffff" font-family="Arial" font-weight="700" font-size="38">${initials}</text></svg>`);
 people.forEach(p=>p.image=avatarSvg(p.initials));
 function refreshProfileUI(){const p=people[currentUser];document.getElementById('topAvatar').src=p.image;document.getElementById('topNickname').textContent=p.nick;document.getElementById('topRole').textContent=p.admin?'Administrator':'Liga-medlem';document.getElementById('profilePreview').src=p.image;document.getElementById('nicknameInput').value=p.nick;document.getElementById('profileRealName').textContent=p.real;document.getElementById('adminBtn').style.display=p.admin?'grid':'none';document.querySelectorAll('.memberRow').forEach((row,i)=>{const img=row.querySelector('.memberAvatar');if(img)img.src=people[i].image;const nm=row.querySelector('.name span');if(nm)nm.textContent=people[i].nick})}
-function renderLogin(){const box=document.getElementById('loginUsers');box.innerHTML=people.map((p,i)=>`<button type="button" class="loginUser" data-login="${i}" style="color:white;text-align:left;width:100%"><img class="avatarSm" src="${p.image}" alt=""><span><b>${p.nick}</b><br><span class="small">${p.real}${p.admin?' · Administrator':''}</span></span></button>`).join('');box.querySelectorAll('[data-login]').forEach(b=>b.addEventListener('click',()=>{currentUser=Number(b.dataset.login);refreshProfileUI();overlays.login.classList.remove('open');showToast('Logget ind som '+people[currentUser].nick+'.')}))}
+function renderLogin(){const box=document.getElementById('loginUsers');box.innerHTML=people.map((p,i)=>`<button type="button" class="loginUser" data-login="${i}" style="color:white;text-align:left;width:100%"><img class="avatarSm" src="${p.image}" alt=""><span><b>${p.nick}</b><br><span class="small">${p.real}${p.admin?' · Administrator':''}</span></span></button>`).join('');box.querySelectorAll('[data-login]').forEach(b=>b.addEventListener('click',()=>dbLogin(Number(b.dataset.login))))}
 document.getElementById('profileBtn').onclick=()=>overlays.profile.classList.add('open');
 document.getElementById('logoutBtn').onclick=()=>{overlays.profile.classList.remove('open');renderLogin();overlays.login.classList.add('open')};
-document.getElementById('saveProfileBtn').onclick=()=>{const p=people[currentUser];const nick=document.getElementById('nicknameInput').value.trim();if(nick)p.nick=nick;refreshProfileUI();overlays.profile.classList.remove('open');showToast('Profilen er opdateret.')};
+document.getElementById('saveProfileBtn').onclick=async()=>{const p=people[currentUser];const nick=document.getElementById('nicknameInput').value.trim();if(nick)p.nick=nick;if(dbReady&&p.id){const {error}=await supabaseClient.from('members').update({nickname:p.nick}).eq('id',p.id);if(error){showToast('Kunne ikke gemme kaldenavn.');return}}refreshProfileUI();overlays.profile.classList.remove('open');showToast('Profilen er opdateret.')};
 document.getElementById('profileImageInput').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{people[currentUser].image=r.result;document.getElementById('profilePreview').src=r.result;refreshProfileUI()};r.readAsDataURL(f)});
 function renderAdmin(){const p=people[currentUser];if(!p.admin)return;const box=document.getElementById('adminPeople');box.innerHTML=people.map((m,i)=>`<div class="adminPerson"><span class="nameCell"><img class="avatarSm" src="${m.image}" alt=""><span><b>${m.nick}</b><br><span class="small">${m.real}</span></span></span><label class="small"><input type="checkbox" data-member="${i}" checked> Deltager</label><label class="small"><input type="checkbox" data-admin="${i}" ${m.admin?'checked':''}> Admin</label></div>`).join('');box.querySelectorAll('[data-admin]').forEach(c=>c.addEventListener('change',()=>{people[Number(c.dataset.admin)].admin=c.checked;refreshProfileUI()}))}
 document.getElementById('adminBtn').onclick=()=>{renderAdmin();overlays.admin.classList.add('open')};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');
 ['addMemberBtn','transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id).addEventListener('click',()=>{const msg=document.getElementById('adminMessage');const labels={addMemberBtn:'Tilføj deltager er klar som admin-funktion i mockuppen.',transactionsBtn:'Transaktionsoversigten vil vise alle bank-, buffer- og saldoændringer.',correctBtn:'Admin kan rette en forkert registrering og få ændringen logget.',lockRoundBtn:'Den valgte runde kan låses, så medlemmet ikke længere kan ændre den.',newSeasonBtn:'Ny sæson oprettes med de valgte indstillinger og alle runder starter med startbeløbet.'};msg.textContent=labels[id];msg.classList.add('show')}));
-refreshProfileUI();renderLogin();
+refreshProfileUI();renderLogin();loadSupabaseData().then(async ok=>{if(ok){const saved=localStorage.getItem('oddset_member_id');const found=people.findIndex(p=>String(p.id)===String(saved));if(found>=0){currentUser=found;await loadCurrentDbState();refreshProfileUI();}else{overlays.login.classList.add('open')}}});
 
 
 // v15: fixed app header + mobile one-screen navigation
