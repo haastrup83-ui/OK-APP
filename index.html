@@ -467,6 +467,9 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 .seasonReadonly .quick button,.seasonReadonly #bankBtn,.seasonReadonly #closeBtn{opacity:.42;cursor:not-allowed}
 @media(max-width:760px){.seasonStatusBanner{margin-bottom:7px;padding:6px 9px;font-size:10px}}
 
+
+/* v59 verified autosave + manual save */
+.saveStateRow{display:flex;align-items:center;gap:10px;margin:10px 0 2px}.saveStateBtn{flex:0 0 auto;background:#202a27;border-color:#42544d;color:#eef6f2;padding:9px 13px}.saveStateBtn:hover{background:#293530}.saveStateBtn.saving{opacity:.7;pointer-events:none}.saveStateRow .autosave{margin:0;min-height:0}.seasonReadonly #saveStateBtn{opacity:.42;cursor:not-allowed}@media(max-width:760px){.saveStateRow{display:grid;grid-template-columns:1fr;gap:5px}.saveStateBtn{width:100%}.saveStateRow .autosave{text-align:center}}
 </style>
 
 <style>
@@ -810,7 +813,8 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <section class="grid" id="playSection">
 <div class="card"><div class="roundHead"><div class="roundTitleWrap"><span class="badge">AKTIV RUNDE</span><div class="roundTitleLine"><h2 id="roundTitle" style="margin-top:7px">Runde —</h2><div class="roundMetric"><span>Banket i runde</span><strong id="activeRoundBank">—</strong></div></div></div></div><div class="sub roundInfoText">Justér selv saldo og buffer efter vundne og tabte kuponer</div>
 <div class="balanceGrid"><div class="field"><label for="roundBalance">Saldo i runden</label><div class="bigInput"><input id="roundBalance" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="quick"><button type="button" data-round="-100">−100</button><button type="button" data-round="-50">−50</button><button type="button" data-round="50">+50</button><button type="button" data-round="100">+100</button></div><div class="hint">Nedjustér ved tabte kuponer. Opjustér ved vundne kuponer.</div></div><div class="field"><label for="bufferInput">Min buffer</label><div class="bigInput"><input id="bufferInput" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="hint">Juster bufferen, når du spiller fra buffer eller lægger gevinster tilbage i buffer.</div></div></div>
-<div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="autoSave" class="autosave">✓ Ændringer gemmes automatisk</div><div id="toast" class="toast"></div>
+<div class="saveStateRow"><button class="btn saveStateBtn" id="saveStateBtn" type="button">💾 Gem saldo & buffer</button><span id="autoSave" class="autosave">✓ Ændringer gemmes automatisk</span></div>
+<div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="toast" class="toast"></div>
 <div class="myRoundsTitle">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub roundProgressHelp">Du bestemmer selv tempoet. Når en runde lukkes, starter næste runde automatisk med 200 kr.</div><div class="roundPep" id="roundPep"></div></div>
 <div class="card" id="standingsSection"><div class="standingsTop"><div><h3>Stilling</h3><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
 <section class="second"><div class="card" id="historyCard"><h3>Tidligere runder</h3><div class="sub">Dine afsluttede og aktive runder</div><div class="tableWrap"><table class="table historyTable"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
@@ -959,6 +963,7 @@ function renderPersonal(){
  document.getElementById('bufferInput').disabled=seasonReadOnly||!currentSeasonMember;
  document.getElementById('bankBtn').disabled=seasonReadOnly||!active;
  document.getElementById('closeBtn').disabled=seasonReadOnly||!active;
+ const saveBtn=document.getElementById('saveStateBtn');if(saveBtn)saveBtn.disabled=seasonReadOnly||(!active&&!currentSeasonMember);
  document.querySelectorAll('[data-round]').forEach(b=>b.disabled=seasonReadOnly||!active);
  const autoSave=document.getElementById('autoSave');if(autoSave&&seasonReadOnly)autoSave.textContent='🔒 Afsluttet sæson · kun visning';
  round.value=formatDecimalInput(active?.balance||0);document.getElementById('bufferInput').value=formatDecimalInput(bufferBalance);document.getElementById('roundTitle').textContent=active?'Runde '+activeRound:'Alle runder afsluttet';document.getElementById('sideBalance').textContent=active?money2(active.balance):money2(0);document.getElementById('meBufferRow')?.remove();
@@ -1004,12 +1009,48 @@ function applyLocalBalanceBuffer(){
  document.getElementById('sideBalance').textContent=money2(balance);
  rebuildMemberData();renderClubStats();renderStandings();
 }
-function queueDbSave(){if(!dbReady||currentUser<0||isSeasonReadOnly())return;clearTimeout(dbSaveTimer);dbSaveTimer=setTimeout(saveCurrentDbState,200)}
-async function saveCurrentDbState(){if(!dbReady||currentUser<0||isSeasonReadOnly())return;try{const balance=parseDecimalValue(round.value),buffer=parseDecimalValue(document.getElementById('bufferInput').value),ops=[];if(currentDbRound?.id)ops.push(supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id));if(currentSeasonMember?.id)ops.push(supabaseClient.from('season_members').update({buffer}).eq('id',currentSeasonMember.id));const results=await Promise.all(ops);const err=results.find(x=>x.error)?.error;if(err)throw err;applyLocalBalanceBuffer();document.getElementById('autoSave').textContent='✓ Gemt automatisk'}catch(err){console.error(err);document.getElementById('autoSave').textContent='⚠ Kunne ikke gemme';showToast('Kunne ikke gemme ændringen.')}}
-function markAutoSave(){const a=document.getElementById('autoSave');a.textContent='Gemmer…'}
+function queueDbSave(){if(!dbReady||currentUser<0||isSeasonReadOnly())return;clearTimeout(dbSaveTimer);dbSaveTimer=setTimeout(()=>saveCurrentDbState(false),350)}
+async function saveCurrentDbState(manual=false){
+ if(!dbReady||currentUser<0||isSeasonReadOnly())return false;
+ const status=document.getElementById('autoSave'),btn=document.getElementById('saveStateBtn');
+ if(manual&&btn){btn.disabled=true;btn.classList.add('saving');btn.textContent='Gemmer…'}
+ try{
+   const balance=parseDecimalValue(round.value);
+   const buffer=parseDecimalValue(document.getElementById('bufferInput').value);
+   const results=[];
+   if(currentDbRound?.id){
+     const r=await supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id).select('id,balance').maybeSingle();
+     if(r.error)throw r.error;
+     if(!r.data)throw new Error('Saldo blev ikke opdateret i Supabase. Kontroller UPDATE/RLS-rettigheder for member_rounds.');
+     if(Math.abs(Number(r.data.balance)-balance)>.005)throw new Error('Supabase returnerede en anden saldo end den gemte værdi.');
+     results.push(r.data);
+   }
+   if(currentSeasonMember?.id){
+     const r=await supabaseClient.from('season_members').update({buffer}).eq('id',currentSeasonMember.id).select('id,buffer').maybeSingle();
+     if(r.error)throw r.error;
+     if(!r.data)throw new Error('Buffer blev ikke opdateret i Supabase. Kontroller UPDATE/RLS-rettigheder for season_members.');
+     if(Math.abs(Number(r.data.buffer)-buffer)>.005)throw new Error('Supabase returnerede en anden buffer end den gemte værdi.');
+     results.push(r.data);
+   }
+   if(!results.length)throw new Error('Der er ingen aktiv runde eller sæsonpost at gemme.');
+   applyLocalBalanceBuffer();
+   if(status)status.textContent=manual?'✓ Gemt':'✓ Gemt automatisk';
+   if(manual)showToast('Saldo og buffer er gemt.');
+   return true;
+ }catch(err){
+   console.error('Save balance/buffer failed:',err);
+   if(status)status.textContent='⚠ Ikke gemt – brug Gem';
+   showToast('Kunne ikke gemme saldo/buffer. '+(err?.message||''));
+   return false;
+ }finally{
+   if(manual&&btn){btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);btn.classList.remove('saving');btn.textContent='💾 Gem saldo & buffer'}
+ }
+}
+function markAutoSave(){const a=document.getElementById('autoSave');if(a)a.textContent='Gemmer…'}
+document.getElementById('saveStateBtn')?.addEventListener('click',async()=>{clearTimeout(dbSaveTimer);await saveCurrentDbState(true)});
 document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{if(isSeasonReadOnly())return;round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));applyLocalBalanceBuffer();markAutoSave();queueDbSave()}));
-round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer();queueDbSave()});
-const bufferInput=document.getElementById('bufferInput');bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer();queueDbSave()});
+round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer();clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
+const bufferInput=document.getElementById('bufferInput');bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer();clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
 
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
