@@ -790,7 +790,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 /* v67: compact mobile overview + bank/close modals below sticky header */
 @media(max-width:760px){
   /* Compact the overview enough to keep all core content visible after season dates were added */
-  .main{padding:8px 9px 12px!important}
+  .main{padding:calc(var(--sticky-h,220px) + 8px) 9px 12px!important}
   .overviewMode #seasonStatusBanner{margin:0 0 5px!important;padding:4px 7px!important;font-size:9px!important;line-height:1.15!important;border-radius:7px!important}
   .overviewMode .clubStats{gap:5px!important;margin-bottom:6px!important}
   .overviewMode .liveStats .stat{padding:6px 7px!important;min-height:58px!important;border-radius:8px!important}
