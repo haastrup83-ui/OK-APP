@@ -163,7 +163,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   .overviewMode .stat .v{font-size:17px;margin-top:2px}
   .overviewMode .stat .s{display:none}
   .overviewMode .roundHead{display:block}
-  .overviewMode .roundHead .btn,.overviewMode #playSection .hint,.overviewMode #playSection .quick,.overviewMode #playSection #autoSave{display:none!important}
+  .overviewMode .roundHead .btn,.overviewMode #playSection .hint,.overviewMode #playSection .quick{display:none!important}
   .overviewMode #playSection .balanceGrid{grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
   .overviewMode #playSection .bigInput,.overviewMode #playSection .bigDisplay{min-height:46px;padding:4px 8px}
   .overviewMode #playSection .bigInput input,.overviewMode #playSection .bigDisplay strong{font-size:21px}
@@ -469,7 +469,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 
 /* v59 verified autosave + manual save */
-.saveStateRow{display:flex;align-items:center;gap:10px;margin:10px 0 2px}.saveStateBtn{flex:0 0 auto;background:#202a27;border-color:#42544d;color:#eef6f2;padding:9px 13px}.saveStateBtn:hover{background:#293530}.saveStateBtn.saving{opacity:.7;pointer-events:none}.saveStateRow .autosave{margin:0;min-height:0}.seasonReadonly #saveStateBtn{opacity:.42;cursor:not-allowed}@media(max-width:760px){.saveStateRow{display:grid;grid-template-columns:1fr;gap:5px}.saveStateBtn{width:100%}.saveStateRow .autosave{text-align:center}}
+.saveStateRow{display:flex;align-items:center;gap:10px;margin:10px 0 2px}.saveStateBtn{flex:0 0 auto;background:#202a27;border-color:#42544d;color:#eef6f2;padding:9px 13px}.saveStateBtn:hover{background:#293530}.saveStateBtn.saving{opacity:.7;pointer-events:none}.saveStateBtn.saved{border-color:#2a9d68}.saveStateRow .autosave{display:inline-block!important}.saveStateRow .autosave{margin:0;min-height:0}.seasonReadonly #saveStateBtn{opacity:.42;cursor:not-allowed}@media(max-width:760px){.saveStateRow{display:grid;grid-template-columns:1fr;gap:5px}.saveStateBtn{width:100%}.saveStateRow .autosave{text-align:center}}
 </style>
 
 <style>
@@ -813,7 +813,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <section class="grid" id="playSection">
 <div class="card"><div class="roundHead"><div class="roundTitleWrap"><span class="badge">AKTIV RUNDE</span><div class="roundTitleLine"><h2 id="roundTitle" style="margin-top:7px">Runde —</h2><div class="roundMetric"><span>Banket i runde</span><strong id="activeRoundBank">—</strong></div></div></div></div><div class="sub roundInfoText">Justér selv saldo og buffer efter vundne og tabte kuponer</div>
 <div class="balanceGrid"><div class="field"><label for="roundBalance">Saldo i runden</label><div class="bigInput"><input id="roundBalance" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="quick"><button type="button" data-round="-100">−100</button><button type="button" data-round="-50">−50</button><button type="button" data-round="50">+50</button><button type="button" data-round="100">+100</button></div><div class="hint">Nedjustér ved tabte kuponer. Opjustér ved vundne kuponer.</div></div><div class="field"><label for="bufferInput">Min buffer</label><div class="bigInput"><input id="bufferInput" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="hint">Juster bufferen, når du spiller fra buffer eller lægger gevinster tilbage i buffer.</div></div></div>
-<div class="saveStateRow"><button class="btn saveStateBtn" id="saveStateBtn" type="button">💾 Gem saldo & buffer</button><span id="autoSave" class="autosave">✓ Ændringer gemmes automatisk</span></div>
+<div class="saveStateRow"><button class="btn saveStateBtn" id="saveStateBtn" type="button" style="display:none">💾 Gem ændringer</button><span id="autoSave" class="autosave"></span></div>
 <div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="toast" class="toast"></div>
 <div class="myRoundsTitle">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub roundProgressHelp">Du bestemmer selv tempoet. Når en runde lukkes, starter næste runde automatisk med 200 kr.</div><div class="roundPep" id="roundPep"></div></div>
 <div class="card" id="standingsSection"><div class="standingsTop"><div><h3>Stilling</h3><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
@@ -956,7 +956,9 @@ function renderHistory(){const b=document.getElementById('historyBody');if(!b)re
 function renderFormCurve(){const svg=document.getElementById('formChart');if(!svg)return;const vals=rounds.map(r=>r.status==='–'?0:Math.max(0,Number(r.bank)||0));const started=rounds.filter(r=>r.status!=='–');const maxVal=Math.max(200,...vals);const yMax=Math.max(250,Math.ceil(maxVal/250)*250);const W=900,H=280,L=62,R=24,T=28,B=42,plotW=W-L-R,plotH=H-T-B;const x=i=>L+(plotW/6)*i,y=v=>T+plotH-(v/yMax)*plotH;let html='';for(let g=0;g<=4;g++){const val=Math.round((yMax/4)*g),yy=y(val);html+=`<line class="gridLine" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"></line><text class="chartLabel" x="${L-10}" y="${yy+4}" text-anchor="end">${val.toLocaleString('da-DK')}</text>`}html+=`<line class="axisLine" x1="${L}" y1="${T}" x2="${L}" y2="${H-B}"></line><line class="axisLine" x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}"></line>`;vals.forEach((v,i)=>html+=`<text class="chartLabel" x="${x(i)}" y="${H-14}" text-anchor="middle">R${i+1}</text>`);const pts=vals.map((v,i)=>`${x(i)},${y(v)}`).join(' '),area=`${x(0)},${H-B} ${pts} ${x(6)},${H-B}`;html+=`<polygon class="formArea" points="${area}"></polygon><polyline class="formLine" points="${pts}"></polyline>`;vals.forEach((v,i)=>html+=`<circle class="formPoint" cx="${x(i)}" cy="${y(v)}" r="6"></circle><text class="chartValue" x="${x(i)}" y="${Math.max(16,y(v)-12)}" text-anchor="middle">${v.toLocaleString('da-DK')}</text>`);svg.innerHTML=html;const best=Math.max(...vals),bestIndex=vals.indexOf(best);document.getElementById('bestRound').textContent=best>0?`Runde ${bestIndex+1} · ${money(best)}`:'—';const avg=started.length?started.reduce((a,r)=>a+Number(r.bank||0),0)/started.length:0;document.getElementById('avgBank').textContent=money(avg);const sv=started.map(r=>Number(r.bank)||0),trend=document.getElementById('formTrend');if(sv.length<2){trend.textContent='—';trend.className='trendFlat'}else{const d=sv.at(-1)-sv.at(-2);trend.textContent=(d>0?'↗ +':d<0?'↘ ':'→ ')+money(Math.abs(d));trend.className=d>0?'trendUp':d<0?'trendDown':'trendFlat'}}
 function updateRoundPep(){const active=rounds.find(r=>r.n===activeRound);const el=document.getElementById('roundPep'),bankEl=document.getElementById('activeRoundBank');if(bankEl)bankEl.textContent=active?money(active.bank):'—';if(el)el.innerHTML=active?'<strong>Kommentar til runden:</strong> '+getPepText(Number(active.bank)||0):'<strong>Kommentar til runden:</strong> Alle runder er afsluttet.'}
 function renderPersonal(){
- const p=currentPerson(); if(!p){round.value='0,00';document.getElementById('bufferInput').value='0,00';document.getElementById('roundTitle').textContent='Runde —';rounds.splice(0,rounds.length,...Array.from({length:Number(dbSeason?.round_count||7)},(_,i)=>({n:i+1,status:'–',start:Number(dbSeason?.start_amount||200),bank:0,end:0,dbId:null})));renderRounds();const pep=document.getElementById('roundPep');if(pep)pep.innerHTML='<strong>Kommentar til runden:</strong> Log ind for at se dine runder.';return}
+ const p=currentPerson(); if(!p){
+ const bi=document.getElementById('bufferInput'),rt=document.getElementById('roundTitle');
+ if(round)round.value='0,00';if(bi)bi.value='0,00';if(rt)rt.textContent='Runde —';rounds.splice(0,rounds.length,...Array.from({length:Number(dbSeason?.round_count||7)},(_,i)=>({n:i+1,status:'–',start:Number(dbSeason?.start_amount||200),bank:0,end:0,dbId:null})));renderRounds();const pep=document.getElementById('roundPep');if(pep)pep.innerHTML='<strong>Kommentar til runden:</strong> Log ind for at se dine runder.';return}
  const rs=memberRounds(p.id);const active=rs.find(r=>r.status==='active');currentDbRound=active||null;currentSeasonMember=memberSeason(p.id);bufferBalance=Number(currentSeasonMember?.buffer||0);totalBank=rs.reduce((s,r)=>s+Number(r.banked||0),0);activeRound=active?Number(active.round_number):0;
  rounds.splice(0,rounds.length,...Array.from({length:Number(dbSeason?.round_count||7)},(_,i)=>{const r=rs.find(x=>Number(x.round_number)===i+1);return {n:i+1,status:statusUi(r?.status),start:Number(dbSeason?.start_amount||200),bank:Number(r?.banked||0),end:Number(r?.balance||0),dbId:r?.id||null}}));
  const seasonReadOnly=isSeasonReadOnly();
@@ -967,10 +969,20 @@ function renderPersonal(){
  const saveBtn=document.getElementById('saveStateBtn');if(saveBtn)saveBtn.disabled=seasonReadOnly||(!active&&!currentSeasonMember);
  document.querySelectorAll('[data-round]').forEach(b=>b.disabled=seasonReadOnly||!active);
  const autoSave=document.getElementById('autoSave');if(autoSave&&seasonReadOnly)autoSave.textContent='🔒 Afsluttet sæson · kun visning';
- round.value=formatDecimalInput(active?.balance||0);document.getElementById('bufferInput').value=formatDecimalInput(bufferBalance);document.getElementById('roundTitle').textContent=active?'Runde '+activeRound:'Alle runder afsluttet';document.getElementById('sideBalance').textContent=active?money2(active.balance):money2(0);document.getElementById('meBufferRow')?.remove();
+ round.value=formatDecimalInput(active?.balance||0);document.getElementById('bufferInput').value=formatDecimalInput(bufferBalance);document.getElementById('roundTitle').textContent=active?'Runde '+activeRound:'Alle runder afsluttet';const sideBalanceEl=document.getElementById('sideBalance');if(sideBalanceEl)sideBalanceEl.textContent=active?money2(active.balance):money2(0);document.getElementById('meBufferRow')?.remove();
  renderRounds();renderHistory();renderFormCurve();updateRoundPep();
 }
-function renderAll(){rebuildMemberData();renderClubStats();renderStandings();renderRoundWinners();document.getElementById('standingSeason').textContent=dbSeason?'Sæson '+dbSeason.season_number:'—';renderPersonal();refreshProfileUI();updateSeasonReadonlyUi()}
+function renderAll(){
+ rebuildMemberData();renderClubStats();renderStandings();renderRoundWinners();
+ document.getElementById('standingSeason').textContent=dbSeason?'Sæson '+dbSeason.season_number:'—';
+ renderPersonal();refreshProfileUI();updateSeasonReadonlyUi();
+ if(!balanceBufferDirty){
+   const saveBtn=document.getElementById('saveStateBtn');
+   const saveStatus=document.getElementById('autoSave');
+   if(saveBtn)saveBtn.style.display='none';
+   if(saveStatus&&saveStatus.textContent==='⚠ Ikke gemt')saveStatus.textContent='';
+ }
+}
 
 function dbErrorText(err){
  if(!err)return 'Ukendt databasefejl.';
@@ -1010,7 +1022,14 @@ async function loadDatabase(options={}){
   const idx=stickyId?people.findIndex(p=>String(p.id)===String(stickyId)):-1;
   if(idx>=0){currentUser=idx;rememberMemberId(people[idx].id);localStorage.setItem('oddset_remember_login','1')}
   else if(currentUser<0){currentUser=-1}
-  renderAll();
+  try{
+    renderAll();
+  }catch(renderErr){
+    console.error('UI render failed after successful database load:',renderErr);
+    const renderMsg=dbErrorText(renderErr);
+    window.__lastRenderError=renderMsg;
+    showToast('Visningsfejl: '+renderMsg);
+  }
   if(currentUser>=0)overlays.login.classList.remove('open');
   else if(showLoginWhenMissing)overlays.login.classList.add('open');
   window.__lastDbError='';
@@ -1031,62 +1050,147 @@ function applyLocalBalanceBuffer(){
  if(currentDbRound)currentDbRound.balance=balance;
  if(currentSeasonMember)currentSeasonMember.buffer=buffer;
  bufferBalance=buffer;
- document.getElementById('sideBalance').textContent=money2(balance);
+ const sideBalanceEl=document.getElementById('sideBalance');if(sideBalanceEl)sideBalanceEl.textContent=money2(balance);
  rebuildMemberData();renderClubStats();renderStandings();
 }
 function queueDbSave(){if(!dbReady||currentUser<0||isSeasonReadOnly()||!balanceBufferDirty)return;clearTimeout(dbSaveTimer);dbSaveTimer=setTimeout(()=>saveCurrentDbState(false),350)}
 async function saveCurrentDbState(manual=false){
  if(!dbReady||currentUser<0||isSeasonReadOnly())return false;
  if(!manual&&!balanceBufferDirty)return true;
- const status=document.getElementById('autoSave'),btn=document.getElementById('saveStateBtn');
- if(manual&&btn){btn.disabled=true;btn.classList.add('saving');btn.textContent='Gemmer…'}
+
+ const status=document.getElementById('autoSave');
+ const btn=document.getElementById('saveStateBtn');
+ const person=currentPerson();
+ if(status)status.textContent='Gemmer…';
+ if(btn){
+   btn.disabled=true;
+   btn.classList.add('saving');
+   btn.classList.remove('saved');
+   btn.textContent='Gemmer…';
+ }
+
  try{
-   const balance=parseDecimalValue(round.value);
-   const buffer=parseDecimalValue(document.getElementById('bufferInput').value);
-   if(!currentDbRound?.id&&!currentSeasonMember?.id)throw new Error('Der er ingen aktiv runde eller sæsonpost at gemme.');
+   if(!person?.id)throw new Error('Ingen bruger er valgt.');
+   if(!dbSeason?.id)throw new Error('Ingen sæson er valgt.');
 
-   if(currentDbRound?.id){
-     const upd=await supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id);
+   const balance=parseDecimalValue(round?.value ?? 0);
+   const bufferEl=document.getElementById('bufferInput');
+   if(!bufferEl)throw new Error('Buffer-feltet blev ikke fundet.');
+   const buffer=parseDecimalValue(bufferEl.value);
+
+   if(currentDbRound){
+     const roundNo=Number(currentDbRound.round_number||activeRound);
+     const upd=await supabaseClient
+       .from('member_rounds')
+       .update({balance:balance,updated_at:new Date().toISOString()})
+       .eq('season_id',dbSeason.id)
+       .eq('member_id',person.id)
+       .eq('round_number',roundNo)
+       .select('id,season_id,member_id,round_number,balance,status')
+       .maybeSingle();
+
      if(upd.error)throw new Error('Saldo: '+dbErrorText(upd.error));
-     const check=await supabaseClient.from('member_rounds').select('id,balance').eq('id',currentDbRound.id).maybeSingle();
-     if(check.error)throw new Error('Kontrol af saldo: '+dbErrorText(check.error));
-     if(!check.data)throw new Error('Saldo: posten kunne ikke læses efter gemning.');
-     if(Math.abs(Number(check.data.balance)-balance)>.005)throw new Error(`Saldo blev ikke gemt. Databasen har ${Number(check.data.balance).toLocaleString('da-DK')} i stedet for ${balance.toLocaleString('da-DK')}.`);
-     currentDbRound.balance=Number(check.data.balance);
+     if(!upd.data)throw new Error('Saldo: ingen række blev opdateret.');
+     const dbBalance=Number(upd.data.balance);
+     if(Math.abs(dbBalance-balance)>.005){
+       throw new Error(`Saldo blev ikke gemt. Databasen returnerede ${dbBalance.toLocaleString('da-DK')} i stedet for ${balance.toLocaleString('da-DK')}.`);
+     }
+     currentDbRound.balance=dbBalance;
+     const cached=allDbRounds.find(r=>String(r.id)===String(upd.data.id));
+     if(cached)cached.balance=dbBalance;
    }
 
-   if(currentSeasonMember?.id){
-     const upd=await supabaseClient.from('season_members').update({buffer}).eq('id',currentSeasonMember.id);
+   if(currentSeasonMember){
+     const upd=await supabaseClient
+       .from('season_members')
+       .update({buffer:buffer})
+       .eq('season_id',dbSeason.id)
+       .eq('member_id',person.id)
+       .select('id,season_id,member_id,buffer')
+       .maybeSingle();
+
      if(upd.error)throw new Error('Buffer: '+dbErrorText(upd.error));
-     const check=await supabaseClient.from('season_members').select('id,buffer').eq('id',currentSeasonMember.id).maybeSingle();
-     if(check.error)throw new Error('Kontrol af buffer: '+dbErrorText(check.error));
-     if(!check.data)throw new Error('Buffer: posten kunne ikke læses efter gemning.');
-     if(Math.abs(Number(check.data.buffer)-buffer)>.005)throw new Error(`Buffer blev ikke gemt. Databasen har ${Number(check.data.buffer).toLocaleString('da-DK')} i stedet for ${buffer.toLocaleString('da-DK')}.`);
-     currentSeasonMember.buffer=Number(check.data.buffer);
+     if(!upd.data)throw new Error('Buffer: ingen række blev opdateret.');
+     const dbBuffer=Number(upd.data.buffer);
+     if(Math.abs(dbBuffer-buffer)>.005){
+       throw new Error(`Buffer blev ikke gemt. Databasen returnerede ${dbBuffer.toLocaleString('da-DK')} i stedet for ${buffer.toLocaleString('da-DK')}.`);
+     }
+     currentSeasonMember.buffer=dbBuffer;
+     const cached=allSeasonMembers.find(r=>String(r.id)===String(upd.data.id));
+     if(cached)cached.buffer=dbBuffer;
+     bufferBalance=dbBuffer;
    }
 
-   bufferBalance=Number(currentSeasonMember?.buffer||buffer||0);
-   rebuildMemberData();renderClubStats();renderStandings();
-   balanceBufferDirty=false;clearTimeout(dbSaveTimer);
+   balanceBufferDirty=false;
+   clearTimeout(dbSaveTimer);
+   rebuildMemberData();
+   renderClubStats();
+   renderStandings();
+
    if(status)status.textContent='✓ Gemt';
-   if(manual)showToast('✓ Gemt');
+   if(btn){
+     btn.classList.remove('saving');
+     btn.classList.add('saved');
+     btn.textContent='✓ Gemt';
+     setTimeout(()=>{
+       if(btn){
+         btn.classList.remove('saved');
+         btn.textContent='💾 Gem ændringer';
+         btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);
+         btn.style.display='none';
+       }
+     },1200);
+   }
    window.__lastDbError='';
    return true;
  }catch(err){
    console.error('Save balance/buffer failed:',err);
-   const msg=dbErrorText(err);window.__lastDbError=msg;
+   const msg=dbErrorText(err);
+   window.__lastDbError=msg;
    if(status)status.textContent='⚠ Ikke gemt';
+   if(btn){
+     btn.classList.remove('saving','saved');
+     btn.textContent='💾 Gem ændringer';
+     btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);
+     btn.style.display='inline-flex';
+   }
    showToast('Kunne ikke gemme: '+msg);
    return false;
- }finally{
-   if(manual&&btn){btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);btn.classList.remove('saving');btn.textContent='💾 Gem saldo & buffer'}
  }
 }
-function markAutoSave(){balanceBufferDirty=true;const a=document.getElementById('autoSave');if(a)a.textContent='Gemmer…'}
+function markAutoSave(){
+ balanceBufferDirty=true;
+ const a=document.getElementById('autoSave');
+ const btn=document.getElementById('saveStateBtn');
+ if(a)a.textContent='⚠ Ikke gemt';
+ if(btn){
+   btn.classList.remove('saved','saving');
+   btn.textContent='💾 Gem ændringer';
+   btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);
+   btn.style.display='inline-flex';
+ }
+}
 document.getElementById('saveStateBtn')?.addEventListener('click',async()=>{clearTimeout(dbSaveTimer);await saveCurrentDbState(true)});
-document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{if(isSeasonReadOnly())return;round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));applyLocalBalanceBuffer();markAutoSave();queueDbSave()}));
-round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer();if(!balanceBufferDirty)return;clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
-const bufferInput=document.getElementById('bufferInput');bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer();if(!balanceBufferDirty)return;clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
+document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{if(isSeasonReadOnly())return;round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));applyLocalBalanceBuffer();markAutoSave()}));
+round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer()});
+window.addEventListener('error',e=>{
+ const msg=e?.error?.message||e?.message||'Ukendt JavaScript-fejl';
+ console.error('JavaScript error:',e?.error||e);
+ window.__lastRenderError=msg;
+ try{showToast('Visningsfejl: '+msg)}catch(_){}
+});
+window.addEventListener('unhandledrejection',e=>{
+ const msg=e?.reason?.message||String(e?.reason||'Ukendt fejl');
+ console.error('Unhandled promise rejection:',e?.reason);
+ window.__lastRenderError=msg;
+ try{showToast('Fejl: '+msg)}catch(_){}
+});
+
+const bufferInput=document.getElementById('bufferInput');
+if(bufferInput){
+ bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave()});
+ bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer()});
+}
 
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
@@ -1156,7 +1260,16 @@ async function submitLogin(){
 }
 document.getElementById('loginSubmitBtn').addEventListener('click',submitLogin);
 document.getElementById('loginPinInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submitLogin()}});
-document.getElementById('profileBtn').onclick=()=>{if(currentUser<0){overlays.login.classList.add('open');return}refreshProfileUI();overlays.profile.classList.add('open')};document.getElementById('logoutBtn').onclick=()=>{clearRememberedMember();currentUser=-1;overlays.profile.classList.remove('open');renderAll();overlays.login.classList.add('open')};
+document.getElementById('profileBtn').onclick=()=>{if(currentUser<0){overlays.login.classList.add('open');return}refreshProfileUI();overlays.profile.classList.add('open')};document.getElementById('logoutBtn').onclick=()=>{
+ if(!confirmDiscardUnsaved())return;
+ balanceBufferDirty=false;
+ clearTimeout(dbSaveTimer);
+ clearRememberedMember();
+ currentUser=-1;
+ overlays.profile.classList.remove('open');
+ renderAll();
+ overlays.login.classList.add('open');
+};
 document.getElementById('saveProfileBtn').onclick=async()=>{const p=currentPerson();if(!p)return;const nick=document.getElementById('nicknameInput').value.trim();if(!nick)return;const btn=document.getElementById('saveProfileBtn');btn.disabled=true;try{const {error}=await supabaseClient.from('members').update({nickname:nick}).eq('id',p.id);if(error)throw error;p.nick=nick;const dbPerson=people.find(x=>String(x.id)===String(p.id));if(dbPerson)dbPerson.nick=nick;refreshProfileUI();renderStandings();renderRoundWinners();overlays.profile.classList.remove('open');overlays.login.classList.remove('open');showToast('Profilen er opdateret.')}catch(e){console.error(e);showToast('Kunne ikke gemme kaldenavn.')}finally{btn.disabled=false}};
 
 function getAvatarExtension(file){
@@ -1233,7 +1346,24 @@ document.getElementById('adminBtn').onclick=()=>{
  overlays.admin.classList.add('open');
 };document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');['addMemberBtn','transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Admin-funktionen kobles på databasen i et senere trin.')));
 
+function confirmDiscardUnsaved(){
+ if(!balanceBufferDirty)return true;
+ return window.confirm('Du har ændringer i saldo eller buffer, der ikke er gemt. Vil du fortsætte uden at gemme?');
+}
+window.addEventListener('beforeunload',e=>{
+ if(!balanceBufferDirty)return;
+ e.preventDefault();
+ e.returnValue='';
+});
+
 document.getElementById('season')?.addEventListener('change',async e=>{
+ const previous=String(dbSeason?.id||selectedSeasonId||'');
+ if(!confirmDiscardUnsaved()){
+   e.target.value=previous;
+   return;
+ }
+ balanceBufferDirty=false;
+ clearTimeout(dbSaveTimer);
  selectedSeasonId=String(e.target.value||'');
  if(selectedSeasonId)localStorage.setItem('oddset_selected_season_id',selectedSeasonId);
  await loadDatabase({showLoginWhenMissing:false,seasonId:selectedSeasonId});
@@ -1291,7 +1421,16 @@ function setMobileView(view){
   window.scrollTo({top:0,behavior:'auto'});
 }
 document.querySelectorAll('.mobileNav [data-view]').forEach(a=>a.addEventListener('click',e=>{
-  if(window.matchMedia('(max-width:760px)').matches){e.preventDefault();setMobileView(a.dataset.view)}
+  if(window.matchMedia('(max-width:760px)').matches){
+    e.preventDefault();
+    const current=document.querySelector('.mobileNav [data-view].active')?.dataset.view||'overview';
+    if(a.dataset.view!==current && !confirmDiscardUnsaved())return;
+    if(a.dataset.view!==current){
+      balanceBufferDirty=false;
+      clearTimeout(dbSaveTimer);
+    }
+    setMobileView(a.dataset.view);
+  }
 }));
 window.addEventListener('resize',()=>{updateStickyHeight();const active=document.querySelector('.mobileNav [data-view].active');setMobileView(active?active.dataset.view:'overview')});
 updateStickyHeight();
