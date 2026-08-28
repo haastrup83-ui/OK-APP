@@ -1643,23 +1643,12 @@ if(bufferInput){
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
 document.getElementById('bankFromRound').type='text';document.getElementById('bankFromBuffer').type='text';document.getElementById('bankFromRound').oninput=updateBankTotal;document.getElementById('bankFromBuffer').oninput=updateBankTotal;document.querySelector('.cancelBank').onclick=()=>overlays.bank.classList.remove('open');
-document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();showToast(money2(a+b)+' er banket.');showMobilePayHandoff(a+b)}catch(e){console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
+document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}let mpWindow=null;try{mpWindow=window.open('about:blank','_blank')}catch(_){}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();setMobileView('overview');mobilePayReturnPending=true;showToast(money2(a+b)+' er banket.');if(mpWindow&&!mpWindow.closed){mpWindow.location.href=MOBILEPAY_BOX_URL}else{const a=document.createElement('a');a.href=MOBILEPAY_BOX_URL;a.target='_blank';a.rel='noopener noreferrer external';document.body.appendChild(a);a.click();a.remove()}}catch(e){try{if(mpWindow&&!mpWindow.closed)mpWindow.close()}catch(_){}console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
 const MOBILEPAY_BOX_URL='https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in';
+let mobilePayReturnPending=false;
 function showMobilePayHandoff(amount){
  const el=document.getElementById('mobilePayAmount');
- if(el)el.textContent=money2(amount);
- const link=document.getElementById('mobilePayOpenLink');
- const person=currentPerson();
- const memberName=(person?.nickname||person?.full_name||'Medlem').trim();
- const message=`${memberName} - Runde ${activeRound}`;
- const amountOre=Math.round(Number(amount||0)*100);
- if(link){
-   const url=new URL(MOBILEPAY_BOX_URL);
-   url.searchParams.set('amount',String(amountOre));
-   url.searchParams.set('message',message);
-   link.href=url.toString();
- }
- if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
+ if(el)el.textContent=money2(amount);if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
 }
 
 document.getElementById('mobilePayOpenLink')?.addEventListener('click',e=>{
@@ -2027,7 +2016,8 @@ async function refreshFromDatabaseOnReturn(){
  await loadDatabase({showLoginWhenMissing:false});
 }
 window.addEventListener('focus',refreshFromDatabaseOnReturn);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshFromDatabaseOnReturn()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){if(mobilePayReturnPending){mobilePayReturnPending=false;setMobileView('overview')}refreshFromDatabaseOnReturn()}});
+window.addEventListener('pageshow',()=>{if(mobilePayReturnPending){mobilePayReturnPending=false;setMobileView('overview')}});
 
 Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 </script>
