@@ -871,6 +871,24 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   }
 }
 
+
+
+/* v71: slightly more compact Overview KPI charts while preserving visual style */
+@media(max-width:760px){
+  .overviewMode .clubStats{gap:6px!important;margin-bottom:6px!important}
+  .overviewMode .liveStats .stat{padding:6px 8px!important;min-height:62px!important;border-radius:10px!important}
+  .overviewMode .liveStats .v{font-size:17px!important;line-height:1.05!important;margin-top:1px!important}
+  .overviewMode .liveStats .k{font-size:8.5px!important;line-height:1.1!important}
+  .overviewMode .liveTop{font-size:7px!important;margin-bottom:2px!important;line-height:1!important}
+  .overviewMode .liveDot{width:5px!important;height:5px!important}
+  .overviewMode .miniTrend{margin-top:2px!important;font-size:7.5px!important;gap:5px!important;line-height:1!important}
+  .overviewMode .miniTrend svg{width:46px!important;height:11px!important}
+  .overviewMode .miniBars{height:11px!important;margin-top:2px!important;gap:2px!important}
+  .overviewMode .progressTrack{height:4px!important;margin-top:4px!important}
+  .overviewMode .liveStats .s{font-size:8px!important;margin-top:2px!important;line-height:1.05!important}
+  .overviewMode #playSection .roundProgressHelp{margin-top:4px!important;line-height:1.15!important}
+}
+
 </style>
 </head>
 <body>
@@ -901,7 +919,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <div class="balanceGrid"><div class="field"><label for="roundBalance">Saldo i runden</label><div class="bigInput"><input id="roundBalance" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="quick"><button type="button" data-round="-100">−100</button><button type="button" data-round="-50">−50</button><button type="button" data-round="50">+50</button><button type="button" data-round="100">+100</button></div><div class="hint">Nedjustér ved tabte kuponer. Opjustér ved vundne kuponer.</div></div><div class="field"><label for="bufferInput">Min buffer</label><div class="bigInput"><input id="bufferInput" type="text" inputmode="decimal" value="0,00" autocomplete="off"><span>kr.</span></div><div class="hint">Juster bufferen, når du spiller fra buffer eller lægger gevinster tilbage i buffer.</div></div></div>
 <div class="saveStateRow"><button class="btn saveStateBtn" id="saveStateBtn" type="button" style="display:none">💾 Gem ændringer</button><span id="autoSave" class="autosave"></span></div>
 <div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="toast" class="toast"></div>
-<div class="myRoundsTitle">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub roundProgressHelp">Du bestemmer selv tempoet. Når en runde lukkes, starter næste runde automatisk med 200 kr.</div><div class="roundPep" id="roundPep"></div></div>
+<div class="myRoundsTitle">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub roundProgressHelp">Når en runde lukkes, starter næste runde automatisk med 200 kr.</div><div class="roundPep" id="roundPep"></div></div>
 <div class="card" id="standingsSection"><div class="standingsTop"><div><h3>Stilling</h3><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
 <section class="second"><div class="card" id="historyCard"><h3>Tidligere runder</h3><div class="sub">Dine afsluttede og aktive runder</div><div class="tableWrap"><table class="table historyTable"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
 <section class="card" id="roundWinnersCard"><div class="winnersHead"><div><h3>Rundevindere</h3><div class="sub">Førende spiller pr. runde · først afgjort når alle 9 har afsluttet runden</div></div><div class="winnersMiniBadge">7 runder</div></div><div class="winnerRows" id="winnerRows"></div></section>
