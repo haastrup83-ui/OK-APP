@@ -1200,7 +1200,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
     <div class="mobilePayAmount" id="mobilePayAmount">—</div>
     <div class="modalActions">
       <button class="btn" id="mobilePayCloseBtn" type="button">Luk</button>
-      <a class="btn green" id="mobilePayOpenLink" href="https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in">Åbn MobilePay</a>
+      <a class="btn green" id="mobilePayOpenLink" href="https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in" target="_blank" rel="noopener noreferrer external">Åbn MobilePay</a>
     </div>
   </div>
 </div>
@@ -1650,6 +1650,15 @@ function showMobilePayHandoff(amount){
  if(el)el.textContent=money2(amount);
  if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
 }
+
+document.getElementById('mobilePayOpenLink')?.addEventListener('click',e=>{
+  const standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+  if(!standalone)return;
+  // Keep native anchor behaviour as primary path. This fallback asks iOS for a separate browsing context.
+  const href=e.currentTarget.href;
+  const opened=window.open(href,'_blank','noopener,noreferrer');
+  if(opened)e.preventDefault();
+});
 document.getElementById('mobilePayCloseBtn')?.addEventListener('click',()=>{
  overlays.mobilepay?.classList.remove('open');
 });
