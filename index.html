@@ -1648,6 +1648,17 @@ const MOBILEPAY_BOX_URL='https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba
 function showMobilePayHandoff(amount){
  const el=document.getElementById('mobilePayAmount');
  if(el)el.textContent=money2(amount);
+ const link=document.getElementById('mobilePayOpenLink');
+ const person=currentPerson();
+ const memberName=(person?.nickname||person?.full_name||'Medlem').trim();
+ const message=`${memberName} - Runde ${activeRound}`;
+ const amountOre=Math.round(Number(amount||0)*100);
+ if(link){
+   const url=new URL(MOBILEPAY_BOX_URL);
+   url.searchParams.set('amount',String(amountOre));
+   url.searchParams.set('message',message);
+   link.href=url.toString();
+ }
  if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
 }
 
