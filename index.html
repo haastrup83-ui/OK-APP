@@ -889,6 +889,177 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   .overviewMode #playSection .roundProgressHelp{margin-top:4px!important;line-height:1.15!important}
 }
 
+
+/* v72: mobile-friendly admin user overview */
+.adminUserCard{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px 12px;
+  align-items:center;
+  background:#0d1311;
+  border:1px solid #2a3833;
+  border-radius:10px;
+  padding:10px 11px;
+}
+.adminUserMain{display:flex;align-items:center;gap:9px;min-width:0}
+.adminUserNames{min-width:0}
+.adminUserNames b,.adminUserNames span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adminPin{
+  min-width:68px;
+  text-align:center;
+  border:1px solid #496359;
+  background:#111b18;
+  color:#fff;
+  border-radius:8px;
+  padding:7px 9px;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:2px;
+  font-variant-numeric:tabular-nums;
+}
+.adminUserMeta{
+  grid-column:1 / -1;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.adminTag{
+  display:inline-flex;
+  align-items:center;
+  min-height:22px;
+  padding:3px 7px;
+  border-radius:999px;
+  border:1px solid #33443e;
+  color:#b9c6c1;
+  font-size:10px;
+}
+.adminTag.admin{border-color:#957b2a;color:#efd26b;background:rgba(149,123,42,.12)}
+.adminTag.inactive{border-color:#714047;color:#ff9da5;background:rgba(113,64,71,.12)}
+@media(max-width:760px){
+  #adminOverlay{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:calc(var(--sticky-h,105px) + 8px) 8px 8px!important;
+    overflow:hidden!important;
+  }
+  #adminOverlay .modal{
+    width:100%!important;
+    max-width:430px!important;
+    max-height:calc(100dvh - var(--sticky-h,105px) - 16px)!important;
+    overflow-y:auto!important;
+    padding:12px!important;
+    border-radius:12px!important;
+    overscroll-behavior:contain;
+  }
+  #adminOverlay .modal h3{margin-top:10px!important}
+  #adminOverlay .adminGrid{grid-template-columns:1fr 1fr!important;gap:7px!important}
+  #adminOverlay .adminGrid .fieldInput{padding:8px!important;font-size:13px}
+  #adminOverlay .adminList{gap:6px!important;margin-top:8px!important}
+  #adminOverlay .adminUserCard{padding:8px 9px!important;gap:6px 8px!important}
+  #adminOverlay .adminUserCard .avatarSm{width:28px;height:28px;margin-right:0}
+  #adminOverlay .adminUserNames b{font-size:12px}
+  #adminOverlay .adminUserNames .small{font-size:9px}
+  #adminOverlay .adminPin{min-width:62px;padding:6px 7px;font-size:14px}
+  #adminOverlay .adminUserMeta{gap:4px}
+  #adminOverlay .adminTag{font-size:9px;min-height:19px;padding:2px 6px}
+  #adminOverlay .adminActions{gap:5px!important}
+  #adminOverlay .adminActions .btn{font-size:10px;padding:7px 8px}
+  #adminOverlay .modalActions{margin-top:10px!important}
+}
+
+
+/* v73: tabbed admin settings */
+.adminTabs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  margin:12px 0 10px;
+  padding-bottom:2px;
+  scrollbar-width:none;
+}
+.adminTabs::-webkit-scrollbar{display:none}
+.adminTab{
+  flex:0 0 auto;
+  border:1px solid #33443e;
+  background:#111815;
+  color:#b8c5c0;
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.adminTab.active{
+  background:#0d5a39;
+  border-color:#249867;
+  color:#fff;
+}
+.adminPanel{display:none}
+.adminPanel.active{display:block}
+.adminTabPanels{min-height:180px}
+@media(max-width:760px){
+  #adminOverlay .adminModal{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  #adminOverlay .adminTabs{
+    position:sticky;
+    top:-1px;
+    z-index:2;
+    background:#111815;
+    margin:8px -4px 8px!important;
+    padding:4px 4px 7px!important;
+  }
+  #adminOverlay .adminTab{font-size:10px;padding:6px 9px}
+  #adminOverlay .adminTabPanels{min-height:0}
+  #adminOverlay .adminPanel{padding-bottom:4px}
+}
+
+
+/* v75: simple compact user list in Settings */
+.adminSimpleList{display:grid;gap:4px;margin-top:8px}
+.adminSimpleUser{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 64px;
+  gap:8px;
+  align-items:center;
+  min-height:34px;
+  padding:6px 9px;
+  background:#0d1311;
+  border:1px solid #2a3833;
+  border-radius:8px;
+}
+.adminSimpleName{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:12px;
+  font-weight:650;
+}
+.adminSimplePin{
+  text-align:center;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  font-variant-numeric:tabular-nums;
+  color:#f2d778;
+}
+@media(max-width:760px){
+  #adminOverlay .adminSimpleList{gap:3px!important;margin-top:6px!important}
+  #adminOverlay .adminSimpleUser{
+    grid-template-columns:minmax(0,1fr) 56px!important;
+    min-height:30px!important;
+    padding:4px 7px!important;
+    gap:6px!important;
+    border-radius:7px!important;
+  }
+  #adminOverlay .adminSimpleName{font-size:11px!important}
+  #adminOverlay .adminSimplePin{font-size:12px!important}
+}
+
 </style>
 </head>
 <body>
@@ -937,7 +1108,49 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 <div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" id="profileImageLabel" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label><div id="profileImageStatus" class="hint" role="status" style="text-align:center;margin-top:6px;min-height:16px"></div></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value=""><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">—</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
 <div id="loginOverlay" class="overlay"><div class="modal loginModal"><h3>Log ind</h3><div class="sub">Vælg din bruger og indtast PIN. Denne enhed husker dig automatisk efter første login.</div><div class="loginCompact"><label class="small" for="loginUserSelect">Bruger</label><select id="loginUserSelect" class="fieldInput loginSelect"><option value="">Vælg bruger…</option></select><label class="small" for="loginPinInput">PIN</label><input id="loginPinInput" class="fieldInput" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="4-cifret PIN"><div id="loginPinError" class="error"></div><button id="loginSubmitBtn" class="btn green" type="button">Log ind</button></div></div></div>
-<div id="adminOverlay" class="overlay"><div class="modal" style="width:min(760px,96%)"><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div><div class="adminGrid" style="margin-top:14px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div><h3 style="font-size:16px;margin-top:18px">Deltagere og adgang</h3><div id="adminPeople" class="adminList"></div><div class="adminActions" style="margin-top:14px"><button class="btn" id="addMemberBtn" type="button">＋ Tilføj deltager</button><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div><div id="adminMessage" class="toast"></div><div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div></div></div>
+<div id="adminOverlay" class="overlay"><div class="modal adminModal" style="width:min(760px,96%)">
+<h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div>
+<div class="adminTabs" role="tablist">
+  <button class="adminTab active" type="button" data-admin-tab="users">Brugere</button>
+  <button class="adminTab" type="button" data-admin-tab="season">Sæson</button>
+  <button class="adminTab" type="button" data-admin-tab="transactions">Transaktioner</button>
+  <button class="adminTab" type="button" data-admin-tab="corrections">Ret registrering</button>
+  <button class="adminTab" type="button" data-admin-tab="lock">Lås runde</button>
+</div>
+<div class="adminTabPanels">
+  <section class="adminPanel active" data-admin-panel="users">
+    <h3 style="font-size:16px;margin-top:0">Brugere</h3>
+    <div class="sub">Navn og PIN-kode</div>
+    <div id="adminPeople" class="adminList adminSimpleList"></div>
+  </section>
+
+  <section class="adminPanel" data-admin-panel="season">
+    <h3 style="font-size:16px;margin-top:0">Sæson</h3>
+    <div class="adminGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div>
+    <div class="adminActions" style="margin-top:12px"><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div>
+  </section>
+
+  <section class="adminPanel" data-admin-panel="transactions">
+    <h3 style="font-size:16px;margin-top:0">Transaktioner</h3>
+    <div class="sub">Overblik og administration af registrerede transaktioner.</div>
+    <div class="adminActions" style="margin-top:12px"><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button></div>
+  </section>
+
+  <section class="adminPanel" data-admin-panel="corrections">
+    <h3 style="font-size:16px;margin-top:0">Ret registrering</h3>
+    <div class="sub">Ret en tidligere registrering eller bankning.</div>
+    <div class="adminActions" style="margin-top:12px"><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button></div>
+  </section>
+
+  <section class="adminPanel" data-admin-panel="lock">
+    <h3 style="font-size:16px;margin-top:0">Lås runde</h3>
+    <div class="sub">Lås en runde, så der ikke kan foretages flere ændringer.</div>
+    <div class="adminActions" style="margin-top:12px"><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button></div>
+  </section>
+</div>
+<div id="adminMessage" class="toast"></div>
+<div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div>
+</div></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -1442,13 +1655,47 @@ document.getElementById('profileImageInput').addEventListener('change',async e=>
    e.target.value='';
  }
 });
-function renderAdmin(){const p=currentPerson();if(!p?.admin)return;const box=document.getElementById('adminPeople');box.innerHTML=people.map(m=>`<div class="adminPerson"><span class="nameCell"><img class="avatarSm" src="${m.image}" alt=""><span><b>${m.nick}</b><br><span class="small">${m.real}</span></span></span><span class="small">${m.admin?'Admin':'Medlem'}</span></div>`).join('')}
-document.getElementById('adminBtn').onclick=()=>{
+async function renderAdmin(){
+ const p=currentPerson();
+ if(!p?.admin)return;
+ const box=document.getElementById('adminPeople');
+ if(!box)return;
+ box.innerHTML='<div class="small" style="padding:6px 2px">Henter brugere…</div>';
+ try{
+   const res=await supabaseClient
+     .from('members')
+     .select('id,full_name,nickname,pin,is_admin,active')
+     .order('full_name');
+   if(res.error)throw res.error;
+   const users=res.data||[];
+   box.innerHTML=users.length?users.map(m=>{
+     const name=m.full_name||m.nickname||'—';
+     const pin=String(m.pin??'—');
+     return `<div class="adminSimpleUser">
+       <span class="adminSimpleName">${name}</span>
+       <span class="adminSimplePin">${pin}</span>
+     </div>`;
+   }).join(''):'<div class="small">Ingen brugere fundet.</div>';
+ }catch(err){
+   console.error('Kunne ikke hente admin-brugere:',err);
+   box.innerHTML='<div class="small">Kunne ikke hente brugeroversigten.</div>';
+   showToast('Kunne ikke hente brugere: '+dbErrorText(err));
+ }
+}
+function setAdminTab(tabName){
+  const name=tabName||'users';
+  document.querySelectorAll('.adminTab').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));
+  document.querySelectorAll('.adminPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.adminPanel===name));
+}
+document.querySelectorAll('.adminTab').forEach(btn=>btn.addEventListener('click',()=>setAdminTab(btn.dataset.adminTab)));
+
+document.getElementById('adminBtn').onclick=async()=>{
  const p=currentPerson();
  if(!p?.admin){overlays.admin.classList.remove('open');return}
- renderAdmin();
+ setAdminTab('users');
  overlays.admin.classList.add('open');
-};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');['addMemberBtn','transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Admin-funktionen kobles på databasen i et senere trin.')));
+ await renderAdmin();
+};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');['transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Admin-funktionen kobles på databasen i et senere trin.')));
 
 function confirmDiscardUnsaved(){
  if(!balanceBufferDirty)return true;
