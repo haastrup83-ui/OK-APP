@@ -853,6 +853,7 @@ function currentRememberedId(){const p=currentPerson?.();return p?.id||remembere
 let bufferBalance=0, totalBank=0, activeRound=0;
 let currentDbRound=null, currentSeasonMember=null;
 let dbSaveTimer=null, toastTimer=null;
+let balanceBufferDirty=false;
 const rounds=[];
 const round=document.getElementById('roundBalance');
 const toast=document.getElementById('toast');
@@ -971,17 +972,40 @@ function renderPersonal(){
 }
 function renderAll(){rebuildMemberData();renderClubStats();renderStandings();renderRoundWinners();document.getElementById('standingSeason').textContent=dbSeason?'Sæson '+dbSeason.season_number:'—';renderPersonal();refreshProfileUI();updateSeasonReadonlyUi()}
 
+function dbErrorText(err){
+ if(!err)return 'Ukendt databasefejl.';
+ const parts=[err.message,err.details,err.hint,err.code?`kode ${err.code}`:''].filter(Boolean);
+ return [...new Set(parts)].join(' · ');
+}
 async function loadDatabase(options={}){
  const {showLoginWhenMissing=true}=options;
  const stickyId=rememberedMemberId() || (currentUser>=0 && people[currentUser]?.id ? String(people[currentUser].id) : '');
  try{
-  const {data:seasons,error:se}=await supabaseClient.from('seasons').select('*').order('season_number',{ascending:false});if(se)throw se;
-  allSeasons=seasons||[];if(!allSeasons.length)throw new Error('Ingen sæsoner fundet.');
+  const seasonsRes=await supabaseClient.from('seasons').select('*').order('season_number',{ascending:false});
+  if(seasonsRes.error)throw new Error('seasons: '+dbErrorText(seasonsRes.error));
+  allSeasons=seasonsRes.data||[];if(!allSeasons.length)throw new Error('seasons: Ingen sæsoner fundet.');
   const requestedId=String(options.seasonId||selectedSeasonId||'');
   const season=(requestedId&&allSeasons.find(s=>String(s.id)===requestedId))||allSeasons.find(s=>s.active===true)||allSeasons[0];
   dbSeason=season;selectedSeasonId=String(season.id);localStorage.setItem('oddset_selected_season_id',selectedSeasonId);
-  const [{data:ms,error:me},{data:sms,error:sme},{data:rs,error:re},{data:txs,error:te}]=await Promise.all([supabaseClient.from('members').select('id,full_name,nickname,pin,avatar_url,is_admin,active').eq('active',true).order('full_name'),supabaseClient.from('season_members').select('*').eq('season_id',season.id),supabaseClient.from('member_rounds').select('*').eq('season_id',season.id).order('round_number'),supabaseClient.from('transactions').select('id,season_id,member_id,round_number,transaction_type,amount,from_round,from_buffer,created_at').eq('season_id',season.id).order('created_at')]);if(me)throw me;if(sme)throw sme;if(re)throw re;if(te)throw te;
-  people=(ms||[]).map(m=>{const initials=(m.full_name||'?').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();return {id:m.id,real:m.full_name,nick:m.nickname||m.full_name,initials,admin:!!m.is_admin,pin:String(m.pin||''),image:m.avatar_url||avatarSvg(initials)}});allSeasonMembers=sms||[];allDbRounds=rs||[];allTransactions=txs||[];applyTransactionBanked();dbReady=true;
+
+  const msRes=await supabaseClient.from('members').select('id,full_name,nickname,pin,avatar_url,is_admin,active').eq('active',true).order('full_name');
+  if(msRes.error)throw new Error('members: '+dbErrorText(msRes.error));
+  const smRes=await supabaseClient.from('season_members').select('*').eq('season_id',season.id);
+  if(smRes.error)throw new Error('season_members: '+dbErrorText(smRes.error));
+  const rsRes=await supabaseClient.from('member_rounds').select('*').eq('season_id',season.id).order('round_number');
+  if(rsRes.error)throw new Error('member_rounds: '+dbErrorText(rsRes.error));
+
+  let txRes=await supabaseClient.from('transactions').select('id,season_id,member_id,round_number,transaction_type,amount,from_round,from_buffer,created_at').eq('season_id',season.id).order('created_at');
+  if(txRes.error){
+    console.warn('Udvidet transactions-query fejlede. Prøver kompatibel query:',txRes.error);
+    const fallback=await supabaseClient.from('transactions').select('id,season_id,member_id,round_number,transaction_type,amount,created_at').eq('season_id',season.id).order('created_at');
+    if(fallback.error)throw new Error('transactions: '+dbErrorText(fallback.error));
+    txRes={data:(fallback.data||[]).map(t=>({...t,from_round:null,from_buffer:null})),error:null};
+  }
+
+  people=(msRes.data||[]).map(m=>{const initials=(m.full_name||'?').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();return {id:m.id,real:m.full_name,nick:m.nickname||m.full_name,initials,admin:!!m.is_admin,pin:String(m.pin||''),image:m.avatar_url||avatarSvg(initials)}});
+  allSeasonMembers=smRes.data||[];allDbRounds=rsRes.data||[];allTransactions=txRes.data||[];applyTransactionBanked();dbReady=true;
+  clearTimeout(dbSaveTimer);balanceBufferDirty=false;
   renderSeasonSelector();renderLogin();
   const idx=stickyId?people.findIndex(p=>String(p.id)===String(stickyId)):-1;
   if(idx>=0){currentUser=idx;rememberMemberId(people[idx].id);localStorage.setItem('oddset_remember_login','1')}
@@ -989,12 +1013,13 @@ async function loadDatabase(options={}){
   renderAll();
   if(currentUser>=0)overlays.login.classList.remove('open');
   else if(showLoginWhenMissing)overlays.login.classList.add('open');
+  window.__lastDbError='';
   return true;
  }catch(err){
-  console.error(err);dbReady=false;
-  document.getElementById('standingsLoading')?.replaceChildren(document.createTextNode('Kunne ikke hente data fra Supabase.'));
-  showToast('Kunne ikke hente database-data. Prøver igen næste gang siden opdateres.');
-  // A temporary database error must never log a remembered user out.
+  console.error('Database load failed:',err);dbReady=false;
+  const msg=dbErrorText(err);window.__lastDbError=msg;
+  document.getElementById('standingsLoading')?.replaceChildren(document.createTextNode('Databasefejl: '+msg));
+  showToast('Databasefejl: '+msg);
   if(currentUser>=0 || stickyId){overlays.login.classList.remove('open')}
   else if(showLoginWhenMissing)overlays.login.classList.add('open');
   return false;
@@ -1009,48 +1034,59 @@ function applyLocalBalanceBuffer(){
  document.getElementById('sideBalance').textContent=money2(balance);
  rebuildMemberData();renderClubStats();renderStandings();
 }
-function queueDbSave(){if(!dbReady||currentUser<0||isSeasonReadOnly())return;clearTimeout(dbSaveTimer);dbSaveTimer=setTimeout(()=>saveCurrentDbState(false),350)}
+function queueDbSave(){if(!dbReady||currentUser<0||isSeasonReadOnly()||!balanceBufferDirty)return;clearTimeout(dbSaveTimer);dbSaveTimer=setTimeout(()=>saveCurrentDbState(false),350)}
 async function saveCurrentDbState(manual=false){
  if(!dbReady||currentUser<0||isSeasonReadOnly())return false;
+ if(!manual&&!balanceBufferDirty)return true;
  const status=document.getElementById('autoSave'),btn=document.getElementById('saveStateBtn');
  if(manual&&btn){btn.disabled=true;btn.classList.add('saving');btn.textContent='Gemmer…'}
  try{
    const balance=parseDecimalValue(round.value);
    const buffer=parseDecimalValue(document.getElementById('bufferInput').value);
-   const results=[];
+   if(!currentDbRound?.id&&!currentSeasonMember?.id)throw new Error('Der er ingen aktiv runde eller sæsonpost at gemme.');
+
    if(currentDbRound?.id){
-     const r=await supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id).select('id,balance').maybeSingle();
-     if(r.error)throw r.error;
-     if(!r.data)throw new Error('Saldo blev ikke opdateret i Supabase. Kontroller UPDATE/RLS-rettigheder for member_rounds.');
-     if(Math.abs(Number(r.data.balance)-balance)>.005)throw new Error('Supabase returnerede en anden saldo end den gemte værdi.');
-     results.push(r.data);
+     const upd=await supabaseClient.from('member_rounds').update({balance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id);
+     if(upd.error)throw new Error('Saldo: '+dbErrorText(upd.error));
+     const check=await supabaseClient.from('member_rounds').select('id,balance').eq('id',currentDbRound.id).maybeSingle();
+     if(check.error)throw new Error('Kontrol af saldo: '+dbErrorText(check.error));
+     if(!check.data)throw new Error('Saldo: posten kunne ikke læses efter gemning.');
+     if(Math.abs(Number(check.data.balance)-balance)>.005)throw new Error(`Saldo blev ikke gemt. Databasen har ${Number(check.data.balance).toLocaleString('da-DK')} i stedet for ${balance.toLocaleString('da-DK')}.`);
+     currentDbRound.balance=Number(check.data.balance);
    }
+
    if(currentSeasonMember?.id){
-     const r=await supabaseClient.from('season_members').update({buffer}).eq('id',currentSeasonMember.id).select('id,buffer').maybeSingle();
-     if(r.error)throw r.error;
-     if(!r.data)throw new Error('Buffer blev ikke opdateret i Supabase. Kontroller UPDATE/RLS-rettigheder for season_members.');
-     if(Math.abs(Number(r.data.buffer)-buffer)>.005)throw new Error('Supabase returnerede en anden buffer end den gemte værdi.');
-     results.push(r.data);
+     const upd=await supabaseClient.from('season_members').update({buffer}).eq('id',currentSeasonMember.id);
+     if(upd.error)throw new Error('Buffer: '+dbErrorText(upd.error));
+     const check=await supabaseClient.from('season_members').select('id,buffer').eq('id',currentSeasonMember.id).maybeSingle();
+     if(check.error)throw new Error('Kontrol af buffer: '+dbErrorText(check.error));
+     if(!check.data)throw new Error('Buffer: posten kunne ikke læses efter gemning.');
+     if(Math.abs(Number(check.data.buffer)-buffer)>.005)throw new Error(`Buffer blev ikke gemt. Databasen har ${Number(check.data.buffer).toLocaleString('da-DK')} i stedet for ${buffer.toLocaleString('da-DK')}.`);
+     currentSeasonMember.buffer=Number(check.data.buffer);
    }
-   if(!results.length)throw new Error('Der er ingen aktiv runde eller sæsonpost at gemme.');
-   applyLocalBalanceBuffer();
-   if(status)status.textContent=manual?'✓ Gemt':'✓ Gemt automatisk';
-   if(manual)showToast('Saldo og buffer er gemt.');
+
+   bufferBalance=Number(currentSeasonMember?.buffer||buffer||0);
+   rebuildMemberData();renderClubStats();renderStandings();
+   balanceBufferDirty=false;clearTimeout(dbSaveTimer);
+   if(status)status.textContent='✓ Gemt';
+   if(manual)showToast('✓ Gemt');
+   window.__lastDbError='';
    return true;
  }catch(err){
    console.error('Save balance/buffer failed:',err);
-   if(status)status.textContent='⚠ Ikke gemt – brug Gem';
-   showToast('Kunne ikke gemme saldo/buffer. '+(err?.message||''));
+   const msg=dbErrorText(err);window.__lastDbError=msg;
+   if(status)status.textContent='⚠ Ikke gemt';
+   showToast('Kunne ikke gemme: '+msg);
    return false;
  }finally{
    if(manual&&btn){btn.disabled=isSeasonReadOnly()||(!currentDbRound&&!currentSeasonMember);btn.classList.remove('saving');btn.textContent='💾 Gem saldo & buffer'}
  }
 }
-function markAutoSave(){const a=document.getElementById('autoSave');if(a)a.textContent='Gemmer…'}
+function markAutoSave(){balanceBufferDirty=true;const a=document.getElementById('autoSave');if(a)a.textContent='Gemmer…'}
 document.getElementById('saveStateBtn')?.addEventListener('click',async()=>{clearTimeout(dbSaveTimer);await saveCurrentDbState(true)});
 document.querySelectorAll('[data-round]').forEach(b=>b.addEventListener('click',()=>{if(isSeasonReadOnly())return;round.value=formatDecimalInput(parseDecimalValue(round.value)+Number(b.dataset.round));applyLocalBalanceBuffer();markAutoSave();queueDbSave()}));
-round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer();clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
-const bufferInput=document.getElementById('bufferInput');bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer();clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
+round.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});round.addEventListener('blur',()=>{round.value=formatDecimalInput(round.value);applyLocalBalanceBuffer();if(!balanceBufferDirty)return;clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
+const bufferInput=document.getElementById('bufferInput');bufferInput.addEventListener('input',()=>{applyLocalBalanceBuffer();markAutoSave();queueDbSave()});bufferInput.addEventListener('blur',()=>{bufferInput.value=formatDecimalInput(bufferInput.value);applyLocalBalanceBuffer();if(!balanceBufferDirty)return;clearTimeout(dbSaveTimer);saveCurrentDbState(false)});
 
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
@@ -1265,6 +1301,9 @@ let lastAutoRefresh=Date.now();
 async function refreshFromDatabaseOnReturn(){
  if(document.visibilityState==='hidden')return;
  const now=Date.now(); if(now-lastAutoRefresh<1500)return; lastAutoRefresh=now;
+ // Do not let an old pending autosave overwrite newer values from the database.
+ if(balanceBufferDirty)return;
+ clearTimeout(dbSaveTimer);
  await loadDatabase({showLoginWhenMissing:false});
 }
 window.addEventListener('focus',refreshFromDatabaseOnReturn);
