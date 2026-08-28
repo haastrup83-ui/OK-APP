@@ -403,6 +403,20 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 .loginPinPanel{margin-top:12px;padding:12px;background:#0c1411;border:1px solid #30443c;border-radius:10px}
 #loginPinInput{margin-top:5px;font-size:18px;letter-spacing:5px;text-align:center}
 @media(max-width:760px){.loginModal{max-height:90dvh;overflow:auto}.loginUser{min-height:52px}.loginPinPanel{position:sticky;bottom:0;background:#0c1411}}
+
+/* v50 compact dropdown login */
+.loginModal{width:min(420px,94%)!important;max-width:420px!important;overflow:visible!important}
+.loginCompact{display:grid;gap:8px;margin-top:14px}
+.loginCompact .small{margin-top:2px}
+.loginSelect{appearance:auto;min-height:44px;background:#0b1310;color:#fff;border:1px solid #365047}
+#loginPinInput{margin-top:0!important;font-size:18px;letter-spacing:5px;text-align:center;min-height:44px}
+#loginSubmitBtn{width:100%;min-height:44px;margin-top:4px}
+#loginPinError:empty{display:none}
+@media(max-width:760px){
+ #loginOverlay{padding:12px!important;align-items:center!important}
+ .loginModal{max-height:none!important;overflow:visible!important;padding:16px!important}
+ .loginCompact{gap:7px;margin-top:12px}
+}
 </style>
 
 <style>
@@ -763,7 +777,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <div id="closeOverlay" class="overlay"><div class="modal"><h3>Luk runde?</h3><div class="sub">Hele restsaldoen skal fordeles, før runden kan lukkes.</div><div class="confirmValue"><div class="summaryLine"><span>Resterende saldo</span><strong id="closeBalance">0 kr.</strong></div><label class="small" for="closeBank" style="display:block;margin-top:12px">Bank ved lukning</label><div class="bigInput"><input id="closeBank" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><label class="small" for="closeBuffer" style="display:block;margin-top:10px">Flyt til buffer</label><div class="bigInput"><input id="closeBuffer" type="number" min="0" step="0.01" inputmode="decimal" value="0"><span>kr.</span></div><div class="summaryLine" style="margin-top:8px"><span>Fordelt</span><strong id="closeDistributed">0 kr.</strong></div><div id="closeError" class="error"></div></div><label class="checkline"><input id="closeConfirm" type="checkbox"><span>Jeg bekræfter, at fordelingen er korrekt, og at runden skal lukkes.</span></label><div class="modalActions"><button class="btn cancelClose">Annuller</button><button class="btn green confirmClose">Bekræft og luk runde</button></div></div></div>
 
 <div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value=""><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">—</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
-<div id="loginOverlay" class="overlay"><div class="modal loginModal"><h3>Log ind</h3><div class="sub">Vælg din bruger. Første gang indtaster du PIN – derefter husker denne enhed dig automatisk.</div><div id="loginUsers" class="loginUsers"></div><div id="loginPinPanel" class="loginPinPanel" style="display:none"><div class="small">Valgt bruger</div><b id="loginSelectedName">—</b><label class="small" for="loginPinInput" style="display:block;margin-top:10px">PIN</label><input id="loginPinInput" class="fieldInput" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="4-cifret PIN"><div id="loginPinError" class="error"></div><button id="loginSubmitBtn" class="btn green" type="button" style="width:100%;margin-top:10px">Log ind</button></div></div></div>
+<div id="loginOverlay" class="overlay"><div class="modal loginModal"><h3>Log ind</h3><div class="sub">Vælg din bruger og indtast PIN. Denne enhed husker dig automatisk efter første login.</div><div class="loginCompact"><label class="small" for="loginUserSelect">Bruger</label><select id="loginUserSelect" class="fieldInput loginSelect"><option value="">Vælg bruger…</option></select><label class="small" for="loginPinInput">PIN</label><input id="loginPinInput" class="fieldInput" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="4-cifret PIN"><div id="loginPinError" class="error"></div><button id="loginSubmitBtn" class="btn green" type="button">Log ind</button></div></div></div>
 <div id="adminOverlay" class="overlay"><div class="modal" style="width:min(760px,96%)"><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div><div class="adminGrid" style="margin-top:14px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div><h3 style="font-size:16px;margin-top:18px">Deltagere og adgang</h3><div id="adminPeople" class="adminList"></div><div class="adminActions" style="margin-top:14px"><button class="btn" id="addMemberBtn" type="button">＋ Tilføj deltager</button><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div><div id="adminMessage" class="toast"></div><div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div></div></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -898,26 +912,24 @@ function refreshProfileUI(){
 }
 let selectedLoginIndex=-1;
 function renderLogin(){
- const box=document.getElementById('loginUsers');
- box.innerHTML=people.map((p,i)=>`<button type="button" class="loginUser" data-login="${i}" onclick="window.selectLoginUser(${i})"><img class="avatarSm" src="${p.image}" alt=""><span><b>${p.nick}</b><br><span class="small">${p.real}${p.admin?' · Administrator':''}</span></span></button>`).join('');
+ const sel=document.getElementById('loginUserSelect');
+ if(!sel)return;
+ sel.innerHTML='<option value="">Vælg bruger…</option>'+people.map((p,i)=>`<option value="${i}">${p.nick||p.real}${p.admin?' · Admin':''}</option>`).join('');
  selectedLoginIndex=-1;
- const panel=document.getElementById('loginPinPanel'); if(panel)panel.style.display='none';
+ const pin=document.getElementById('loginPinInput'); if(pin)pin.value='';
+ const err=document.getElementById('loginPinError'); if(err)err.textContent='';
 }
-window.selectLoginUser=function(i){
- const p=people[i]; if(!p)return;
- selectedLoginIndex=i;
- document.querySelectorAll('#loginUsers .loginUser').forEach((b,idx)=>b.classList.toggle('selected',idx===i));
- document.getElementById('loginSelectedName').textContent=p.nick||p.real;
+document.getElementById('loginUserSelect').addEventListener('change',e=>{
+ selectedLoginIndex=e.target.value===''?-1:Number(e.target.value);
  const pin=document.getElementById('loginPinInput');
- pin.value='';
- document.getElementById('loginPinError').textContent='';
- document.getElementById('loginPinPanel').style.display='block';
- setTimeout(()=>pin.focus(),0);
-};
+ if(pin){pin.value=''; if(selectedLoginIndex>=0)setTimeout(()=>pin.focus(),0)}
+ const err=document.getElementById('loginPinError'); if(err)err.textContent='';
+});
 async function submitLogin(){
- const p=people[selectedLoginIndex]; if(!p)return;
- const entered=document.getElementById('loginPinInput').value.trim();
  const err=document.getElementById('loginPinError');
+ if(selectedLoginIndex<0){err.textContent='Vælg først en bruger.';return}
+ const p=people[selectedLoginIndex]; if(!p){err.textContent='Brugeren kunne ikke findes.';return}
+ const entered=document.getElementById('loginPinInput').value.trim();
  if(String(entered)!==String(p.pin)){err.textContent='Forkert PIN.';return}
  currentUser=selectedLoginIndex;
  localStorage.setItem('oddset_member_id',p.id);
