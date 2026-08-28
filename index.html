@@ -1151,6 +1151,9 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   }
 }
 
+
+#mobilePayOpenLink{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+
 </style>
 </head>
 <body>
@@ -1197,7 +1200,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
     <div class="mobilePayAmount" id="mobilePayAmount">—</div>
     <div class="modalActions">
       <button class="btn" id="mobilePayCloseBtn" type="button">Luk</button>
-      <button class="btn green" id="mobilePayOpenBtn" type="button">Åbn MobilePay</button>
+      <a class="btn green" id="mobilePayOpenLink" href="https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in">Åbn MobilePay</a>
     </div>
   </div>
 </div>
@@ -1647,9 +1650,6 @@ function showMobilePayHandoff(amount){
  if(el)el.textContent=money2(amount);
  if(overlays.mobilepay)overlays.mobilepay.classList.add('open');
 }
-document.getElementById('mobilePayOpenBtn')?.addEventListener('click',()=>{
- window.location.href=MOBILEPAY_BOX_URL;
-});
 document.getElementById('mobilePayCloseBtn')?.addEventListener('click',()=>{
  overlays.mobilepay?.classList.remove('open');
 });
