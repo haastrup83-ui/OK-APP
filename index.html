@@ -1746,6 +1746,91 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 }
 
 </style>
+
+<style>
+
+/* v93 Statistik / dynamisk break-even */
+.statsCard{margin-top:14px;padding:16px;overflow:hidden}
+.statsHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.statsHead h3{font-size:22px}
+.statsBadge{border:1px solid rgba(228,184,75,.45);background:rgba(228,184,75,.08);color:#f1c95d;padding:6px 10px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.4px;white-space:nowrap}
+.statsLegend{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:13px 0 8px;color:#c6d0cc;font-size:11px}
+.statsLegend span{display:flex;align-items:center;gap:7px}.legendLine{display:inline-block;width:30px;height:3px;border-radius:3px}.legendLine.actual{background:#4d91ff}.legendLine.target{background:#e3a226}.legendLine.forecast{height:0;border-top:3px dashed #62d97c}
+.statsChartWrap{background:linear-gradient(180deg,rgba(7,22,28,.98),rgba(6,18,22,.92));border:1px solid #345546;border-radius:11px;padding:8px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}.breakEvenSvg{display:block;width:100%;height:auto;min-height:280px}.statsGrid{stroke:#305046;stroke-width:1.2;stroke-dasharray:4 5}.statsAxis{stroke:#6b7e78;stroke-width:1.3}.statsAxisText{fill:#b9c7c2;font-size:12px;font-weight:600}.statsAxisLabel{fill:#eef3f1;font-size:12px;font-weight:700}.statsActualArea{fill:url(#statsActualFill)}.statsForecastArea{fill:url(#statsForecastFill)}.statsActualLine{fill:none;stroke:#57a0ff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(87,160,255,.45))}.statsTargetLine{stroke:#f3b13a;stroke-width:4;fill:none;filter:drop-shadow(0 0 4px rgba(243,177,58,.18))}.statsForecastLine{stroke:#71eb8d;stroke-width:4;stroke-dasharray:10 8;fill:none;filter:drop-shadow(0 0 4px rgba(113,235,141,.2))}.statsPointActual{fill:#57a0ff;stroke:#fff;stroke-width:2.5}.statsPointTarget{fill:#f3b13a;stroke:#fff;stroke-width:2}.statsPointForecast{fill:#71eb8d;stroke:#fff;stroke-width:2}.statsNowLine{stroke:#f0f5f3;stroke-width:2;stroke-dasharray:7 6;opacity:.95}.statsNowText{fill:#fff;font-size:12px;font-weight:900}.statsNowDot{fill:#57a0ff;stroke:#fff;stroke-width:3}.statsCallout rect{fill:#10212a;stroke:#69837c;stroke-width:1.2}.statsCallout text{fill:#d8e0dd;font-size:11px}.statsCallout .value{fill:#6eb0ff;font-size:17px;font-weight:900}.statsEndLabel{font-size:11px;font-weight:900}.statsEndLabel.forecast{fill:#7aef96}.statsEndLabel.target{fill:#ffc454}
+.statsKpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:12px;border:1px solid #2a3d36;border-radius:10px;background:#0d1714;overflow:hidden}.statsKpi{padding:11px;border-right:1px solid #293a34;min-width:0}.statsKpi:last-child{border-right:0}.statsKpi span,.statsKpi small{display:block;color:#95a49f;font-size:9px}.statsKpi b{display:block;margin-top:4px;font-size:18px;white-space:nowrap}.statsKpi small{margin-top:3px}.statsKpi b.positive,.statsDiff.positive{color:#65d47c}.statsKpi b.negative,.statsDiff.negative{color:#ff625f}
+.statsTableWrap{margin-top:12px;border:1px solid #293b35;border-radius:10px;overflow:hidden}.statsTableHeader,.statsPlayerRow{display:grid;grid-template-columns:34px minmax(120px,1.2fr) 62px 78px 70px 82px 80px 118px;gap:7px;align-items:center;padding:8px 9px;font-size:10.5px}.statsTableHeader{color:#94a29d;background:#0b1512;border-bottom:1px solid #2b3b35}.statsPlayerRow{background:#0d1714;border-bottom:1px solid #22322c}.statsPlayerRow:last-child{border-bottom:0}.statsRank{display:grid;place-items:center;width:27px;height:27px;border:1px solid #b88720;border-radius:50%;color:#f0c95d;font-weight:800}.statsPlayer{display:flex;align-items:center;gap:7px;min-width:0}.statsPlayer img{width:27px;height:27px;border-radius:50%;object-fit:cover;border:1px solid #53645e}.statsPlayer b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statsDiff{font-weight:800;white-space:nowrap}.statsProgress{display:grid;grid-template-columns:minmax(52px,1fr) 36px;gap:7px;align-items:center}.statsProgress i{height:8px;background:#24312d;border-radius:999px;overflow:hidden}.statsProgress em{display:block;height:100%;border-radius:999px}.statsProgress em.good{background:#61cf73}.statsProgress em.near{background:#e4a62e}.statsProgress em.bad{background:#e84d4c}.statsProgress b{text-align:right;font-size:10px}.statsNote{display:flex;gap:9px;align-items:flex-start;margin-top:10px;padding:9px 10px;border:1px solid #284139;border-radius:9px;background:rgba(9,25,20,.62);color:#9eada7;font-size:10px;line-height:1.35}.statsNote>span{color:#e2aa35;font-size:16px}.statsNote b{color:#dbe4e0}
+@media(max-width:760px){
+ .statsCard{padding:9px;margin-top:0}.statsHead h3{font-size:17px}.statsBadge{font-size:8.5px;padding:5px 7px}.statsLegend{margin:8px 0 6px;gap:10px;font-size:8.5px}.legendLine{width:22px}.statsChartWrap{padding:4px}.breakEvenSvg{min-height:210px}.statsKpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:7px}.statsKpi{padding:7px 5px}.statsKpi b{font-size:12px}.statsKpi span,.statsKpi small{font-size:7px}.statsTableWrap{overflow-x:auto}.statsTableHeader,.statsPlayerRow{min-width:690px;padding:6px 7px;font-size:9px}.statsPlayerRow{min-height:38px}.statsRank{width:23px;height:23px}.statsPlayer img{width:23px;height:23px}.statsNote{margin-top:7px;padding:7px;font-size:8.5px}.statsAxisText,.statsAxisLabel{font-size:10px}.statsEndLabel{font-size:9px}.statsCallout text{font-size:9px}.statsCallout .value{font-size:14px}
+}
+@media(max-width:390px) and (max-height:720px) and (orientation:portrait){
+ .statsCard{padding:6px}.statsLegend{margin:5px 0}.breakEvenSvg{min-height:185px}.statsKpis{margin-top:5px}.statsKpi{padding:5px 3px}.statsKpi b{font-size:10.5px}.statsKpi span,.statsKpi small{font-size:6.3px}.statsNote{font-size:7.5px}.statsTableHeader,.statsPlayerRow{padding-top:4px;padding-bottom:4px}
+}
+
+
+.statsTabs{display:flex;gap:8px;margin:12px 0 8px;flex-wrap:wrap}
+.statsTabBtn{flex:1 1 180px;border:1px solid #2e5a48;background:#10261e;color:#dce8e3;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13px;cursor:pointer}
+.statsTabBtn.active{background:#1d5c43;border-color:#57ae82;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.statsPane{display:none}
+.statsPane.active{display:block}
+.statsPaneHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:2px}
+.statsPaneHead .sub{margin-top:3px}
+.statsMiniBadge{border:1px solid rgba(86,174,130,.4);background:rgba(18,166,101,.08);color:#8de0b4;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
+.statsTableCompactNote{display:none}
+@media(max-width:760px){
+  #formCurveCard.mobileViewScreen{min-height:calc(100dvh - var(--sticky-h,220px) - 8px)!important;display:flex;flex-direction:column;overflow:hidden}
+  #formCurveCard.mobileViewScreen .statsHead{gap:8px}
+  #formCurveCard.mobileViewScreen .statsHead h3{font-size:16px}
+  #formCurveCard.mobileViewScreen .sub{font-size:10px;line-height:1.22}
+  #formCurveCard.mobileViewScreen .statsBadge{font-size:8px;padding:4px 7px}
+  #formCurveCard.mobileViewScreen .statsTabs{margin:7px 0 6px;gap:6px}
+  #formCurveCard.mobileViewScreen .statsTabBtn{padding:8px 8px;font-size:11px;border-radius:9px}
+  #formCurveCard.mobileViewScreen .statsPane.active{display:flex;flex-direction:column;flex:1;min-height:0}
+  #formCurveCard.mobileViewScreen .statsPaneHead{margin-bottom:5px}
+  #formCurveCard.mobileViewScreen .statsLegend{margin:6px 0 5px;gap:9px;font-size:8px}
+  #formCurveCard.mobileViewScreen .statsChartWrap{padding:4px}
+  #formCurveCard.mobileViewScreen .breakEvenSvg{min-height:175px}
+  #formCurveCard.mobileViewScreen .statsKpis{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px}
+  #formCurveCard.mobileViewScreen .statsKpi{padding:6px 4px}
+  #formCurveCard.mobileViewScreen .statsKpi b{font-size:11px}
+  #formCurveCard.mobileViewScreen .statsKpi span,#formCurveCard.mobileViewScreen .statsKpi small{font-size:6.6px;line-height:1.15}
+  #formCurveCard.mobileViewScreen .statsKpi:nth-child(4),#formCurveCard.mobileViewScreen .statsKpi:nth-child(5){grid-column:span 1}
+  #formCurveCard.mobileViewScreen .statsNote{margin-top:6px;padding:6px 8px;font-size:7.8px;line-height:1.25}
+  #formCurveCard.mobileViewScreen .statsNote>span{font-size:13px}
+  #formCurveCard.mobileViewScreen .statsTableWrap{margin-top:6px;flex:1;display:flex;flex-direction:column;overflow:hidden}
+  #formCurveCard.mobileViewScreen .statsTableHeader,#formCurveCard.mobileViewScreen .statsPlayerRow{min-width:0;grid-template-columns:22px minmax(82px,1fr) 42px 64px 64px 64px;gap:4px;padding:5px 4px;font-size:8.5px}
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(5),#formCurveCard.mobileViewScreen .statsPlayerRow span:nth-child(5),
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(8),#formCurveCard.mobileViewScreen .statsPlayerRow span:nth-child(8){display:none}
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(6)::before{content:'BE';display:inline}
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(6){font-size:0}
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(7)::before{content:'Diff';display:inline}
+  #formCurveCard.mobileViewScreen .statsTableHeader span:nth-child(7){font-size:0}
+  #formCurveCard.mobileViewScreen .statsPlayerRow{min-height:28px}
+  #formCurveCard.mobileViewScreen .statsRank{width:20px;height:20px;font-size:8px}
+  #formCurveCard.mobileViewScreen .statsPlayer{gap:5px}
+  #formCurveCard.mobileViewScreen .statsPlayer img{width:18px;height:18px}
+  #formCurveCard.mobileViewScreen .statsPlayer b{font-size:8.8px}
+  #formCurveCard.mobileViewScreen .statsDiff{font-size:8.6px}
+  #formCurveCard.mobileViewScreen .statsTableCompactNote{display:block;margin-top:5px;color:#90a19b;font-size:7.5px;line-height:1.25}
+}
+@media(max-width:390px) and (max-height:740px){
+  #formCurveCard.mobileViewScreen{padding:7px}
+  #formCurveCard.mobileViewScreen .statsHead h3{font-size:15px}
+  #formCurveCard.mobileViewScreen .statsTabBtn{padding:7px 6px;font-size:10.5px}
+  #formCurveCard.mobileViewScreen .breakEvenSvg{min-height:160px}
+  #formCurveCard.mobileViewScreen .statsKpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  #formCurveCard.mobileViewScreen .statsKpi{padding:5px 3px}
+  #formCurveCard.mobileViewScreen .statsKpi b{font-size:10px}
+  #formCurveCard.mobileViewScreen .statsKpi span,#formCurveCard.mobileViewScreen .statsKpi small{font-size:6px}
+  #formCurveCard.mobileViewScreen .statsNote{font-size:7px;padding:5px 6px}
+  #formCurveCard.mobileViewScreen .statsTableHeader,#formCurveCard.mobileViewScreen .statsPlayerRow{grid-template-columns:20px minmax(74px,1fr) 39px 58px 58px 58px;gap:3px;padding:4px 3px;font-size:8px}
+  #formCurveCard.mobileViewScreen .statsPlayerRow{min-height:26px}
+  #formCurveCard.mobileViewScreen .statsRank{width:18px;height:18px;font-size:7.5px}
+  #formCurveCard.mobileViewScreen .statsPlayer img{width:16px;height:16px}
+  #formCurveCard.mobileViewScreen .statsPlayer b{font-size:8.2px}
+  #formCurveCard.mobileViewScreen .statsDiff{font-size:8px}
+}
+
+</style>
 </head>
 <body>
 <div class="app overviewMode" id="oddsetApp">
@@ -1756,7 +1841,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   <a href="#standingsSection" data-view="standings">Stilling</a>
   <a href="#roundWinnersCard" data-view="winners">Rundevindere</a>
   <a href="#historyCard" data-view="history">Historik</a>
-  <a href="#formCurveCard" data-view="form">Formkurve</a>
+  <a href="#formCurveCard" data-view="form">Statistik</a>
 </nav>
 </div>
 
@@ -1779,7 +1864,53 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <div class="card" id="standingsSection"><div class="standingsTop"><div><h3>Stilling</h3><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
 <section class="second"><div class="card" id="historyCard"><h3>Tidligere runder</h3><div class="sub">Dine afsluttede og aktive runder</div><div class="tableWrap"><table class="table historyTable"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
 <section class="card" id="roundWinnersCard"><div class="winnersHead"><div><h3>Rundevindere</h3><div class="sub">Førende spiller pr. runde · først afgjort når alle 9 har afsluttet runden</div></div><div class="winnersMiniBadge">7 runder</div></div><div class="winnerRows" id="winnerRows"></div></section>
-<section class="card formCard" id="formCurveCard"><div class="formHeader"><div><h3>Min formkurve</h3><div class="sub">Banket beløb pr. runde · opdateres automatisk, når du banker</div></div><div class="formSummary"><div class="mini"><span>Bedste runde</span><b id="bestRound">—</b></div><div class="mini"><span>Gns. pr. startet runde</span><b id="avgBank">0 kr.</b></div><div class="mini"><span>Seneste udvikling</span><b id="formTrend" class="trendFlat">—</b></div></div></div><div class="chartWrap"><svg id="formChart" class="formSvg" viewBox="0 0 900 280" role="img" aria-label="Formkurve over banket beløb pr. runde"></svg></div><div class="chartLegend">Kurven viser det samlede bankede beløb i hver enkelt runde. Ikke-startede runder vises som 0 kr.</div></section>
+<section class="card statsCard" id="formCurveCard">
+  <div class="statsHead">
+    <div><h3>Statistik</h3><div class="sub">Dynamisk break-even · opdelt i kluboversigt og individuelle resultater</div></div>
+    <span class="statsBadge">200 kr. pr. lukket runde</span>
+  </div>
+
+  <div class="statsTabs" role="tablist" aria-label="Statistik visninger">
+    <button class="statsTabBtn active" id="statsClubTab" type="button" data-stats-tab="club" role="tab" aria-selected="true">Klubben samlet</button>
+    <button class="statsTabBtn" id="statsIndividualTab" type="button" data-stats-tab="individual" role="tab" aria-selected="false">Individuel</button>
+  </div>
+
+  <div class="statsPane active" id="statsClubPane" data-stats-pane="club" role="tabpanel" aria-labelledby="statsClubTab">
+    <div class="statsLegend" aria-label="Forklaring til diagram">
+      <span><i class="legendLine actual"></i>Banket (faktisk)</span>
+      <span><i class="legendLine target"></i>Break-even mål</span>
+      <span><i class="legendLine forecast"></i>Forecast</span>
+    </div>
+
+    <div class="statsChartWrap">
+      <svg id="breakEvenChart" class="breakEvenSvg" viewBox="0 0 900 420" role="img" aria-label="Kumulativ udvikling i banket beløb, break-even og forecast"></svg>
+    </div>
+
+    <div class="statsKpis">
+      <div class="statsKpi"><span>Spillere</span><b id="statPlayers">—</b></div>
+      <div class="statsKpi"><span>Lukkede runder</span><b id="statClosedRounds">—</b><small id="statClosedTotal">—</small></div>
+      <div class="statsKpi"><span>Banket nu</span><b id="statBankedNow">—</b><small id="statAvgRound">—</small></div>
+      <div class="statsKpi"><span>Break-even nu</span><b id="statBreakEvenNow">—</b><small>200 kr. × lukkede runder</small></div>
+      <div class="statsKpi"><span>Afvigelse</span><b id="statDeviation">—</b><small id="statDeviationLabel">—</small></div>
+    </div>
+
+    <div class="statsNote"><span>ⓘ</span><div><b>Sådan beregnes det:</b> Break-even følger antal lukkede runder. Den blå linje stopper ved nu. Den grønne forecast-linje fortsætter ud fra klubbens nuværende gennemsnit pr. lukket runde.</div></div>
+  </div>
+
+  <div class="statsPane" id="statsIndividualPane" data-stats-pane="individual" role="tabpanel" aria-labelledby="statsIndividualTab">
+    <div class="statsPaneHead">
+      <div><h4 style="margin:0">Individuel status</h4><div class="sub">Netto nu = banket beløb minus 200 kr. for hver aktiv runde</div></div>
+      <span class="statsMiniBadge">Alle 9 spillere</span>
+    </div>
+    <div class="statsTableWrap">
+      <div class="statsTableHeader">
+        <span>#</span><span>Spiller</span><span>Lukkede</span><span>Netto nu</span><span>Aktive</span><span>Break-even</span><span>Afvigelse</span><span>Status</span>
+      </div>
+      <div id="statsPlayerRows" class="statsPlayerRows"></div>
+    </div>
+    <div class="statsTableCompactNote">På små telefoner vises en kompakt version. Netto nu fratrækker 200 kr. for hver aktiv runde.</div>
+  </div>
+</section>
 </main></div>
 
 
@@ -2017,7 +2148,128 @@ function renderRoundWinners(){
 }
 function renderRounds(){const s=document.getElementById('roundStrip');if(!s)return;s.innerHTML='';rounds.forEach(r=>{const item=document.createElement('div');item.className='roundItem';const dot=document.createElement('div');dot.className='r'+(r.status==='Lukket'?' done':r.status==='Aktiv'?' active':'');dot.textContent=r.n;const amt=document.createElement('div');amt.className='roundBankMini';amt.textContent=r.status==='–'?'—':money(r.bank);item.append(dot,amt);s.appendChild(item)});updateRoundPep()}
 function renderHistory(){const b=document.getElementById('historyBody');if(!b)return;const visible=rounds.filter(r=>r.status!=='–');b.innerHTML=visible.length?visible.map(r=>`<tr><td>Runde ${r.n}</td><td class="${r.status==='Lukket'?'statusDone':r.status==='Aktiv'?'statusActive':''}">${r.status}</td><td>${money2(r.start)}</td><td>${money(r.bank)}</td></tr>`).join(''):'<tr><td colspan="4" class="small">Ingen startede runder endnu.</td></tr>'}
-function renderFormCurve(){const svg=document.getElementById('formChart');if(!svg)return;const vals=rounds.map(r=>r.status==='–'?0:Math.max(0,Number(r.bank)||0));const started=rounds.filter(r=>r.status!=='–');const maxVal=Math.max(200,...vals);const yMax=Math.max(250,Math.ceil(maxVal/250)*250);const W=900,H=280,L=62,R=24,T=28,B=42,plotW=W-L-R,plotH=H-T-B;const x=i=>L+(plotW/6)*i,y=v=>T+plotH-(v/yMax)*plotH;let html='';for(let g=0;g<=4;g++){const val=Math.round((yMax/4)*g),yy=y(val);html+=`<line class="gridLine" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"></line><text class="chartLabel" x="${L-10}" y="${yy+4}" text-anchor="end">${val.toLocaleString('da-DK')}</text>`}html+=`<line class="axisLine" x1="${L}" y1="${T}" x2="${L}" y2="${H-B}"></line><line class="axisLine" x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}"></line>`;vals.forEach((v,i)=>html+=`<text class="chartLabel" x="${x(i)}" y="${H-14}" text-anchor="middle">R${i+1}</text>`);const pts=vals.map((v,i)=>`${x(i)},${y(v)}`).join(' '),area=`${x(0)},${H-B} ${pts} ${x(6)},${H-B}`;html+=`<polygon class="formArea" points="${area}"></polygon><polyline class="formLine" points="${pts}"></polyline>`;vals.forEach((v,i)=>html+=`<circle class="formPoint" cx="${x(i)}" cy="${y(v)}" r="6"></circle><text class="chartValue" x="${x(i)}" y="${Math.max(16,y(v)-12)}" text-anchor="middle">${v.toLocaleString('da-DK')}</text>`);svg.innerHTML=html;const best=Math.max(...vals),bestIndex=vals.indexOf(best);document.getElementById('bestRound').textContent=best>0?`Runde ${bestIndex+1} · ${money(best)}`:'—';const avg=started.length?started.reduce((a,r)=>a+Number(r.bank||0),0)/started.length:0;document.getElementById('avgBank').textContent=money(avg);const sv=started.map(r=>Number(r.bank)||0),trend=document.getElementById('formTrend');if(sv.length<2){trend.textContent='—';trend.className='trendFlat'}else{const d=sv.at(-1)-sv.at(-2);trend.textContent=(d>0?'↗ +':d<0?'↘ ':'→ ')+money(Math.abs(d));trend.className=d>0?'trendUp':d<0?'trendDown':'trendFlat'}}
+let currentStatsTab='club';
+function setStatsTab(tab){
+  currentStatsTab = tab==='individual' ? 'individual' : 'club';
+  document.querySelectorAll('[data-stats-tab]').forEach(btn=>{
+    const active = btn.dataset.statsTab===currentStatsTab;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  document.querySelectorAll('[data-stats-pane]').forEach(pane=>pane.classList.toggle('active', pane.dataset.statsPane===currentStatsTab));
+}
+document.querySelectorAll('[data-stats-tab]').forEach(btn=>btn.addEventListener('click',()=>setStatsTab(btn.dataset.statsTab)));
+
+function renderFormCurve(){
+ const svg=document.getElementById('breakEvenChart');
+ const rowsHost=document.getElementById('statsPlayerRows');
+ if(!svg||!rowsHost)return;
+ const roundCount=Number(dbSeason?.round_count||7);
+ const totalRounds=Math.max(1,people.length*roundCount);
+ const closedRounds=allDbRounds.filter(r=>r.status==='closed');
+ const closedCount=closedRounds.length;
+ const totalBanked=allDbRounds.reduce((s,r)=>s+Number(r.banked||0),0);
+ const breakEvenNow=closedCount*200;
+ const fullBreakEven=totalRounds*200;
+ const avgPerClosed=closedCount>0?totalBanked/closedCount:0;
+ const forecastEnd=avgPerClosed*totalRounds;
+ const deviation=totalBanked-breakEvenNow;
+
+ const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+ setText('statPlayers',String(people.length));
+ setText('statClosedRounds',String(closedCount));
+ setText('statClosedTotal','af '+totalRounds);
+ setText('statBankedNow',money(totalBanked));
+ setText('statAvgRound',closedCount?`Gns. ${money(avgPerClosed)}/runde`:'Ingen lukkede runder');
+ setText('statBreakEvenNow',money(breakEvenNow));
+ const devEl=document.getElementById('statDeviation');
+ if(devEl){devEl.textContent=(deviation>0?'+':'')+money(deviation);devEl.className=deviation>=0?'positive':'negative'}
+ setText('statDeviationLabel',deviation>=0?'Over break-even':'Bagud');
+
+ // Actual cumulative curve follows closed rounds and stops at the current point.
+ const orderedClosed=[...closedRounds].sort((a,b)=>{
+   const ad=Date.parse(a.closed_at||a.updated_at||0)||0,bd=Date.parse(b.closed_at||b.updated_at||0)||0;
+   if(ad!==bd)return ad-bd;
+   return Number(a.round_number||0)-Number(b.round_number||0);
+ });
+ let cumulative=0;
+ const actualPoints=[[0,0]];
+ orderedClosed.forEach((r,i)=>{cumulative+=Number(r.banked||0);actualPoints.push([i+1,cumulative])});
+ // Bankings on an active round still belong to "Banket nu". Add them to the current endpoint.
+ if(actualPoints.length){actualPoints[actualPoints.length-1]=[closedCount,totalBanked]}
+
+ const W=900,H=420,L=72,R=34,T=34,B=62;
+ const plotW=W-L-R,plotH=H-T-B;
+ const maxYRaw=Math.max(fullBreakEven,forecastEnd,totalBanked,1000);
+ const step=maxYRaw<=5000?1000:maxYRaw<=15000?2000:5000;
+ const yMax=Math.max(step,Math.ceil(maxYRaw/step)*step);
+ const x=xv=>L+(Math.max(0,Math.min(totalRounds,xv))/totalRounds)*plotW;
+ const y=yv=>T+plotH-(Math.max(0,yv)/yMax)*plotH;
+ const fmt=n=>Math.round(n).toLocaleString('da-DK');
+ const makePath=pts=>pts.map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ');
+ let html='';
+ html+=`<defs>
+   <linearGradient id="statsActualFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(87,160,255,.34)"></stop><stop offset="100%" stop-color="rgba(87,160,255,0)"></stop></linearGradient>
+   <linearGradient id="statsForecastFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(113,235,141,.18)"></stop><stop offset="100%" stop-color="rgba(113,235,141,0)"></stop></linearGradient>
+ </defs>`;
+ for(let g=0;g<=5;g++){
+   const val=yMax*g/5,yy=y(val);
+   html+=`<line class="statsGrid" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"></line><text class="statsAxisText" x="${L-12}" y="${yy+4}" text-anchor="end">${fmt(val)}</text>`;
+ }
+ const ticks=[0,Math.round(totalRounds*.25),Math.round(totalRounds*.5),Math.round(totalRounds*.75),totalRounds];
+ [...new Set(ticks)].forEach(v=>html+=`<text class="statsAxisText" x="${x(v)}" y="${H-24}" text-anchor="middle">${v}</text>`);
+ html+=`<line class="statsAxis" x1="${L}" y1="${T}" x2="${L}" y2="${H-B}"></line><line class="statsAxis" x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}"></line>`;
+ html+=`<text class="statsAxisLabel" x="${L}" y="18">Kr.</text><text class="statsAxisLabel" x="${L+plotW/2}" y="${H-4}" text-anchor="middle">Lukkede runder · ${totalRounds} i alt</text>`;
+
+ // Break-even target line from 0 to all season rounds.
+ html+=`<line class="statsTargetLine" x1="${x(0)}" y1="${y(0)}" x2="${x(totalRounds)}" y2="${y(fullBreakEven)}"></line>`;
+ html+=`<circle class="statsPointTarget" cx="${x(totalRounds)}" cy="${y(fullBreakEven)}" r="5"></circle>`;
+
+ // Forecast begins exactly at current point and continues to season end.
+ if(closedCount>0){
+   html+=`<line class="statsForecastLine" x1="${x(closedCount)}" y1="${y(totalBanked)}" x2="${x(totalRounds)}" y2="${y(forecastEnd)}"></line>`;
+   const forecastArea=[ [closedCount,0], [closedCount,totalBanked], [totalRounds,forecastEnd], [totalRounds,0] ];
+   html+=`<path class="statsForecastArea" d="${makePath(forecastArea)} Z"></path>`;
+   html+=`<circle class="statsPointForecast" cx="${x(totalRounds)}" cy="${y(forecastEnd)}" r="5"></circle>`;
+ }
+
+ // Actual blue curve only to NOW.
+ if(actualPoints.length>1){
+   const actualPath=makePath(actualPoints);
+   const actualArea=makePath([[0,0],...actualPoints.slice(1),[closedCount,0]]);
+   html+=`<path class="statsActualArea" d="${actualArea} Z"></path>`;
+   html+=`<path class="statsActualLine" d="${actualPath}"></path>`;
+ }
+
+ const nowX=x(closedCount),nowY=y(totalBanked);
+ html+=`<line class="statsNowLine" x1="${nowX}" y1="${T}" x2="${nowX}" y2="${H-B}"></line><text class="statsNowText" x="${nowX}" y="${T+14}" text-anchor="middle">NU</text>`;
+ html+=`<circle class="statsNowDot" cx="${nowX}" cy="${nowY}" r="7"></circle>`;
+ html+=`<circle class="statsPointActual" cx="${nowX}" cy="${nowY}" r="5"></circle>`;
+ const boxX=Math.min(W-R-180,Math.max(L+8,nowX+14)),boxY=Math.max(T+28,Math.min(H-B-88,nowY-78));
+ html+=`<g class="statsCallout"><rect x="${boxX}" y="${boxY}" width="172" height="70" rx="10"></rect><text x="${boxX+12}" y="${boxY+20}">Nu · ${closedCount} lukkede</text><text class="value" x="${boxX+12}" y="${boxY+47}">${money(totalBanked)}</text><text x="${boxX+12}" y="${boxY+62}">BE nu ${money(breakEvenNow)}</text></g>`;
+ const endX=x(totalRounds),forecastY=y(forecastEnd),targetY=y(fullBreakEven);
+ if(closedCount>0){html+=`<text class="statsEndLabel forecast" x="${endX-8}" y="${Math.max(T+16,forecastY-10)}" text-anchor="end">Forecast ${money(forecastEnd)}</text>`}
+ html+=`<text class="statsEndLabel target" x="${endX-8}" y="${Math.min(H-B-8,targetY+22)}" text-anchor="end">Break-even ${money(fullBreakEven)}</text>`;
+ svg.innerHTML=html;
+
+ // Player table: current standing order, all players included.
+ const statRows=[...memberData].sort(compareStanding);
+ rowsHost.innerHTML='';
+ statRows.forEach((m,i)=>{
+   const p=people.find(x=>x.id===m.id);
+   const rank=getStandingRank(statRows,i);
+   const activeCount=(m.rounds||[]).filter(r=>r.status==='active').length;
+   const activePenalty=activeCount*200;
+   const netNow=Number(m.bank||0)-activePenalty;
+   const target=Number(m.closed||0)*200;
+   const diff=netNow-target;
+   const pct=target>0?Math.round(netNow/target*100):(netNow>0?100:0);
+   const tone=pct>=100?'good':pct>=80?'near':'bad';
+   const row=document.createElement('div');row.className='statsPlayerRow';
+   row.innerHTML=`<span class="statsRank">${rank}</span><span class="statsPlayer"><img src="${p?.image||avatarSvg('?')}" alt=""><b>${p?.nick||m.name}</b></span><span>${m.closed}</span><span>${diff>=0?'':''}${money(netNow)}</span><span>${activeCount}</span><span>${money(target)}</span><span class="statsDiff ${diff>=0?'positive':'negative'}">${diff>0?'+':''}${money(diff)}</span><span class="statsProgress" title="Brutto banket ${money(m.bank)} · aktiv indsats ${money(activePenalty)}"><i><em class="${tone}" style="width:${Math.min(100,Math.max(0,pct))}%"></em></i><b>${pct}%</b></span>`;
+   rowsHost.appendChild(row);
+ });
+}
 function updateRoundPep(){const active=rounds.find(r=>r.n===activeRound);const el=document.getElementById('roundPep'),bankEl=document.getElementById('activeRoundBank');if(bankEl)bankEl.textContent=active?money(active.bank):'—';if(el)el.innerHTML=active?'<strong>Kommentar til runden:</strong> '+getPepText(Number(active.bank)||0):'<strong>Kommentar til runden:</strong> Alle runder er afsluttet.'}
 function renderPersonal(){
  const p=currentPerson(); if(!p){
@@ -2259,7 +2511,8 @@ if(bufferInput){
 function updateBankTotal(){const a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value);document.getElementById('bankTotal').textContent=money2(a+b)}
 document.getElementById('bankBtn').onclick=()=>{if(isSeasonReadOnly()){showToast('Denne sæson er afsluttet og kan kun ses.');return}if(!currentDbRound)return;const rb=parseDecimalValue(round.value);document.getElementById('bankAvailRound').textContent=money2(rb);document.getElementById('bankAvailBuffer').textContent=money2(bufferBalance);document.getElementById('bankFromRound').value=formatDecimalInput(Math.min(200,rb));document.getElementById('bankFromBuffer').value='0,00';document.getElementById('bankError').textContent='';updateBankTotal();overlays.bank.classList.add('open')};
 document.getElementById('bankFromRound').type='text';document.getElementById('bankFromBuffer').type='text';document.getElementById('bankFromRound').oninput=updateBankTotal;document.getElementById('bankFromBuffer').oninput=updateBankTotal;document.querySelector('.cancelBank').onclick=()=>overlays.bank.classList.remove('open');
-document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}let mpWindow=null;try{mpWindow=window.open('about:blank','_blank')}catch(_){}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();setMobileView('overview');mobilePayReturnPending=true;showToast(money2(a+b)+' er banket.');if(mpWindow&&!mpWindow.closed){mpWindow.location.href=MOBILEPAY_BOX_URL}else{const a=document.createElement('a');a.href=MOBILEPAY_BOX_URL;a.target='_blank';a.rel='noopener noreferrer external';document.body.appendChild(a);a.click();a.remove()}}catch(e){try{if(mpWindow&&!mpWindow.closed)mpWindow.close()}catch(_){}console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
+document.querySelector('.confirmBank').onclick=async()=>{if(isSeasonReadOnly()){overlays.bank.classList.remove('open');showToast('Denne sæson er afsluttet og kan kun ses.');return}const btn=document.querySelector('.confirmBank');const rb=parseDecimalValue(round.value),a=parseDecimalValue(document.getElementById('bankFromRound').value),b=parseDecimalValue(document.getElementById('bankFromBuffer').value),err=document.getElementById('bankError');if(a+b<=0){err.textContent='Vælg et beløb at banke.';return}if(a>rb+.005){err.textContent='Du kan ikke banke mere fra runden end saldoen.';return}if(b>bufferBalance+.005){err.textContent='Du kan ikke banke mere fra buffer end der står på bufferen.';return}let mpWindow=null;try{mpWindow=window.open('about:blank','_blank')}catch(_){}btn.disabled=true;try{const newBalance=rb-a,newBuffer=bufferBalance-b;const memberId=currentPerson().id;const ops=[supabaseClient.from('member_rounds').update({balance:newBalance,updated_at:new Date().toISOString()}).eq('id',currentDbRound.id),supabaseClient.from('season_members').update({buffer:newBuffer}).eq('id',currentSeasonMember.id)];const tx={season_id:dbSeason.id,member_id:memberId,round_number:activeRound,transaction_type:'bank',amount:a+b,from_round:a,from_buffer:b};ops.push(supabaseClient.from('transactions').insert(tx));const res=await Promise.all(ops);const e=res.find(x=>x.error)?.error;if(e)throw e;rememberMemberId(memberId);overlays.bank.classList.remove('open');await reloadAfterWrite();setMobileView('overview');
+mobilePayReturnPending=true;showToast(money2(a+b)+' er banket.');if(mpWindow&&!mpWindow.closed){mpWindow.location.href=MOBILEPAY_BOX_URL}else{const a=document.createElement('a');a.href=MOBILEPAY_BOX_URL;a.target='_blank';a.rel='noopener noreferrer external';document.body.appendChild(a);a.click();a.remove()}}catch(e){try{if(mpWindow&&!mpWindow.closed)mpWindow.close()}catch(_){}console.error(e);err.textContent='Bankningen kunne ikke gemmes.'}finally{btn.disabled=false}};
 const MOBILEPAY_BOX_URL='https://qr.mobilepay.dk/box/80b0c26e-fac4-4c30-b26f-2ba5370e203e/pay-in';
 let mobilePayReturnPending=false;
 function showMobilePayHandoff(amount){
@@ -2605,6 +2858,7 @@ function setMobileView(view){
   } else if(view==='form'){
     renderFormCurve();
     form.classList.remove('mobileViewHidden'); form.classList.add('mobileViewScreen');
+    setStatsTab(currentStatsTab);
   }
   const mainScroller=document.querySelector('#oddsetApp>.main');if(mainScroller)mainScroller.scrollTop=0;else window.scrollTo({top:0,behavior:'auto'});
 }
@@ -2624,6 +2878,7 @@ window.addEventListener('resize',()=>{updateStickyHeight();const active=document
 updateStickyHeight();
 setTimeout(updateStickyHeight,50);
 setMobileView('overview');
+setStatsTab('club');
 let lastAutoRefresh=Date.now();
 async function refreshFromDatabaseOnReturn(){
  if(document.visibilityState==='hidden')return;
