@@ -1403,6 +1403,325 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 }
 
 </style>
+
+<style>
+
+/* v87: fix clipped bottom on short iPhones/PWA */
+@media (max-height:700px) and (orientation:portrait){
+  html,body,#oddsetApp{
+    height:100dvh!important;
+    min-height:100dvh!important;
+  }
+
+  #oddsetApp>.main{
+    position:fixed!important;
+    top:var(--sticky-h,92px)!important;
+    right:0!important;
+    bottom:0!important;
+    left:0!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:contain;
+    padding-bottom:calc(22px + env(safe-area-inset-bottom))!important;
+    scroll-padding-bottom:calc(22px + env(safe-area-inset-bottom))!important;
+  }
+
+  #overviewSection,
+  #standingsSection,
+  #winnersSection,
+  #historySection,
+  #formSection{
+    margin-bottom:calc(12px + env(safe-area-inset-bottom))!important;
+  }
+
+  #playSection.mobileOnlyRound #roundPep{
+    margin-bottom:calc(8px + env(safe-area-inset-bottom))!important;
+  }
+
+  #standingsSection .standing:last-child,
+  #standingsSection .standingRow:last-child{
+    margin-bottom:calc(8px + env(safe-area-inset-bottom))!important;
+  }
+}
+
+</style>
+
+<style>
+
+/* v88: dedicated ultra-compact layout for iPhone SE / short phones.
+   Larger phones keep the existing layout unchanged. */
+@media (max-width:390px) and (max-height:720px) and (orientation:portrait){
+
+  /* Top area */
+  .top{
+    padding:5px 9px!important;
+    min-height:42px!important;
+    gap:5px!important;
+  }
+  .brand{
+    font-size:14px!important;
+    line-height:1!important;
+    gap:4px!important;
+  }
+  .trophyBtn{font-size:17px!important}
+  .profileAvatar,.avatarTop,.top .avatar{
+    width:31px!important;
+    height:31px!important;
+  }
+
+  .seasonTop,.seasonRow,.topControls{
+    padding-top:3px!important;
+    padding-bottom:3px!important;
+    gap:5px!important;
+  }
+  #seasonSelect{
+    height:35px!important;
+    min-height:35px!important;
+    padding:4px 8px!important;
+    font-size:13px!important;
+  }
+  #rulesBtn,.rulesBtn{
+    min-height:35px!important;
+    height:35px!important;
+    padding:5px 9px!important;
+    font-size:11px!important;
+  }
+
+  /* Navigation */
+  .mobileTabs{
+    padding:3px 5px!important;
+    gap:3px!important;
+  }
+  .mobileTabs button,.mobileTab{
+    min-height:34px!important;
+    height:34px!important;
+    padding:4px 2px!important;
+    font-size:9.5px!important;
+    line-height:1!important;
+    border-radius:8px!important;
+  }
+
+  /* Main area */
+  #oddsetApp>.main{
+    padding:5px 7px calc(4px + env(safe-area-inset-bottom))!important;
+  }
+  .seasonStatusBanner{
+    margin:0 0 5px!important;
+    padding:5px 8px!important;
+    min-height:0!important;
+    font-size:9.5px!important;
+    line-height:1.05!important;
+    border-radius:7px!important;
+  }
+
+  /* OVERVIEW: compress vertically, not horizontally */
+  #overviewSection{
+    margin:0!important;
+    padding:0!important;
+  }
+  #overviewSection .kpis,
+  #overviewSection .kpiGrid{
+    gap:4px!important;
+    margin:0 0 5px!important;
+  }
+  #overviewSection .kpi{
+    min-height:49px!important;
+    padding:5px 7px!important;
+    border-radius:8px!important;
+  }
+  #overviewSection .kpi .label,
+  #overviewSection .kpiLabel{
+    font-size:7.5px!important;
+    line-height:1!important;
+    letter-spacing:.55px!important;
+  }
+  #overviewSection .kpi .value,
+  #overviewSection .kpiValue{
+    margin-top:2px!important;
+    font-size:15px!important;
+    line-height:1!important;
+  }
+  #overviewSection .kpi .small,
+  #overviewSection .kpi small{
+    font-size:7px!important;
+    line-height:1!important;
+  }
+
+  /* Active-round card */
+  #playSection{
+    margin-top:5px!important;
+    padding:7px 9px!important;
+    border-radius:9px!important;
+  }
+  #playSection .roundHeader,
+  #playSection .playHeader{
+    margin-bottom:4px!important;
+  }
+  #playSection .badge,
+  #playSection .pill{
+    padding:4px 7px!important;
+    font-size:9px!important;
+  }
+  #playSection h2,
+  #playSection h3{
+    margin:2px 0 3px!important;
+    font-size:20px!important;
+    line-height:1!important;
+  }
+  #playSection .sub,
+  #playSection .description{
+    margin:3px 0 5px!important;
+    font-size:9px!important;
+    line-height:1.15!important;
+  }
+
+  #playSection .playGrid,
+  #playSection .balanceGrid{
+    gap:6px!important;
+    margin-top:3px!important;
+  }
+  #playSection label,
+  #playSection .small{
+    margin-bottom:2px!important;
+    font-size:9px!important;
+    line-height:1!important;
+  }
+  #playSection .bigInput{
+    min-height:0!important;
+  }
+  #playSection .bigInput input{
+    height:43px!important;
+    min-height:43px!important;
+    padding:5px 9px!important;
+    font-size:18px!important;
+  }
+  #playSection .bigInput span{
+    font-size:9px!important;
+  }
+
+  #playSection .quick{
+    margin-top:3px!important;
+    gap:3px!important;
+  }
+  #playSection .quick button{
+    min-height:27px!important;
+    height:27px!important;
+    padding:3px!important;
+    font-size:8.5px!important;
+  }
+
+  #playSection .actions,
+  #playSection .actionRow{
+    gap:5px!important;
+    margin-top:5px!important;
+  }
+  #playSection #bankBtn,
+  #playSection #closeBtn,
+  #playSection #saveStateBtn{
+    min-height:34px!important;
+    height:34px!important;
+    padding:5px 7px!important;
+    font-size:10px!important;
+  }
+  #playSection .saveStateRow{
+    margin:3px 0 0!important;
+  }
+
+  #playSection.mobileOnlyRound .myRoundsTitle{
+    margin:5px 0 0!important;
+    font-size:10px!important;
+    line-height:1!important;
+  }
+  #playSection.mobileOnlyRound #roundStrip{
+    margin-top:3px!important;
+    min-height:28px!important;
+    gap:1px!important;
+  }
+  #playSection.mobileOnlyRound #roundStrip .roundItem{
+    gap:1px!important;
+  }
+  #playSection.mobileOnlyRound #roundStrip .r{
+    width:21px!important;
+    height:21px!important;
+    font-size:8px!important;
+    border-width:1px!important;
+  }
+  #playSection.mobileOnlyRound #roundStrip .roundBankMini{
+    font-size:6.3px!important;
+    line-height:1!important;
+  }
+  #playSection.mobileOnlyRound .roundProgressHelp{
+    margin-top:3px!important;
+    font-size:7.2px!important;
+    line-height:1.05!important;
+  }
+  #playSection.mobileOnlyRound #roundPep{
+    margin:3px 0 0!important;
+    min-height:22px!important;
+    padding:4px 6px!important;
+    font-size:8.5px!important;
+    line-height:1.05!important;
+  }
+
+  /* STANDINGS: fit all 9 rows */
+  #standingsSection{
+    padding:6px 8px!important;
+    margin:0!important;
+    border-radius:9px!important;
+  }
+  #standingsSection h2,
+  #standingsSection h3{
+    margin:0 0 2px!important;
+    font-size:17px!important;
+    line-height:1!important;
+  }
+  #standingsSection .sub,
+  #standingsSection .hint{
+    margin:0 0 3px!important;
+    font-size:8px!important;
+    line-height:1!important;
+  }
+  #standingsSection .standingHeader{
+    min-height:20px!important;
+    padding:2px 4px!important;
+    font-size:7.5px!important;
+    line-height:1!important;
+  }
+  #standingsSection .standing,
+  #standingsSection .standingRow{
+    min-height:39px!important;
+    height:39px!important;
+    padding:3px 5px!important;
+    margin-bottom:3px!important;
+    gap:3px!important;
+    border-radius:7px!important;
+    font-size:8.5px!important;
+    line-height:1!important;
+  }
+  #standingsSection .standing .avatar,
+  #standingsSection .standingRow .avatar{
+    width:23px!important;
+    height:23px!important;
+  }
+  #standingsSection .standing b,
+  #standingsSection .standingRow b{
+    font-size:8.8px!important;
+  }
+  #standingsSection .status,
+  #standingsSection .statusPill{
+    padding:3px 5px!important;
+    font-size:7.5px!important;
+  }
+  #standingsSection .standing:last-child,
+  #standingsSection .standingRow:last-child{
+    margin-bottom:0!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div class="app overviewMode" id="oddsetApp">
