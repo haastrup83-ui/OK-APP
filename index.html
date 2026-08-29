@@ -1097,7 +1097,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 .hallGold{background:linear-gradient(90deg,rgba(240,196,76,.30),rgba(240,196,76,.08) 68%,transparent)}
 .hallSilver{background:linear-gradient(90deg,rgba(213,219,229,.24),rgba(213,219,229,.06) 68%,transparent)}
 .hallBronze{background:linear-gradient(90deg,rgba(218,145,96,.26),rgba(218,145,96,.06) 68%,transparent)}
-.hallGold .hallRank{color:#ffd76a}.hallSilver .hallRank{color:#eef2f7}.hallBronze .hallRank{color:#f0ad82}
+.hallGold .hallRank{color:#ffd76a}.hallSilver .hallRank{color:#eef2f7}.hallBronze .hallRank{color:#f0ad82}.hallLast{background:linear-gradient(90deg,rgba(238,102,114,.18),rgba(238,102,114,.06) 68%,transparent)}.hallLast .hallRank{color:#ffb1b8}
 @media(max-width:760px){
   #hallOfFameOverlay{
     align-items:flex-start!important;
@@ -1971,18 +1971,43 @@ function renderClubStats(){
  document.getElementById('clubClosedPct').textContent=pct+'% gennemført';
  document.getElementById('clubBankedTrend').textContent=people.length+' spillere';
 }
+function sameStandingScore(a,b){
+ return Math.abs(Number(a.bank||0)-Number(b.bank||0))<0.005 && Number(a.closed||0)===Number(b.closed||0);
+}
+function compareStanding(a,b){
+ const bankDiff=Number(b.bank||0)-Number(a.bank||0);
+ if(Math.abs(bankDiff)>=0.005)return bankDiff;
+ const closedDiff=Number(a.closed||0)-Number(b.closed||0); // fewer closed rounds ranks higher
+ if(closedDiff!==0)return closedDiff;
+ return String(a.name||'').localeCompare(String(b.name||''),'da');
+}
+function getStandingRank(rows,index){
+ const current=rows[index];
+ let rank=1;
+ for(let i=0;i<index;i++){
+   const other=rows[i];
+   if(Number(other.bank||0)>Number(current.bank||0)+0.005 ||
+      (Math.abs(Number(other.bank||0)-Number(current.bank||0))<0.005 && Number(other.closed||0)<Number(current.closed||0))){
+     rank++;
+   }
+ }
+ return rank;
+}
 function renderStandings(){
  const host=document.getElementById('membersList'); if(!host)return;
- const me=currentPerson(); const rows=[...memberData].sort((a,b)=>b.bank-a.bank||a.name.localeCompare(b.name,'da'));
+ const me=currentPerson(); const rows=[...memberData].sort(compareStanding);
+ const last=rows.length?rows[rows.length-1]:null;
  host.innerHTML='<div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div>';
  rows.forEach((m,i)=>{
-   const p=people.find(x=>x.id===m.id); const rank=i+1;
-   const cls=rank===1?'medalGold':rank===2?'medalSilver':rank===3?'medalBronze':rank===rows.length?'dangerLast':'';
+   const p=people.find(x=>x.id===m.id); const rank=getStandingRank(rows,i);
+   const isLast=last && sameStandingScore(m,last);
+   const cls=rank===1?'medalGold':rank===2?'medalSilver':rank===3?'medalBronze':isLast?'dangerLast':'';
    const state=m.closed>=Number(dbSeason?.round_count||7)?'done':m.activeRound?'active':'idle';
    const status=m.closed>=Number(dbSeason?.round_count||7)?'7/7':m.activeRound?`${m.activeRound.round_number}/7`:'–';
    const saldo=m.activeRound?money2(m.activeRound.balance):m.closed>=7?money2(0):'—';
+   const medal=rank>=1&&rank<=3?['🥇 ','🥈 ','🥉 '][rank-1]:'';
    const el=document.createElement('div'); el.className='memberRow '+cls+(me?.id===m.id?' me':''); el.tabIndex=0; el.setAttribute('role','button'); el.dataset.memberId=m.id;
-   el.innerHTML=`<span class="rankBadge">${rank<=3?['🥇 ','🥈 ','🥉 '][rank-1]:''}${rank}</span><span class="name nameCell"><img class="avatarSm memberAvatar" src="${p?.image||avatarSvg('?')}" alt=""><span>${p?.nick||m.name}</span></span><span class="bank">${money(m.bank)}</span><span><span class="roundState ${state}">${status}</span></span><span>${saldo}</span><span class="bufferVal">${money2(m.buffer)}</span>`;
+   el.innerHTML=`<span class="rankBadge">${medal}${rank}</span><span class="name nameCell"><img class="avatarSm memberAvatar" src="${p?.image||avatarSvg('?')}" alt=""><span>${p?.nick||m.name}</span></span><span class="bank">${money(m.bank)}</span><span><span class="roundState ${state}">${status}</span></span><span>${saldo}</span><span class="bufferVal">${money2(m.buffer)}</span>`;
    const open=()=>openMember(m.id); el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});host.appendChild(el);
  });
 }
@@ -2303,10 +2328,12 @@ async function renderHallOfFame(){
    if(totalEl)totalEl.textContent=money2(grandTotal);
    if(seasonCountEl)seasonCountEl.textContent=String((seasonsRes.data||[]).length);
 
+   const minBank=standings.length?Math.min(...standings.map(m=>Number(m.bank)||0)):0;
    rows.innerHTML=standings.map((m,i)=>{
-     const cls=i===0?'hallGold':i===1?'hallSilver':i===2?'hallBronze':'';
+     const rank=1+standings.slice(0,i).filter(x=>Number(x.bank||0)>Number(m.bank||0)+0.005).length;
+     const cls=rank===1?'hallGold':rank===2?'hallSilver':rank===3?'hallBronze':Math.abs(Number(m.bank||0)-minBank)<0.005?'hallLast':'';
      return `<div class="hallRow ${cls}">
-       <span class="hallRank">${i+1}</span>
+       <span class="hallRank">${rank}</span>
        <span class="hallPlayer">
          <img src="${m.image}" alt="">
          <span class="hallPlayerText"><b>${m.name}</b><span>${m.real}</span></span>
