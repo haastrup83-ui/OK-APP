@@ -1734,6 +1734,18 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 }
 
 </style>
+
+<style>
+
+/* v90: hide season banner ONLY on Stilling for small/short phones.
+   Stilling is represented by #playSection.mobileOnlyStandings. */
+@media (max-width:390px) and (max-height:720px) and (orientation:portrait){
+  #oddsetApp:has(#playSection.mobileOnlyStandings) #seasonStatusBanner{
+    display:none!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div class="app overviewMode" id="oddsetApp">
@@ -2622,6 +2634,35 @@ Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=
   window.addEventListener('orientationchange', ()=>setTimeout(syncSmallStandingsBanner,100));
   document.addEventListener('DOMContentLoaded', syncSmallStandingsBanner);
   setTimeout(syncSmallStandingsBanner,0);
+})();
+
+</script>
+
+<script>
+
+(function(){
+  function updateSmallPhoneSeasonBanner(){
+    const smallPhone = window.matchMedia('(max-width:390px) and (max-height:720px) and (orientation:portrait)').matches;
+    const banner = document.getElementById('seasonStatusBanner');
+    const play = document.getElementById('playSection');
+    if(!banner || !play) return;
+
+    const onStandings = play.classList.contains('mobileOnlyStandings');
+    if(smallPhone && onStandings){
+      banner.style.setProperty('display','none','important');
+    }else{
+      banner.style.removeProperty('display');
+    }
+  }
+
+  const play = document.getElementById('playSection');
+  if(play){
+    new MutationObserver(updateSmallPhoneSeasonBanner).observe(play,{attributes:true,attributeFilter:['class']});
+  }
+  window.addEventListener('resize', updateSmallPhoneSeasonBanner);
+  window.addEventListener('orientationchange', ()=>setTimeout(updateSmallPhoneSeasonBanner,100));
+  document.addEventListener('DOMContentLoaded', updateSmallPhoneSeasonBanner);
+  setTimeout(updateSmallPhoneSeasonBanner,0);
 })();
 
 </script>
