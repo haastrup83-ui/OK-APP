@@ -1722,6 +1722,18 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 }
 
 </style>
+
+<style>
+
+/* v89: hide season end banner only on Stilling for short/small phones */
+@media (max-width:390px) and (max-height:720px) and (orientation:portrait){
+  body:has(#standingsSection.active) .seasonStatusBanner,
+  body:has(#standingsSection[style*="display: block"]) .seasonStatusBanner{
+    display:none!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div class="app overviewMode" id="oddsetApp">
@@ -2587,6 +2599,31 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 window.addEventListener('pageshow',()=>{if(mobilePayReturnPending){mobilePayReturnPending=false;setMobileView('overview')}});
 
 Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+</script>
+
+<script>
+
+(function(){
+  function syncSmallStandingsBanner(){
+    const small = window.matchMedia('(max-width:390px) and (max-height:720px) and (orientation:portrait)').matches;
+    const banner = document.querySelector('.seasonStatusBanner');
+    const standings = document.getElementById('standingsSection');
+    if(!banner || !standings) return;
+
+    const cs = getComputedStyle(standings);
+    const visible = cs.display !== 'none' && cs.visibility !== 'hidden';
+    banner.style.display = (small && visible) ? 'none' : '';
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.mobileTabs button,.mobileTab')) setTimeout(syncSmallStandingsBanner,0);
+  });
+  window.addEventListener('resize', syncSmallStandingsBanner);
+  window.addEventListener('orientationchange', ()=>setTimeout(syncSmallStandingsBanner,100));
+  document.addEventListener('DOMContentLoaded', syncSmallStandingsBanner);
+  setTimeout(syncSmallStandingsBanner,0);
+})();
+
 </script>
 </body>
 </html>
