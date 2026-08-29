@@ -1155,6 +1155,75 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 #mobilePayOpenLink{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
 
 </style>
+
+<style>
+
+/* v84: compact vertically on short phones such as iPhone SE 3rd gen */
+@media (max-height:700px) and (orientation:portrait){
+  :root{--sticky-h:92px}
+
+  /* Header + tabs: less vertical space */
+  .top{padding-top:5px!important;padding-bottom:5px!important}
+  .mobileTabs{padding-top:3px!important;padding-bottom:3px!important}
+  .mobileTabs button,
+  .mobileTab{padding-top:5px!important;padding-bottom:5px!important}
+
+  /* Main page */
+  #oddsetApp>.main{padding-top:6px!important;padding-bottom:6px!important}
+  .card{padding-top:8px!important;padding-bottom:8px!important}
+  .sectionTitle{margin-bottom:5px!important}
+
+  /* Overview cards */
+  .kpis,.kpiGrid{gap:5px!important;margin-bottom:6px!important}
+  .kpi{padding-top:6px!important;padding-bottom:6px!important;min-height:48px!important}
+  .kpi .value,.kpiValue{font-size:16px!important}
+
+  /* Charts / form */
+  .formCard{margin-top:7px!important}
+  .chartWrap{margin-top:7px!important;padding-top:6px!important;padding-bottom:6px!important}
+  .formSvg{min-height:155px!important}
+
+  /* Active round area */
+  .playGrid,.balanceGrid{gap:5px!important}
+  .bigInput input{padding-top:6px!important;padding-bottom:6px!important}
+  .quick{margin-top:5px!important}
+  .quick button{padding-top:5px!important;padding-bottom:5px!important}
+  .saveStateRow{margin-top:5px!important;margin-bottom:0!important}
+  #bankBtn,#closeBtn,#saveStateBtn{min-height:36px!important;padding-top:7px!important;padding-bottom:7px!important}
+
+  /* Mine runder */
+  .rounds,.roundList,.roundCircles{margin-top:5px!important;margin-bottom:4px!important}
+  .roundComment,.roundHint,.hint{margin-top:4px!important;margin-bottom:4px!important}
+
+  /* Tables / list rows */
+  .standing,.standingRow{padding-top:5px!important;padding-bottom:5px!important}
+  th,td{padding-top:5px!important;padding-bottom:5px!important}
+
+  /* Modals: key change for short displays */
+  .overlay{
+    align-items:flex-start!important;
+    padding-top:calc(var(--sticky-h,92px) + 5px)!important;
+    padding-bottom:5px!important;
+  }
+  .modal{
+    max-height:calc(100dvh - var(--sticky-h,92px) - 10px)!important;
+    overflow-y:auto!important;
+    padding-top:10px!important;
+    padding-bottom:10px!important;
+  }
+  .modal h3{margin-bottom:4px!important}
+  .modal .sub{margin-bottom:6px!important}
+  .modalActions{margin-top:7px!important}
+  .modalActions .btn{min-height:34px!important;padding-top:6px!important;padding-bottom:6px!important}
+
+  /* Profile/admin/Hall of Fame */
+  .profileGrid{margin-top:8px!important}
+  .adminTabs{margin-bottom:6px!important}
+  .adminSimpleUser{padding-top:5px!important;padding-bottom:5px!important}
+  .hallRow{padding-top:5px!important;padding-bottom:5px!important}
+}
+
+</style>
 </head>
 <body>
 <div class="app overviewMode" id="oddsetApp">
