@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="oddset-app-version" content="112">
+<meta name="oddset-app-version" content="116">
 <meta name="theme-color" content="#073927">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1007,10 +1007,12 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   border-color:#249867;
   color:#fff;
 }
+.adminTitleRow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.adminTitleRow h3{margin:0}.adminCloseTop{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:8px;font-size:20px;line-height:1;flex:0 0 auto}
 .adminPanel{display:none}
 .adminPanel.active{display:block}
 .adminTabPanels{min-height:180px}
 @media(max-width:760px){
+  #adminOverlay .adminCloseTop{width:30px;height:30px;font-size:18px}
   #adminOverlay .adminModal{
     display:flex!important;
     flex-direction:column!important;
@@ -1071,6 +1073,38 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   #adminOverlay .adminSimplePin{font-size:12px!important}
 }
 
+
+
+/* v114/v115: admin registrations */
+.adminTabs{align-items:stretch}
+.adminTab{display:flex;align-items:center;justify-content:center;text-align:center;min-height:34px;line-height:1.15}
+.adminRegistrationFilters{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr) minmax(0,.8fr);gap:6px;margin:10px 0 8px}
+.adminRegistrationFilters .fieldInput{padding:8px 10px;font-size:11px;min-height:40px}
+.adminRegistrationList{display:grid;gap:5px;margin-top:8px;overflow:visible;padding-right:0}
+.adminRegistrationHeader,.adminRegistrationRow{display:grid;grid-template-columns:minmax(118px,1.35fr) 58px 82px 84px 40px;gap:6px;align-items:center;padding:7px 8px}
+.adminRegistrationHeader{color:#93a19d;font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.35px;border-bottom:1px solid #2a3833}
+.adminRegistrationRow{background:#0d1311;border:1px solid #2a3833;border-radius:8px;font-size:10.5px;min-height:50px}
+.adminRegistrationPerson{min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adminRegistrationMeta{display:flex;flex-direction:column;gap:1px;min-width:0}.adminRegistrationMeta b{font-size:10.5px}.adminRegistrationMeta small{font-size:8.5px;color:#8e9c97}
+.adminRegStatus{display:inline-flex;justify-content:center;align-items:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:800;white-space:nowrap}
+.adminRegStatus.active{background:rgba(228,184,75,.15);border:1px solid rgba(228,184,75,.4);color:#f4cf70}.adminRegStatus.closed{background:rgba(18,166,101,.15);border:1px solid rgba(18,166,101,.4);color:#8fe3ba}.adminRegStatus.not_started{background:rgba(147,161,157,.1);border:1px solid rgba(147,161,157,.28);color:#c8d1ce}
+.adminRegEditBtn{width:32px;height:32px;padding:0;display:grid;place-items:center;font-size:14px}
+.adminRegistrationEmpty{padding:14px 8px;text-align:center;color:#93a19d;font-size:11px}
+.adminRegistrationLimitNote{margin-top:6px;font-size:10px;color:#9daaa5;text-align:center}
+.adminRegistrationEditCard{margin-top:10px;padding:10px;border:1px solid #355148;border-radius:10px;background:#0c1512}.adminRegistrationEditCard h4{margin:0 0 4px;font-size:15px}.adminRegistrationEditGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}.adminRegistrationEditActions{display:flex;gap:7px;justify-content:flex-end;margin-top:10px}.adminRegistrationEditActions .btn{min-width:105px}
+.adminRegError{min-height:16px;margin-top:6px;color:#ff969b;font-size:10px}
+@media(max-width:760px){
+ #adminOverlay .adminTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible;margin:8px 0 8px!important;padding:0!important;position:static;background:transparent}
+ #adminOverlay .adminTab{font-size:11px;padding:6px 8px;min-height:36px;width:100%}
+ .adminRegistrationFilters{grid-template-columns:minmax(0,1.12fr) minmax(0,.92fr) minmax(0,.8fr);gap:5px}
+ .adminRegistrationFilters>div:first-child{grid-column:auto}
+ .adminRegistrationFilters label{font-size:8.5px}
+ .adminRegistrationFilters .fieldInput{padding:6px 7px;font-size:9.5px;min-height:34px}
+ .adminRegistrationHeader{display:none}
+ .adminRegistrationRow{grid-template-columns:minmax(0,1fr) 66px 82px 34px;padding:6px;gap:5px;min-height:46px}
+ .adminRegistrationRow>.adminRegRound{display:none}.adminRegistrationPerson{white-space:normal;font-size:10.25px;line-height:1.15}.adminRegistrationMeta b{font-size:10px}.adminRegistrationMeta small{font-size:8.25px}.adminRegEditBtn{width:30px;height:30px}
+ .adminRegistrationEditGrid{grid-template-columns:1fr}.adminRegistrationEditActions{display:grid;grid-template-columns:1fr 1fr}.adminRegistrationEditActions .btn{width:100%;min-width:0}
+}
 
 /* v76 Hall of Fame */
 .trophyBtn{
@@ -1876,7 +1910,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <script>
 /* v102: versioned favicon / apple-touch-icon cache busting. */
 (function(){
-  const ICON_VERSION='112';
+  const ICON_VERSION='116';
   function versionIconLink(link){
     if(!link || !link.href)return;
     const raw=link.getAttribute('href')||'';
@@ -2048,14 +2082,12 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 <div id="profileOverlay" class="overlay"><div class="modal"><h3>Min profil</h3><div class="sub">Profiloplysninger bruges i stillingen og andre steder i klubben.</div><div class="profileGrid" style="margin-top:14px"><div><img id="profilePreview" class="profilePreview" alt="Profilbillede"><label class="btn" id="profileImageLabel" style="display:block;text-align:center;margin-top:8px;cursor:pointer">Skift billede<input id="profileImageInput" type="file" accept="image/*" hidden></label><div id="profileImageStatus" class="hint" role="status" style="text-align:center;margin-top:6px;min-height:16px"></div></div><div><label class="small" for="nicknameInput">Kaldenavn</label><input id="nicknameInput" class="fieldInput" maxlength="30" value=""><div class="hint">Det er dette navn, der vises i stillingen.</div><div style="margin-top:12px"><div class="small">Logget ind som</div><b id="profileRealName">—</b></div><div class="modalActions"><button class="btn" id="logoutBtn" type="button">Skift bruger</button><button class="btn green" id="saveProfileBtn" type="button">Gem profil</button></div></div></div></div></div>
 <div id="loginOverlay" class="overlay"><div class="modal loginModal"><h3>Log ind</h3><div class="sub">Vælg din bruger og indtast PIN. Denne enhed husker dig automatisk efter første login.</div><div class="loginCompact"><label class="small" for="loginUserSelect">Bruger</label><select id="loginUserSelect" class="fieldInput loginSelect"><option value="">Vælg bruger…</option></select><label class="small" for="loginPinInput">PIN</label><input id="loginPinInput" class="fieldInput" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="4-cifret PIN"><div id="loginPinError" class="error"></div><button id="loginSubmitBtn" class="btn green" type="button">Log ind</button></div></div></div>
-<div id="adminOverlay" class="overlay"><div class="modal adminModal" style="width:min(760px,96%)">
-<h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div>
+<div id="adminOverlay" class="overlay"><div class="modal adminModal" style="width:min(820px,96%)">
+<div class="adminTitleRow"><div><h3>⚙ Administration</h3><div class="sub">Kun administratorer kan ændre opsætning og andre medlemmers data.</div></div><button class="btn adminCloseTop closeAdmin" type="button" aria-label="Luk administration" title="Luk">×</button></div>
 <div class="adminTabs" role="tablist">
   <button class="adminTab active" type="button" data-admin-tab="users">Brugere</button>
   <button class="adminTab" type="button" data-admin-tab="season">Sæson</button>
-  <button class="adminTab" type="button" data-admin-tab="transactions">Transaktioner</button>
-  <button class="adminTab" type="button" data-admin-tab="corrections">Ret registrering</button>
-  <button class="adminTab" type="button" data-admin-tab="lock">Lås runde</button>
+  <button class="adminTab" type="button" data-admin-tab="registrations">Registreringer</button>
 </div>
 <div class="adminTabPanels">
   <section class="adminPanel active" data-admin-panel="users">
@@ -2067,29 +2099,34 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   <section class="adminPanel" data-admin-panel="season">
     <h3 style="font-size:16px;margin-top:0">Sæson</h3>
     <div class="adminGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div>
-    <div class="adminActions" style="margin-top:12px"><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button></div>
+    <div class="adminActions" style="margin-top:12px"><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button><button class="btn" id="closeSeasonBtn" type="button">Luk igangværende sæson</button></div>
+    <div class="small" style="margin-top:8px">Oprettelse og lukning af sæson kobles på i et senere trin.</div>
   </section>
 
-  <section class="adminPanel" data-admin-panel="transactions">
-    <h3 style="font-size:16px;margin-top:0">Transaktioner</h3>
-    <div class="sub">Overblik og administration af registrerede transaktioner.</div>
-    <div class="adminActions" style="margin-top:12px"><button class="btn" id="transactionsBtn" type="button">▤ Alle transaktioner</button></div>
-  </section>
-
-  <section class="adminPanel" data-admin-panel="corrections">
-    <h3 style="font-size:16px;margin-top:0">Ret registrering</h3>
-    <div class="sub">Ret en tidligere registrering eller bankning.</div>
-    <div class="adminActions" style="margin-top:12px"><button class="btn" id="correctBtn" type="button">✎ Ret registrering</button></div>
-  </section>
-
-  <section class="adminPanel" data-admin-panel="lock">
-    <h3 style="font-size:16px;margin-top:0">Lås runde</h3>
-    <div class="sub">Lås en runde, så der ikke kan foretages flere ændringer.</div>
-    <div class="adminActions" style="margin-top:12px"><button class="btn" id="lockRoundBtn" type="button">🔒 Lås runde</button></div>
+  <section class="adminPanel" data-admin-panel="registrations">
+    <h3 style="font-size:16px;margin-top:0">Registreringer</h3>
+    <div class="sub">Se og ret registreringer pr. spiller og runde. Den aktuelle sæson vælges automatisk.</div>
+    <div class="adminRegistrationFilters">
+      <div><label class="small" for="adminRegUserFilter">Bruger</label><select class="fieldInput" id="adminRegUserFilter"><option value="">Alle brugere</option></select></div>
+      <div><label class="small" for="adminRegSeasonFilter">Sæson</label><select class="fieldInput" id="adminRegSeasonFilter"></select></div>
+      <div><label class="small" for="adminRegRoundFilter">Runde</label><select class="fieldInput" id="adminRegRoundFilter"><option value="">Alle runder</option></select></div>
+    </div>
+    <div class="adminRegistrationHeader"><span>Bruger</span><span>Runde</span><span>Status</span><span>Beløb</span><span></span></div>
+    <div id="adminRegistrationList" class="adminRegistrationList"><div class="adminRegistrationEmpty">Vælg Registreringer for at hente data.</div></div>
+    <div id="adminRegistrationEditCard" class="adminRegistrationEditCard" style="display:none">
+      <h4 id="adminRegistrationEditTitle">Ret registrering</h4>
+      <div class="sub" id="adminRegistrationEditSub">—</div>
+      <div class="adminRegistrationEditGrid">
+        <div><label class="small" for="adminEditBalance">Saldo</label><input class="fieldInput" id="adminEditBalance" inputmode="decimal"></div>
+        <div><label class="small" for="adminEditBanked">Banket</label><input class="fieldInput" id="adminEditBanked" inputmode="decimal"></div>
+        <div><label class="small" for="adminEditStatus">Status</label><select class="fieldInput" id="adminEditStatus"><option value="not_started">Ikke startet</option><option value="active">Aktiv</option><option value="closed">Lukket</option></select></div>
+      </div>
+      <div id="adminRegError" class="adminRegError"></div>
+      <div class="adminRegistrationEditActions"><button class="btn" id="adminRegCancelBtn" type="button">Annuller</button><button class="btn green" id="adminRegSaveBtn" type="button">Gem ændringer</button></div>
+    </div>
   </section>
 </div>
 <div id="adminMessage" class="toast"></div>
-<div class="modalActions"><button class="btn closeAdmin" type="button">Luk</button></div>
 </div></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2102,6 +2139,8 @@ let allSeasons=[], selectedSeasonId=localStorage.getItem('oddset_selected_season
 let allDbRounds=[], allSeasonMembers=[], allTransactions=[];
 let defendingChampionId=null, defendingChampionSeasonNumber=null;
 let people=[], memberData=[];
+let adminRegistrationMembers=[],adminRegistrationRounds=[],adminRegistrationTransactions=[],adminEditingRegistration=null;
+
 let currentUser=-1;
 const LOGIN_STORAGE_KEY='oddset_member_id';
 function rememberedMemberId(){return localStorage.getItem(LOGIN_STORAGE_KEY)||''}
@@ -2163,7 +2202,7 @@ function memberSeason(memberId){return allSeasonMembers.find(x=>x.member_id===me
 function applyTransactionBanked(){
  // New model: one 'bank' row stores amount + from_round + from_buffer.
  // Old transaction types are still supported so existing test data keeps working.
- const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank']);
+ const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank','admin_bank_correction']);
  const sums=new Map();
  (allTransactions||[]).forEach(t=>{
    if(!bankTypes.has(String(t.transaction_type||'')))return;
@@ -2424,7 +2463,7 @@ async function loadDatabase(options={}){
   if(prevSeason){
     const prevTxRes=await supabaseClient.from('transactions').select('member_id,transaction_type,amount').eq('season_id',prevSeason.id);
     if(!prevTxRes.error){
-      const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank']);
+      const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank','admin_bank_correction']);
       const sums=new Map();
       (prevTxRes.data||[]).forEach(t=>{
         if(!bankTypes.has(String(t.transaction_type||'')))return;
@@ -2678,7 +2717,7 @@ async function renderHallOfFame(){
    if(seasonsRes.error)throw new Error('seasons: '+dbErrorText(seasonsRes.error));
    if(txRes.error)throw new Error('transactions: '+dbErrorText(txRes.error));
 
-   const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank']);
+   const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank','admin_bank_correction']);
    const sums=new Map();
    let grandTotal=0;
    (txRes.data||[]).forEach(t=>{
@@ -2874,40 +2913,102 @@ async function renderAdmin(){
  if(!box)return;
  box.innerHTML='<div class="small" style="padding:6px 2px">Henter brugere…</div>';
  try{
-   const res=await supabaseClient
-     .from('members')
-     .select('id,full_name,nickname,pin,is_admin,active')
-     .order('full_name');
+   const res=await supabaseClient.from('members').select('id,full_name,nickname,pin,is_admin,active').order('full_name');
    if(res.error)throw res.error;
    const users=res.data||[];
-   box.innerHTML=users.length?users.map(m=>{
-     const name=m.full_name||m.nickname||'—';
-     const pin=String(m.pin??'—');
-     return `<div class="adminSimpleUser">
-       <span class="adminSimpleName">${name}</span>
-       <span class="adminSimplePin">${pin}</span>
-     </div>`;
-   }).join(''):'<div class="small">Ingen brugere fundet.</div>';
+   adminRegistrationMembers=users;
+   box.innerHTML=users.length?users.map(m=>{const name=m.full_name||m.nickname||'—';const pin=String(m.pin??'—');return `<div class="adminSimpleUser"><span class="adminSimpleName">${name}</span><span class="adminSimplePin">${pin}</span></div>`}).join(''):'<div class="small">Ingen brugere fundet.</div>';
  }catch(err){
-   console.error('Kunne ikke hente admin-brugere:',err);
-   box.innerHTML='<div class="small">Kunne ikke hente brugeroversigten.</div>';
-   showToast('Kunne ikke hente brugere: '+dbErrorText(err));
+   console.error('Kunne ikke hente admin-brugere:',err);box.innerHTML='<div class="small">Kunne ikke hente brugeroversigten.</div>';showToast('Kunne ikke hente brugere: '+dbErrorText(err));
  }
 }
 function setAdminTab(tabName){
-  const name=tabName||'users';
-  document.querySelectorAll('.adminTab').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));
-  document.querySelectorAll('.adminPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.adminPanel===name));
+ const name=tabName||'users';
+ document.querySelectorAll('.adminTab').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));
+ document.querySelectorAll('.adminPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.adminPanel===name));
+ if(name==='registrations')initAdminRegistrations();
+}
+function adminStatusLabel(status){return status==='active'?'Aktiv':status==='closed'?'Lukket':'Ikke startet'}
+function adminMemberName(id){const m=adminRegistrationMembers.find(x=>String(x.id)===String(id));return m?.nickname||m?.full_name||'Ukendt bruger'}
+function adminSeasonById(id){return (allSeasons||[]).find(s=>String(s.id)===String(id))}
+function adminBankedForRound(memberId,roundNumber){
+ const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank','admin_bank_correction']);
+ return (adminRegistrationTransactions||[]).reduce((sum,t)=>bankTypes.has(String(t.transaction_type||''))&&String(t.member_id)===String(memberId)&&Number(t.round_number)===Number(roundNumber)?sum+Number(t.amount||0):sum,0);
+}
+function populateAdminRegistrationFilters(){
+ const user=document.getElementById('adminRegUserFilter'),season=document.getElementById('adminRegSeasonFilter');
+ if(user){const old=user.value;user.innerHTML='<option value="">Alle brugere</option>'+adminRegistrationMembers.map(m=>`<option value="${m.id}">${m.nickname||m.full_name||'—'}</option>`).join('');if([...user.options].some(o=>o.value===old))user.value=old}
+ if(season){const wanted=season.value||String(dbSeason?.id||'');season.innerHTML=(allSeasons||[]).map(s=>`<option value="${s.id}">Sæson ${s.season_number}${s.active?' · aktiv':''}</option>`).join('');season.value=[...season.options].some(o=>o.value===wanted)?wanted:String(dbSeason?.id||season.options[0]?.value||'')}
+ populateAdminRoundFilter();
+}
+function populateAdminRoundFilter(){
+ const season=document.getElementById('adminRegSeasonFilter'),round=document.getElementById('adminRegRoundFilter');if(!round)return;
+ const selected=adminSeasonById(season?.value)||dbSeason;const count=Number(selected?.round_count||7);const old=round.value;
+ round.innerHTML='<option value="">Alle runder</option>'+Array.from({length:count},(_,i)=>`<option value="${i+1}">Runde ${i+1}</option>`).join('');if([...round.options].some(o=>o.value===old))round.value=old;
+}
+async function initAdminRegistrations(){
+ const list=document.getElementById('adminRegistrationList');if(!list)return;
+ if(!adminRegistrationMembers.length){try{const res=await supabaseClient.from('members').select('id,full_name,nickname,pin,is_admin,active').order('full_name');if(res.error)throw res.error;adminRegistrationMembers=res.data||[]}catch(err){list.innerHTML='<div class="adminRegistrationEmpty">Kunne ikke hente brugere.</div>';return}}
+ populateAdminRegistrationFilters();await loadAdminRegistrations();
+}
+async function loadAdminRegistrations(){
+ const list=document.getElementById('adminRegistrationList'),seasonId=document.getElementById('adminRegSeasonFilter')?.value;if(!list||!seasonId)return;
+ list.innerHTML='<div class="adminRegistrationEmpty">Henter registreringer…</div>';
+ document.getElementById('adminRegistrationEditCard').style.display='none';adminEditingRegistration=null;
+ try{
+   const [roundRes,txRes]=await Promise.all([
+     supabaseClient.from('member_rounds').select('*').eq('season_id',seasonId).order('round_number'),
+     supabaseClient.from('transactions').select('id,season_id,member_id,round_number,transaction_type,amount,from_round,from_buffer,created_at').eq('season_id',seasonId).order('created_at')
+   ]);
+   if(roundRes.error)throw roundRes.error;if(txRes.error)throw txRes.error;
+   adminRegistrationRounds=roundRes.data||[];adminRegistrationTransactions=txRes.data||[];renderAdminRegistrations();
+ }catch(err){console.error('Admin registreringer:',err);list.innerHTML='<div class="adminRegistrationEmpty">Kunne ikke hente registreringer.</div>';showToast('Kunne ikke hente registreringer: '+dbErrorText(err))}
+}
+function renderAdminRegistrations(){
+ const list=document.getElementById('adminRegistrationList');if(!list)return;
+ const userFilter=document.getElementById('adminRegUserFilter')?.value||'',roundFilter=document.getElementById('adminRegRoundFilter')?.value||'';
+ const rows=(adminRegistrationRounds||[]).filter(r=>(!userFilter||String(r.member_id)===userFilter)&&(!roundFilter||Number(r.round_number)===Number(roundFilter))).sort((a,b)=>{const an=adminMemberName(a.member_id),bn=adminMemberName(b.member_id);return an.localeCompare(bn,'da')||Number(a.round_number)-Number(b.round_number)});
+ if(!rows.length){list.innerHTML='<div class="adminRegistrationEmpty">Ingen registreringer matcher filtrene.</div>';return}
+ const limitedRows=rows.slice(0,7);
+ const rowHtml=limitedRows.map(r=>{const banked=adminBankedForRound(r.member_id,r.round_number);return `<div class="adminRegistrationRow"><span class="adminRegistrationPerson">${adminMemberName(r.member_id)}</span><span class="adminRegRound">R${r.round_number}</span><span><span class="adminRegStatus ${r.status}">${adminStatusLabel(r.status)}</span></span><span class="adminRegistrationMeta"><b>${money2(r.balance)}</b><small>Banket ${money(banked)}</small></span><button class="btn adminRegEditBtn" type="button" data-admin-edit-registration="${r.id}" title="Ret registrering" aria-label="Ret registrering">✎</button></div>`}).join('');
+ const note=rows.length>7?`<div class="adminRegistrationLimitNote">Viser 7 af ${rows.length} registreringer. Brug filtrene for at indsnævre listen.</div>`:'';
+ list.innerHTML=rowHtml+note;
+ list.querySelectorAll('[data-admin-edit-registration]').forEach(btn=>btn.addEventListener('click',()=>openAdminRegistrationEdit(btn.dataset.adminEditRegistration)));
+}
+function openAdminRegistrationEdit(id){
+ const r=adminRegistrationRounds.find(x=>String(x.id)===String(id));if(!r)return;adminEditingRegistration={...r,currentBanked:adminBankedForRound(r.member_id,r.round_number)};
+ const season=adminSeasonById(r.season_id);document.getElementById('adminRegistrationEditTitle').textContent='Ret registrering';document.getElementById('adminRegistrationEditSub').textContent=`${adminMemberName(r.member_id)} · Sæson ${season?.season_number??'—'} · Runde ${r.round_number}`;
+ document.getElementById('adminEditBalance').value=formatDecimalInput(r.balance);document.getElementById('adminEditBanked').value=formatDecimalInput(adminEditingRegistration.currentBanked);document.getElementById('adminEditStatus').value=r.status||'not_started';document.getElementById('adminRegError').textContent='';document.getElementById('adminRegistrationEditCard').style.display='block';document.getElementById('adminRegistrationEditCard').scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function closeAdminRegistrationEdit(){adminEditingRegistration=null;const card=document.getElementById('adminRegistrationEditCard');if(card)card.style.display='none';const err=document.getElementById('adminRegError');if(err)err.textContent=''}
+async function saveAdminRegistrationEdit(){
+ const r=adminEditingRegistration,errEl=document.getElementById('adminRegError'),saveBtn=document.getElementById('adminRegSaveBtn');if(!r)return;
+ const balance=parseDecimalValue(document.getElementById('adminEditBalance').value),banked=parseDecimalValue(document.getElementById('adminEditBanked').value),status=document.getElementById('adminEditStatus').value;
+ if(!['not_started','active','closed'].includes(status)){errEl.textContent='Ugyldig status.';return}
+ saveBtn.disabled=true;saveBtn.textContent='Gemmer…';errEl.textContent='';
+ try{
+   if(status==='active'){
+     const other=await supabaseClient.from('member_rounds').select('id,round_number').eq('season_id',r.season_id).eq('member_id',r.member_id).eq('status','active').neq('id',r.id).limit(1);
+     if(other.error)throw other.error;if((other.data||[]).length)throw new Error(`Brugeren har allerede Runde ${other.data[0].round_number} som aktiv. Ret den runde først.`);
+   }
+   const now=new Date().toISOString();const patch={balance,banked,status,updated_at:now};
+   if(status==='not_started'){patch.started_at=null;patch.closed_at=null}else if(status==='active'){patch.started_at=r.started_at||now;patch.closed_at=null}else if(status==='closed'){patch.started_at=r.started_at||now;patch.closed_at=r.closed_at||now}
+   const upd=await supabaseClient.from('member_rounds').update(patch).eq('id',r.id).select('id').maybeSingle();if(upd.error)throw upd.error;
+   const delta=banked-Number(r.currentBanked||0);
+   if(Math.abs(delta)>=0.005){const ins=await supabaseClient.from('transactions').insert({season_id:r.season_id,member_id:r.member_id,round_number:Number(r.round_number),transaction_type:'admin_bank_correction',amount:delta,from_round:0,from_buffer:0});if(ins.error)throw ins.error}
+   showToast('Registreringen er opdateret.');closeAdminRegistrationEdit();await loadAdminRegistrations();
+   if(String(r.season_id)===String(dbSeason?.id))await loadDatabase({seasonId:dbSeason.id,showLoginWhenMissing:false});
+ }catch(err){console.error('Kunne ikke gemme admin-registrering:',err);errEl.textContent=dbErrorText(err)}finally{saveBtn.disabled=false;saveBtn.textContent='Gem ændringer'}
 }
 document.querySelectorAll('.adminTab').forEach(btn=>btn.addEventListener('click',()=>setAdminTab(btn.dataset.adminTab)));
-
-document.getElementById('adminBtn').onclick=async()=>{
- const p=currentPerson();
- if(!p?.admin){overlays.admin.classList.remove('open');return}
- setAdminTab('users');
- overlays.admin.classList.add('open');
- await renderAdmin();
-};document.querySelector('.closeAdmin').onclick=()=>overlays.admin.classList.remove('open');['transactionsBtn','correctBtn','lockRoundBtn','newSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Admin-funktionen kobles på databasen i et senere trin.')));
+document.getElementById('adminRegUserFilter')?.addEventListener('change',renderAdminRegistrations);
+document.getElementById('adminRegRoundFilter')?.addEventListener('change',renderAdminRegistrations);
+document.getElementById('adminRegSeasonFilter')?.addEventListener('change',async()=>{populateAdminRoundFilter();await loadAdminRegistrations()});
+document.getElementById('adminRegCancelBtn')?.addEventListener('click',closeAdminRegistrationEdit);
+document.getElementById('adminRegSaveBtn')?.addEventListener('click',saveAdminRegistrationEdit);
+document.getElementById('adminBtn').onclick=async()=>{const p=currentPerson();if(!p?.admin){overlays.admin.classList.remove('open');return}setAdminTab('users');overlays.admin.classList.add('open');await renderAdmin();};
+document.querySelector('.closeAdmin').onclick=()=>{closeAdminRegistrationEdit();overlays.admin.classList.remove('open')};
+['newSeasonBtn','closeSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Sæson-funktionen kobles på databasen i et senere trin.')));
 
 function confirmDiscardUnsaved(){
  if(!balanceBufferDirty)return true;
@@ -3086,7 +3187,7 @@ Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=
 <script>
 /* v97: refresh a homescreen installation when the HTML on the server has a newer version. */
 (function(){
-  const CURRENT_VERSION='112';
+  const CURRENT_VERSION='116';
   let lastCheck=0;
   let checking=false;
   async function checkForAppUpdate(){
