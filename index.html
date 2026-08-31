@@ -3,14 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="oddset-app-version" content="119">
+<meta name="oddset-app-version" content="124">
 <meta name="theme-color" content="#073927">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Oddset Klubben">
+<script>
+(function(){
+  function christmasPeriod(date){
+    const d=date||new Date();
+    return d.getMonth()===11 && d.getDate()>=1 && d.getDate()<=26;
+  }
+  try{
+    const mode=localStorage.getItem('oddset_theme_mode')||'auto';
+    const resolved=mode==='christmas'?'christmas':mode==='standard'?'standard':christmasPeriod(new Date())?'christmas':'standard';
+    document.documentElement.dataset.theme=resolved;
+    document.documentElement.dataset.themeMode=mode;
+  }catch(e){
+    document.documentElement.dataset.theme=christmasPeriod(new Date())?'christmas':'standard';
+    document.documentElement.dataset.themeMode='auto';
+  }
+})();
+</script>
 <link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,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#oddset-v102">
-<link rel="apple-touch-icon" sizes="180x180" href="oddset-touch-icon-180.png?v=119">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="oddset-touch-icon-180.png?v=119">
+<link rel="apple-touch-icon" sizes="180x180" href="oddset-touch-icon-180.png?v=120">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="oddset-touch-icon-180.png?v=120">
 <title>Oddset klubben – v45 Database</title>
 <style>
 :root{--bg:#08110f;--panel:#121817;--panel2:#171f1d;--line:#2b3733;--text:#f3f6f5;--muted:#93a19d;--green:#12a665;--green2:#0b6f47;--gold:#e4b84b;--red:#e95b64}
@@ -1084,6 +1101,50 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   .adminSeasonGrid .fieldInput{min-height:38px;padding:7px 9px;font-size:10.5px}
 }
 
+/* v120/v121: selectable app themes */
+.adminThemeField{grid-column:span 1}
+.adminThemeHint{display:flex;align-items:center;gap:6px;margin-top:5px;font-size:9.5px;color:#9daaa5}
+.adminThemeDot{width:9px;height:9px;border-radius:50%;display:inline-block;background:#0d6f47;box-shadow:0 0 0 2px rgba(255,255,255,.06)}
+.snowfall{display:none;position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:18}
+.snowfall span{position:absolute;top:-14vh;left:calc(var(--left,50) * 1%);font-size:calc(8px + var(--size,8) * 1px);line-height:1;color:rgba(255,255,255,.92);opacity:var(--opacity,.8);text-shadow:0 0 8px rgba(255,255,255,.6);animation:snowFall calc(8s + var(--dur,4) * 1s) linear infinite,snowDrift calc(2.8s + var(--drift,1) * 1s) ease-in-out infinite;animation-delay:calc(var(--delay,0) * -1s),calc(var(--delay2,0) * -1s)}
+@keyframes snowFall{to{transform:translate3d(0,118vh,0) rotate(360deg)}}
+@keyframes snowDrift{0%,100%{margin-left:-8px}50%{margin-left:12px}}
+html[data-theme="christmas"]{--green:#178b66;--green2:#0e5e46;--gold:#ffd86f;--text:#f7fbff;--muted:#d6e9f5}
+html[data-theme="christmas"] body{background:radial-gradient(circle at 12% 8%,rgba(255,255,255,.65),transparent 14%),radial-gradient(circle at 84% 10%,rgba(228,246,255,.55),transparent 18%),radial-gradient(circle at 50% 0%,rgba(255,255,255,.24),transparent 26%),linear-gradient(180deg,#dff7ff 0%,#c9efff 14%,#9bd5ef 34%,#5d9ec1 54%,#234a67 78%,#102637 100%);color:var(--text)}
+html[data-theme="christmas"] .snowfall{display:block}
+html[data-theme="christmas"] .stickyShell{background:rgba(20,57,79,.96);box-shadow:0 10px 28px rgba(6,20,34,.34),inset 0 -1px 0 rgba(255,255,255,.22);backdrop-filter:blur(10px)}
+html[data-theme="christmas"] .stickyShell::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(206,239,255,.7),rgba(255,255,255,.95));box-shadow:0 2px 14px rgba(255,255,255,.28);pointer-events:none}
+html[data-theme="christmas"] .stickyShell::after{content:"";position:absolute;left:0;right:0;bottom:-16px;height:20px;background:linear-gradient(180deg,rgba(239,251,255,.96),rgba(160,218,242,.76));clip-path:polygon(0 0,4% 98%,8% 0,12% 88%,16% 0,21% 100%,26% 0,31% 86%,36% 0,42% 100%,48% 0,54% 92%,60% 0,66% 100%,72% 0,78% 88%,84% 0,90% 100%,96% 0,100% 84%,100% 0);filter:drop-shadow(0 6px 8px rgba(143,210,239,.26));opacity:.92;pointer-events:none}
+html[data-theme="christmas"] .top{background:linear-gradient(100deg,#1b435b 0%,#2e6789 32%,#77bfe2 67%,#dff7ff 100%);border-bottom:1px solid rgba(255,255,255,.34);overflow:visible}
+html[data-theme="christmas"] .top::before{content:"🎅  🎄";position:absolute;left:58px;bottom:4px;font-size:14px;letter-spacing:2px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));pointer-events:none}
+html[data-theme="christmas"] .top::after{content:"❄  ❄  ☃️";position:absolute;right:14px;bottom:3px;color:rgba(255,255,255,.92);font-size:12px;letter-spacing:4px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.18));pointer-events:none}
+html[data-theme="christmas"] .brand{color:#ffffff;text-shadow:0 2px 10px rgba(18,52,72,.35)}
+html[data-theme="christmas"] .trophyBtn{filter:drop-shadow(0 0 8px rgba(255,216,111,.38))}
+html[data-theme="christmas"] .seasonPick{background:rgba(11,39,55,.64);border-color:rgba(219,245,255,.46);color:#fff}
+html[data-theme="christmas"] .toolCluster{background:rgba(11,35,49,.30);border-color:rgba(220,246,255,.22)}
+html[data-theme="christmas"] .toolChip:hover{background:rgba(255,255,255,.12)}
+html[data-theme="christmas"] .mobileNav{background:linear-gradient(90deg,rgba(19,60,82,.98),rgba(41,95,126,.98));border-bottom-color:rgba(220,246,255,.22)}
+html[data-theme="christmas"] .mobileNav a,html[data-theme="christmas"] .mobileNav button{background:rgba(10,38,54,.74);border-color:rgba(221,246,255,.18);color:#eaf7ff}
+html[data-theme="christmas"] .mobileNav a.active,html[data-theme="christmas"] .mobileNav button.active{background:linear-gradient(90deg,#ad3341,#c84d59)!important;border-color:#ffd86f!important;color:#fffdf5!important;box-shadow:0 0 0 1px rgba(255,216,111,.12),0 8px 16px rgba(66,17,22,.18)}
+html[data-theme="christmas"] .stat,html[data-theme="christmas"] .card{background:linear-gradient(145deg,rgba(17,42,58,.96),rgba(14,31,45,.94));border-color:#6fa5c2;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 22px rgba(9,26,40,.14)}
+html[data-theme="christmas"] .stat.liveCard{border-color:rgba(255,216,111,.55)}
+html[data-theme="christmas"] .stat .k,html[data-theme="christmas"] .sub,html[data-theme="christmas"] .small,html[data-theme="christmas"] .hint{color:#d8eaf4}
+html[data-theme="christmas"] .badge{background:#a8303d;color:#fff7da;border:1px solid rgba(255,216,111,.35)}
+html[data-theme="christmas"] .roundPep,html[data-theme="christmas"] .confirmValue,html[data-theme="christmas"] .memberDetail .metric{background:rgba(15,41,58,.86);border-color:#6b9ab2}
+html[data-theme="christmas"] .btn{background:#17374b;border-color:#6fa5c2}
+html[data-theme="christmas"] .btn.green{background:#0e6d54;border-color:#30a97d}
+html[data-theme="christmas"] .btn.gold{background:#7c5a1b;border-color:#deb04a;color:#fff3cd}
+html[data-theme="christmas"] .btn.red{background:#7e2a34;border-color:#d96b76}
+html[data-theme="christmas"] .statsTabBtn.active,html[data-theme="christmas"] .adminTab.active{background:linear-gradient(90deg,#b53442,#d1515d);border-color:#ffd86f;color:#fffdf3}
+html[data-theme="christmas"] .statsBadge{background:rgba(173,51,65,.18);border-color:rgba(255,216,111,.62);color:#ffe48f}
+html[data-theme="christmas"] .statsChartWrap{border-color:#7fb2cc;background:linear-gradient(180deg,rgba(15,39,56,.98),rgba(10,29,42,.96))}
+html[data-theme="christmas"] .fieldInput,html[data-theme="christmas"] .bigInput,html[data-theme="christmas"] .bigDisplay{background:rgba(10,28,41,.92);border-color:#81afc9;color:#fff}
+html[data-theme="christmas"] .adminModal,html[data-theme="christmas"] .modal{border-color:#82b4cf;background:linear-gradient(180deg,#17394e,#122d3f)}
+html[data-theme="christmas"] .adminSimpleUser,html[data-theme="christmas"] .adminRegistrationRow{background:#143346;border-color:#6b9db7}
+html[data-theme="christmas"] .adminThemeDot{background:linear-gradient(90deg,#d04251 0 42%,#8fd8f6 42% 72%,#1e8f63 72% 100%);box-shadow:0 0 0 2px rgba(255,255,255,.22)}
+html[data-theme="christmas"] .roundInfoText::after{content:"  ❄️";opacity:.85}
+@media(max-width:760px){html[data-theme="christmas"] .top::before{left:46px;font-size:12px}html[data-theme="christmas"] .top::after{right:8px;font-size:10px;letter-spacing:2px}html[data-theme="christmas"] .stickyShell::after{height:16px;bottom:-13px}}
+
 /* v114/v115: admin registrations */
 .adminTabs{align-items:stretch}
 .adminTab{display:flex;align-items:center;justify-content:center;text-align:center;min-height:34px;line-height:1.15}
@@ -1919,7 +1980,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <script>
 /* v102: versioned favicon / apple-touch-icon cache busting. */
 (function(){
-  const ICON_VERSION='119';
+  const ICON_VERSION='124';
   function versionIconLink(link){
     if(!link || !link.href)return;
     const raw=link.getAttribute('href')||'';
@@ -1963,8 +2024,189 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 }
 </style>
 
+
+<style>
+/* v122: full christmas mode */
+.christmasLights,.christmasCorners,.snowDriftLayer{display:none;pointer-events:none}
+.christmasLights{position:fixed;top:66px;left:0;right:0;z-index:19;justify-content:space-evenly;align-items:flex-start;padding:0 10px;gap:4px}
+.christmasLights .bulb{position:relative;width:14px;height:14px;border-radius:50%;box-shadow:0 0 10px currentColor,0 0 18px currentColor;animation:christmasTwinkle calc(1.6s + var(--tw,0) * .35s) ease-in-out infinite;background:currentColor}
+.christmasLights .bulb::before{content:"";position:absolute;top:-6px;left:4px;width:6px;height:7px;border-radius:3px 3px 1px 1px;background:#ebf9ff;opacity:.95}
+.christmasLights .bulb::after{content:"";position:absolute;top:-26px;left:6px;width:2px;height:21px;background:linear-gradient(180deg,rgba(240,252,255,.0),rgba(240,252,255,.75));border-radius:2px}
+.christmasLights .red{color:#ff5f6d}.christmasLights .gold{color:#ffd86f}.christmasLights .green{color:#44d39b}.christmasLights .blue{color:#8ae2ff}.christmasLights .white{color:#ffffff}
+.christmasCorners{position:fixed;inset:0;z-index:16;overflow:hidden}
+.christmasCorner{position:absolute;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18))}
+.christmasCorner.left{left:6px;top:86px;font-size:28px;transform:rotate(-8deg)}
+.christmasCorner.right{right:8px;top:88px;font-size:26px;transform:rotate(8deg)}
+.christmasCorner.bottomLeft{left:8px;bottom:10px;font-size:24px;opacity:.9}.christmasCorner.bottomRight{right:8px;bottom:10px;font-size:24px;opacity:.9}
+.snowDriftLayer{position:fixed;left:0;right:0;bottom:0;height:56px;z-index:8;background:radial-gradient(circle at 10% 60%,rgba(255,255,255,.95) 0 18%,transparent 19%),radial-gradient(circle at 24% 55%,rgba(241,251,255,.95) 0 21%,transparent 22%),radial-gradient(circle at 42% 60%,rgba(255,255,255,.96) 0 18%,transparent 19%),radial-gradient(circle at 58% 55%,rgba(241,251,255,.95) 0 22%,transparent 23%),radial-gradient(circle at 74% 60%,rgba(255,255,255,.96) 0 18%,transparent 19%),radial-gradient(circle at 90% 56%,rgba(241,251,255,.95) 0 21%,transparent 22%),linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.12) 22%,rgba(248,253,255,.96) 23%,rgba(235,248,255,.98) 100%);opacity:.88}
+@keyframes christmasTwinkle{0%,100%{transform:scale(1);opacity:.82}50%{transform:scale(1.22);opacity:1}}
+html[data-theme="christmas"] body{background:radial-gradient(circle at 12% 8%,rgba(255,255,255,.78),transparent 14%),radial-gradient(circle at 82% 8%,rgba(255,255,255,.72),transparent 15%),radial-gradient(circle at 50% 2%,rgba(255,255,255,.34),transparent 22%),linear-gradient(180deg,#eafcff 0%,#d8f5ff 12%,#c2ecff 24%,#94d2ee 42%,#5e9ec3 62%,#2d5a77 82%,#143144 100%)}
+html[data-theme="christmas"] .snowfall span{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.8),0 0 16px rgba(175,231,255,.55)}
+html[data-theme="christmas"] .christmasLights,html[data-theme="christmas"] .christmasCorners,html[data-theme="christmas"] .snowDriftLayer{display:flex}
+html[data-theme="christmas"] .stickyShell{background:linear-gradient(180deg,rgba(25,82,111,.98),rgba(20,58,80,.98));box-shadow:0 12px 28px rgba(8,27,41,.32),inset 0 -1px 0 rgba(255,255,255,.28)}
+html[data-theme="christmas"] .stickyShell::before{height:10px;background:linear-gradient(90deg,#ffffff,#ccf1ff,#ffffff);box-shadow:0 2px 18px rgba(255,255,255,.36)}
+html[data-theme="christmas"] .stickyShell::after{bottom:-21px;height:26px;background:linear-gradient(180deg,rgba(245,253,255,.98),rgba(187,231,250,.88));filter:drop-shadow(0 8px 10px rgba(112,183,215,.3))}
+html[data-theme="christmas"] .top{background:linear-gradient(100deg,#275a77 0%,#3d81a9 32%,#83d0ee 70%,#effcff 100%);border-bottom:1px solid rgba(255,255,255,.42)}
+html[data-theme="christmas"] .top::before{content:"🎅  ❄️  🎄";left:60px;bottom:4px;font-size:14px;letter-spacing:1px}
+html[data-theme="christmas"] .top::after{content:"☃️  ❄️  ✨";right:10px;bottom:3px;font-size:12px;letter-spacing:2px;color:#fff}
+html[data-theme="christmas"] .brand{font-weight:900;letter-spacing:.55px;text-shadow:0 0 16px rgba(255,255,255,.24),0 2px 10px rgba(16,53,75,.36)}
+html[data-theme="christmas"] .toolChip,html[data-theme="christmas"] .iconBtn{background:rgba(11,37,53,.38)}
+html[data-theme="christmas"] .toolChip:hover,html[data-theme="christmas"] .iconBtn:hover{background:rgba(255,255,255,.14)}
+html[data-theme="christmas"] .stat,html[data-theme="christmas"] .card{background:linear-gradient(145deg,rgba(15,43,60,.97),rgba(12,31,44,.95));border:1px solid #83bddd;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 26px rgba(9,26,40,.16),0 0 0 1px rgba(255,255,255,.03)}
+html[data-theme="christmas"] .stat.liveCard{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 26px rgba(9,26,40,.18),0 0 0 1px rgba(255,216,111,.14)}
+html[data-theme="christmas"] .badge{background:linear-gradient(90deg,#af3140,#c74d58);border-color:rgba(255,216,111,.45)}
+html[data-theme="christmas"] .btn.green{background:linear-gradient(180deg,#127659,#0f624b)}
+html[data-theme="christmas"] .btn.gold{background:linear-gradient(180deg,#8d6820,#755419)}
+html[data-theme="christmas"] .btn.red{background:linear-gradient(180deg,#a33642,#842732)}
+html[data-theme="christmas"] .mobileNav a.active,html[data-theme="christmas"] .mobileNav button.active,html[data-theme="christmas"] .statsTabBtn.active,html[data-theme="christmas"] .adminTab.active{box-shadow:0 0 0 1px rgba(255,216,111,.18),0 10px 20px rgba(93,24,32,.22)}
+html[data-theme="christmas"] .memberRow.medalGold{background:linear-gradient(90deg,rgba(240,196,76,.52),rgba(240,196,76,.24) 50%,rgba(240,196,76,.1) 74%,rgba(10,24,34,.92) 100%)}
+html[data-theme="christmas"] .memberRow.medalSilver{background:linear-gradient(90deg,rgba(214,228,238,.5),rgba(214,228,238,.22) 50%,rgba(214,228,238,.08) 74%,rgba(10,24,34,.92) 100%)}
+html[data-theme="christmas"] .memberRow.medalBronze{background:linear-gradient(90deg,rgba(226,158,112,.52),rgba(226,158,112,.22) 50%,rgba(226,158,112,.08) 74%,rgba(10,24,34,.92) 100%)}
+html[data-theme="christmas"] .memberRow.dangerLast{background:linear-gradient(90deg,rgba(238,102,114,.34),rgba(238,102,114,.16) 50%,rgba(238,102,114,.06) 76%,rgba(10,24,34,.92) 100%)}
+html[data-theme="christmas"] .statsChartWrap{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 30px rgba(8,24,37,.2)}
+html[data-theme="christmas"] .roundPep,html[data-theme="christmas"] .confirmValue{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+html[data-theme="christmas"] .adminThemeHint{color:#def2fb}
+@media(max-width:760px){
+  .christmasLights{top:60px;padding:0 8px}
+  .christmasLights .bulb{width:11px;height:11px}
+  .christmasCorner.left{top:80px;font-size:22px}
+  .christmasCorner.right{top:82px;font-size:20px}
+  .christmasCorner.bottomLeft,.christmasCorner.bottomRight{font-size:18px;bottom:8px}
+  .snowDriftLayer{height:42px}
+  html[data-theme="christmas"] .stickyShell::after{bottom:-16px;height:18px}
+  html[data-theme="christmas"] .top::before{left:46px;font-size:12px}
+  html[data-theme="christmas"] .top::after{font-size:10px;right:8px}
+}
+@media(max-width:390px) and (max-height:740px){
+  .christmasLights{top:58px}
+  .christmasLights .bulb{width:10px;height:10px}
+  .christmasCorner.left,.christmasCorner.right{display:none}
+  .snowDriftLayer{height:34px}
+}
+</style>
+
+
+<style>
+/* v123: Christmas header refinement - Christmas theme only */
+html[data-theme="christmas"] .top{
+  background:linear-gradient(100deg,#0d3552 0%,#174f73 34%,#2f80a9 68%,#8bd2ed 100%)!important;
+  border-bottom:1px solid rgba(228,248,255,.52)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+}
+html[data-theme="christmas"] .top::before,
+html[data-theme="christmas"] .top::after{content:none!important;display:none!important}
+
+/* Remove the floating Christmas corner icons at the top only. */
+html[data-theme="christmas"] .christmasCorner.left,
+html[data-theme="christmas"] .christmasCorner.right{display:none!important}
+
+/* Turn the Hall of Fame trophy into a Santa in Christmas mode only. */
+html[data-theme="christmas"] #hallOfFameBtn{
+  font-size:0!important;
+  width:30px;
+  min-width:30px;
+  height:30px;
+  display:inline-grid;
+  place-items:center;
+  margin-right:5px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.24));
+}
+html[data-theme="christmas"] #hallOfFameBtn::after{
+  content:"🎅";
+  font-size:24px;
+  line-height:1;
+}
+
+html[data-theme="christmas"] .brand{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  color:#ffffff!important;
+  text-shadow:0 -1px 0 #eefcff,0 2px 8px rgba(4,36,58,.45),0 0 12px rgba(193,238,255,.32)!important;
+}
+html[data-theme="christmas"] .brand>span{
+  position:relative;
+  display:inline-block;
+  font-weight:900;
+  letter-spacing:.55px;
+}
+/* Snow ridge sitting on top of ODDSET KLUBBEN */
+html[data-theme="christmas"] .brand>span::before{
+  content:"";
+  position:absolute;
+  left:1px;right:0;top:-5px;height:6px;
+  background:
+    radial-gradient(circle at 5% 100%,#fff 0 4px,transparent 4.5px),
+    radial-gradient(circle at 18% 100%,#f6fdff 0 5px,transparent 5.5px),
+    radial-gradient(circle at 33% 100%,#fff 0 4px,transparent 4.5px),
+    radial-gradient(circle at 51% 100%,#eefaff 0 5px,transparent 5.5px),
+    radial-gradient(circle at 69% 100%,#fff 0 4px,transparent 4.5px),
+    radial-gradient(circle at 86% 100%,#f4fcff 0 5px,transparent 5.5px);
+  opacity:.96;
+  filter:drop-shadow(0 2px 2px rgba(119,192,223,.28));
+  pointer-events:none;
+}
+
+html[data-theme="christmas"] .seasonPick{
+  background:rgba(7,43,66,.66)!important;
+  border-color:rgba(205,241,255,.48)!important;
+}
+html[data-theme="christmas"] .toolCluster{
+  background:rgba(7,40,61,.42)!important;
+  border-color:rgba(207,241,255,.28)!important;
+}
+
+@media(max-width:760px){
+  html[data-theme="christmas"] #hallOfFameBtn{width:27px;min-width:27px;height:27px;margin-right:3px}
+  html[data-theme="christmas"] #hallOfFameBtn::after{font-size:21px}
+  html[data-theme="christmas"] .brand>span::before{top:-4px;height:5px}
+}
+</style>
+
 </head>
 <body>
+<div class="snowfall" aria-hidden="true">
+  <span style="--left:4;--size:7;--dur:3;--drift:1.2;--delay:1;--delay2:0.5;--opacity:.62">❄</span>
+  <span style="--left:11;--size:10;--dur:6;--drift:1.8;--delay:4;--delay2:1.4;--opacity:.84">❅</span>
+  <span style="--left:18;--size:8;--dur:5;--drift:1.3;--delay:2.4;--delay2:0.8;--opacity:.75">❄</span>
+  <span style="--left:25;--size:11;--dur:7;--drift:1.5;--delay:6;--delay2:1.7;--opacity:.9">❆</span>
+  <span style="--left:31;--size:9;--dur:4;--drift:1.1;--delay:1.8;--delay2:0.2;--opacity:.72">❄</span>
+  <span style="--left:38;--size:12;--dur:8;--drift:1.7;--delay:3.5;--delay2:1.1;--opacity:.95">❅</span>
+  <span style="--left:45;--size:8;--dur:4.5;--drift:1.2;--delay:5.1;--delay2:0.6;--opacity:.68">❄</span>
+  <span style="--left:52;--size:10;--dur:6.5;--drift:1.9;--delay:2.8;--delay2:1.5;--opacity:.86">❆</span>
+  <span style="--left:58;--size:13;--dur:9;--drift:2.1;--delay:6.2;--delay2:0.4;--opacity:.92">❄</span>
+  <span style="--left:64;--size:7;--dur:5.2;--drift:1;--delay:0.9;--delay2:1.1;--opacity:.6">❅</span>
+  <span style="--left:70;--size:11;--dur:7.3;--drift:1.8;--delay:4.6;--delay2:0.7;--opacity:.88">❄</span>
+  <span style="--left:76;--size:9;--dur:4.7;--drift:1.4;--delay:2.1;--delay2:1.8;--opacity:.7">❆</span>
+  <span style="--left:82;--size:12;--dur:8.4;--drift:2;--delay:5.4;--delay2:1.3;--opacity:.94">❄</span>
+  <span style="--left:88;--size:8;--dur:5.7;--drift:1.2;--delay:1.2;--delay2:0.1;--opacity:.66">❅</span>
+  <span style="--left:93;--size:10;--dur:6.8;--drift:1.7;--delay:3.3;--delay2:1.2;--opacity:.82">❄</span>
+  <span style="--left:97;--size:7;--dur:4.9;--drift:1.1;--delay:0.4;--delay2:0.9;--opacity:.58">❆</span>
+</div>
+
+<div class="christmasLights" aria-hidden="true">
+  <span class="bulb red" style="--tw:1"></span>
+  <span class="bulb gold" style="--tw:3"></span>
+  <span class="bulb green" style="--tw:2"></span>
+  <span class="bulb blue" style="--tw:4"></span>
+  <span class="bulb white" style="--tw:2"></span>
+  <span class="bulb red" style="--tw:5"></span>
+  <span class="bulb gold" style="--tw:1"></span>
+  <span class="bulb green" style="--tw:4"></span>
+  <span class="bulb blue" style="--tw:2"></span>
+  <span class="bulb white" style="--tw:3"></span>
+  <span class="bulb red" style="--tw:2"></span>
+  <span class="bulb gold" style="--tw:4"></span>
+  <span class="bulb green" style="--tw:3"></span>
+  <span class="bulb blue" style="--tw:1"></span>
+</div>
+<div class="christmasCorners" aria-hidden="true">
+  <div class="christmasCorner left">🎄</div>
+  <div class="christmasCorner right">🎅</div>
+  <div class="christmasCorner bottomLeft">🎁</div>
+  <div class="christmasCorner bottomRight">🧑‍🎄</div>
+</div>
+<div class="snowDriftLayer" aria-hidden="true"></div>
 <div class="app overviewMode" id="oddsetApp">
 <div class="stickyShell">
 <header class="top"><div class="brand"><button class="trophyBtn" id="hallOfFameBtn" type="button" title="Hall of Fame" aria-label="Åbn Hall of Fame">🏆</button> <span>ODDSET KLUBBEN</span></div><div class="topTools"><select id="season" class="seasonPick"><option>Indlæser…</option></select><div class="toolCluster"><button id="rulesBtn" class="toolChip" type="button"><span class="toolIcon">📖</span><span class="toolLabel">Regler</span></button><button id="adminBtn" class="toolChip toolIconOnly" type="button" title="Administration" style="display:none"><span class="toolIcon">⚙</span></button></div></div><button id="profileBtn" class="profile" type="button" style="background:none;border:0;color:inherit"><img id="topAvatar" class="avatar" alt="Profilbillede"><span><b id="topNickname">…</b><br><span class="small" id="topRole">Ikke logget ind</span></span></button></header>
@@ -2107,7 +2349,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
   <section class="adminPanel" data-admin-panel="season">
     <h3 style="font-size:16px;margin-top:0">Sæson</h3>
-    <div class="adminGrid adminSeasonGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Fra dato</label><input class="fieldInput" id="adminSeasonFrom" type="date"></div><div><label class="small">Til dato</label><input class="fieldInput" id="adminSeasonTo" type="date"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div>
+    <div class="adminGrid adminSeasonGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Fra dato</label><input class="fieldInput" id="adminSeasonFrom" type="date"></div><div><label class="small">Til dato</label><input class="fieldInput" id="adminSeasonTo" type="date"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div><div class="adminThemeField"><label class="small" for="adminTheme">Tema</label><select class="fieldInput" id="adminTheme"><option value="auto">Auto · 1.–26. december</option><option value="standard">Standard</option><option value="christmas">Jul ❄️🎄</option></select><div class="adminThemeHint"><span class="adminThemeDot"></span><span id="adminThemeHintText">Standardtema</span></div></div></div>
     <div class="adminActions" style="margin-top:12px"><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button><button class="btn" id="closeSeasonBtn" type="button">Luk igangværende sæson</button></div>
     <div class="small" id="adminSeasonActionHint" style="margin-top:8px">Oprettelse og lukning af sæson kobles på i et senere trin.</div>
   </section>
@@ -2932,15 +3174,42 @@ async function renderAdmin(){
  }
  syncAdminSeasonUi();
 }
+const THEME_STORAGE_KEY='oddset_theme_mode';
+function isChristmasPeriod(date=new Date()){return date.getMonth()===11&&date.getDate()>=1&&date.getDate()<=26}
+function currentThemeMode(){
+ try{const v=localStorage.getItem(THEME_STORAGE_KEY)||'auto';return ['auto','standard','christmas'].includes(v)?v:'auto'}catch(e){return 'auto'}
+}
+function resolveTheme(mode=currentThemeMode(),date=new Date()){return mode==='christmas'?'christmas':mode==='standard'?'standard':isChristmasPeriod(date)?'christmas':'standard'}
+function applyTheme(themeMode,{save=true}={}){
+ const mode=['auto','standard','christmas'].includes(themeMode)?themeMode:'auto';
+ const value=resolveTheme(mode);
+ document.documentElement.dataset.theme=value;
+ document.documentElement.dataset.themeMode=mode;
+ if(save){try{localStorage.setItem(THEME_STORAGE_KEY,mode)}catch(e){}}
+ const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',value==='christmas'?'#2d6485':'#073927');
+ const select=document.getElementById('adminTheme');if(select&&select.value!==mode)select.value=mode;
+ const hint=document.getElementById('adminThemeHintText');
+ if(hint){
+   if(mode==='auto')hint.textContent=value==='christmas'?'Auto · juletema aktivt 1.–26. december 🎄':'Auto · juletema starter 1. december';
+   else hint.textContent=value==='christmas'?'Juletema tvunget til 🎄':'Standardtema tvunget til';
+ }
+}
+function refreshAutomaticTheme(){if(currentThemeMode()==='auto')applyTheme('auto',{save:false})}
+applyTheme(currentThemeMode(),{save:false});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAutomaticTheme()});
+window.addEventListener('pageshow',refreshAutomaticTheme);
+setInterval(refreshAutomaticTheme,30*60*1000);
+
 function syncAdminSeasonUi(){
  const s=dbSeason;if(!s)return;
- const seasonEl=document.getElementById('adminSeason'),roundsEl=document.getElementById('adminRounds'),startEl=document.getElementById('adminStart'),minBetEl=document.getElementById('adminMinBet'),fromEl=document.getElementById('adminSeasonFrom'),toEl=document.getElementById('adminSeasonTo'),newBtn=document.getElementById('newSeasonBtn'),closeBtn=document.getElementById('closeSeasonBtn'),hint=document.getElementById('adminSeasonActionHint');
+ const seasonEl=document.getElementById('adminSeason'),roundsEl=document.getElementById('adminRounds'),startEl=document.getElementById('adminStart'),minBetEl=document.getElementById('adminMinBet'),fromEl=document.getElementById('adminSeasonFrom'),toEl=document.getElementById('adminSeasonTo'),themeEl=document.getElementById('adminTheme'),newBtn=document.getElementById('newSeasonBtn'),closeBtn=document.getElementById('closeSeasonBtn'),hint=document.getElementById('adminSeasonActionHint');
  if(seasonEl)seasonEl.value=s.name||('Sæson '+(s.season_number??''));
  if(roundsEl)roundsEl.value=Number(s.round_count||7);
  if(startEl)startEl.value=Number(s.start_amount||200);
  if(minBetEl)minBetEl.value=Number(s.minimum_bet||100);
  if(fromEl){const fallback=Number(s.season_number)===3?'2026-07-20':'';fromEl.value=(s.start_date||fallback||'').slice(0,10)}
  if(toEl)toEl.value=String(s.end_date||'').slice(0,10);
+ if(themeEl)themeEl.value=currentThemeMode();applyTheme(currentThemeMode(),{save:false});
  const active=s.active===true;
  if(newBtn){newBtn.disabled=active;newBtn.title=active?'Den nuværende sæson skal lukkes, før en ny kan startes.':'Start ny sæson'}
  if(closeBtn){closeBtn.disabled=!active;closeBtn.title=active?'Luk den aktive sæson.':'Sæsonen er allerede lukket.'}
@@ -3031,6 +3300,7 @@ document.getElementById('adminRegRoundFilter')?.addEventListener('change',render
 document.getElementById('adminRegSeasonFilter')?.addEventListener('change',async()=>{populateAdminRoundFilter();await loadAdminRegistrations()});
 document.getElementById('adminRegCancelBtn')?.addEventListener('click',closeAdminRegistrationEdit);
 document.getElementById('adminRegSaveBtn')?.addEventListener('click',saveAdminRegistrationEdit);
+document.getElementById('adminTheme')?.addEventListener('change',e=>{const mode=e.target.value;applyTheme(mode);showToast(mode==='auto'?'Tema sat til Auto · jul 1.–26. december.':mode==='christmas'?'Juletema aktiveret manuelt 🎄':'Standardtema aktiveret manuelt.');});
 document.getElementById('adminBtn').onclick=async()=>{const p=currentPerson();if(!p?.admin){overlays.admin.classList.remove('open');return}setAdminTab('users');overlays.admin.classList.add('open');await renderAdmin();};
 document.querySelector('.closeAdmin').onclick=()=>{closeAdminRegistrationEdit();overlays.admin.classList.remove('open')};
 document.getElementById('newSeasonBtn')?.addEventListener('click',()=>showToast('Oprettelse af ny sæson kobles på databasen i et senere trin.'));
@@ -3213,7 +3483,7 @@ Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=
 <script>
 /* v97: refresh a homescreen installation when the HTML on the server has a newer version. */
 (function(){
-  const CURRENT_VERSION='119';
+  const CURRENT_VERSION='124';
   let lastCheck=0;
   let checking=false;
   async function checkForAppUpdate(){
