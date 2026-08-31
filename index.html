@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="oddset-app-version" content="111">
+<meta name="oddset-app-version" content="112">
 <meta name="theme-color" content="#073927">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -255,7 +255,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 /* v31 compact member detail */
 .memberDetail{width:min(620px,96%);padding:14px!important;max-height:none!important;overflow:visible!important}
-.memberDetailHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.memberDetailHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.memberChampionNote{display:none;margin-top:6px;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,210,95,.35);background:rgba(191,146,38,.14);color:#f6d87a;font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.2;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
 .memberDetailHead h3{margin:0 0 2px!important}
 .memberCloseX{width:34px;height:34px;border:1px solid #3b4a45;border-radius:8px;background:#0d1311;color:#fff;font-size:22px;line-height:1;cursor:pointer}
 .memberDetail .metricGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:9px 0!important}
@@ -277,7 +277,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   #memberOverlay{padding:8px}
   .memberDetail{width:100%;padding:10px!important;border-radius:10px!important}
   .memberDetailHead h3{font-size:17px!important}
-  .memberDetailHead .sub{font-size:10px}
+  .memberDetailHead .sub{font-size:10px}.memberChampionNote{margin-top:5px;padding:4px 8px;font-size:10px}
   .memberCloseX{width:30px;height:30px;font-size:20px}
   .memberDetail .metricGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px;margin:7px 0!important}
   .memberDetail .metric{padding:6px!important}
@@ -477,6 +477,10 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 /* v59 verified autosave + manual save */
 .saveStateRow{display:flex;align-items:center;gap:10px;margin:10px 0 2px}.saveStateBtn{flex:0 0 auto;background:#202a27;border-color:#42544d;color:#eef6f2;padding:9px 13px}.saveStateBtn:hover{background:#293530}.saveStateBtn.saving{opacity:.7;pointer-events:none}.saveStateBtn.saved{border-color:#2a9d68}.saveStateRow .autosave{display:inline-block!important}.saveStateRow .autosave{margin:0;min-height:0}.seasonReadonly #saveStateBtn{opacity:.42;cursor:not-allowed}@media(max-width:760px){.saveStateRow{display:grid;grid-template-columns:1fr;gap:5px}.saveStateBtn{width:100%}.saveStateRow .autosave{text-align:center}}
+
+/* v112: defending champion marker */
+.standingTitleLine{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.standingTitleLine h3{margin:0}.championLegend{font-size:9px;color:#d8c16a;opacity:.78;font-weight:700;white-space:nowrap}.memberChampion{display:inline-flex;align-items:center;margin-left:5px;font-size:11px;line-height:1;vertical-align:middle;filter:drop-shadow(0 0 3px rgba(228,184,75,.35))}.memberRow.championRow{box-shadow:inset 2px 0 0 rgba(228,184,75,.45)}
+@media(max-width:760px){.championLegend{font-size:8px}.memberChampion{font-size:10px;margin-left:4px}}
 </style>
 
 <style>
@@ -1872,7 +1876,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <script>
 /* v102: versioned favicon / apple-touch-icon cache busting. */
 (function(){
-  const ICON_VERSION='111';
+  const ICON_VERSION='112';
   function versionIconLink(link){
     if(!link || !link.href)return;
     const raw=link.getAttribute('href')||'';
@@ -1946,7 +1950,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <div class="saveStateRow"><button class="btn saveStateBtn" id="saveStateBtn" type="button" style="display:none">💾 Gem ændringer</button><span id="autoSave" class="autosave"></span></div>
 <div class="actions"><button class="btn gold" id="bankBtn" type="button">🏦 Bank penge</button><button class="btn green" id="closeBtn" type="button">🔒 Luk runde</button></div><div id="toast" class="toast"></div>
 <div class="myRoundsTitle">Mine runder</div><div class="roundStrip" id="roundStrip"></div><div class="sub roundProgressHelp">Når en runde lukkes, starter næste runde automatisk med 200 kr.</div><div class="roundPep" id="roundPep"></div></div>
-<div class="card" id="standingsSection"><div class="standingsTop"><div><h3>Stilling</h3><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
+<div class="card" id="standingsSection"><div class="standingsTop"><div><div class="standingTitleLine"><h3>Stilling</h3><span class="championLegend" id="championLegend" style="display:none">👑 Forsvarende mester</span></div><div class="sub">Klik på et medlem for at se deres runder</div></div><span class="small" id="standingSeason">—</span></div><div class="members" id="membersList"><div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div><div class="small" id="standingsLoading" style="padding:12px 4px">Indlæser data…</div></div></div></section>
 <section class="second"><div class="card" id="historyCard"><h3>Tidligere runder</h3><div class="sub">Dine afsluttede og aktive runder</div><div class="tableWrap"><table class="table historyTable"><thead><tr><th>Runde</th><th>Status</th><th>Start</th><th>Banket</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
 <section class="card" id="roundWinnersCard"><div class="winnersHead"><div><h3>Rundevindere</h3><div class="sub">Førende spiller pr. runde · først afgjort når alle 9 har afsluttet runden</div></div><div class="winnersMiniBadge">7 runder</div></div><div class="winnerRows" id="winnerRows"></div></section>
 <section class="card statsCard" id="formCurveCard">
@@ -2033,7 +2037,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
   </div>
 </div>
 
-<div id="memberOverlay" class="overlay"><div class="modal memberDetail"><div class="memberDetailHead"><div><h3 id="memberName">Medlem</h3><div class="sub">Status i den valgte sæson</div></div><button class="memberCloseX closeMemberX" type="button" aria-label="Luk">×</button></div><div class="metricGrid"><div class="metric"><span class="small">Banket</span><b id="memberBank">0 kr.</b></div><div class="metric"><span class="small">Runder</span><b id="memberRound">0 / 7</b></div><div class="metric"><span class="small">Aktiv saldo</span><b id="memberSaldo">0 kr.</b></div></div><div class="memberTableWrap"><table class="memberTable"><thead><tr><th>Runde</th><th>Status</th><th>Saldo</th><th>Banket</th></tr></thead><tbody id="memberRounds"></tbody></table></div><div class="modalActions memberModalActions"><button class="btn closeMember" type="button">Luk</button></div></div></div>
+<div id="memberOverlay" class="overlay"><div class="modal memberDetail"><div class="memberDetailHead"><div><h3 id="memberName">Medlem</h3><div class="sub">Status i den valgte sæson</div><div class="memberChampionNote" id="memberChampionNote">👑 Forsvarende mester</div></div><button class="memberCloseX closeMemberX" type="button" aria-label="Luk">×</button></div><div class="metricGrid"><div class="metric"><span class="small">Banket</span><b id="memberBank">0 kr.</b></div><div class="metric"><span class="small">Runder</span><b id="memberRound">0 / 7</b></div><div class="metric"><span class="small">Aktiv saldo</span><b id="memberSaldo">0 kr.</b></div></div><div class="memberTableWrap"><table class="memberTable"><thead><tr><th>Runde</th><th>Status</th><th>Saldo</th><th>Banket</th></tr></thead><tbody id="memberRounds"></tbody></table></div><div class="modalActions memberModalActions"><button class="btn closeMember" type="button">Luk</button></div></div></div>
 
 <div id="rulesOverlay" class="overlay"><div class="modal"><h3>Regler – Oddset klubben</h3><div class="sub">Sæson 3 · 9 medlemmer · 7 runder · 1 vinder</div><div style="margin-top:14px;line-height:1.55;font-size:13px;color:#d7e0e5"><p><b>Hver deltager spiller 7 runder.</b> Hver runde starter med 200 kr. Du bestemmer selv, hvornår og hvor hurtigt du gennemfører dine runder.</p><p>Du spiller på din egen spilkonto. Når du spiller en kupon, nedjusterer du selv saldoen på den aktive runde. Ved gevinst opjusterer du selv saldoen.</p><p><b>Du kan gøre fire ting med dine penge:</b></p><ol><li>Spille videre i samme runde.</li><li>Banke penge. Bankede penge tæller i konkurrencen og er låst.</li><li>Flytte penge til din personlige buffer. Bufferen er tilgængelig på tværs af alle runder.</li><li>Tage dit oprindelige indskud hjem til egen konto.</li></ol><p><b>Buffer:</b> Bufferen er fælles på tværs af alle dine runder. Du kan spille direkte fra buffer og justerer selv bufferens saldo efter vundne og tabte kuponer. Ved bankning kan du vælge at banke fra både aktiv rundes saldo og buffer.</p><p><b>Lukning af runde:</b> En runde lukkes aktivt af dig eller når saldoen går i nul. Hvis der er penge tilbage ved lukning, skal hele restsaldoen fordeles mellem bank og buffer. Derefter åbner næste runde automatisk med 200 kr.</p><p><b>Minimumsindsats:</b> Alle kuponer skal være på minimum 100 kr.</p><p><b>Kuponer og gevinster:</b> Meldes ind i fælles Messengergruppe med angivelse af runde.</p><p><b>Vinderen:</b> Når sæsonen slutter, vinder den deltager, der samlet har banket flest penge.</p></div><div class="modalActions"><button class="btn green closeRules" type="button">Luk regler</button></div></div></div>
 
@@ -2096,6 +2100,7 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHA
 let dbSeason=null, dbReady=false;
 let allSeasons=[], selectedSeasonId=localStorage.getItem('oddset_selected_season_id')||'';
 let allDbRounds=[], allSeasonMembers=[], allTransactions=[];
+let defendingChampionId=null, defendingChampionSeasonNumber=null;
 let people=[], memberData=[];
 let currentUser=-1;
 const LOGIN_STORAGE_KEY='oddset_member_id';
@@ -2210,6 +2215,8 @@ function getStandingRank(rows,index){
 }
 function renderStandings(){
  const host=document.getElementById('membersList'); if(!host)return;
+ const championLegend=document.getElementById('championLegend');
+ if(championLegend){championLegend.style.display=defendingChampionId?'inline-flex':'none';championLegend.title=defendingChampionSeasonNumber?'Vinder af sæson '+defendingChampionSeasonNumber:'Forsvarende mester';}
  const me=currentPerson(); const rows=[...memberData].sort(compareStanding);
  const last=rows.length?rows[rows.length-1]:null;
  host.innerHTML='<div class="memberHeader"><span>#</span><span>Medlem</span><span>Banket</span><span>Status</span><span>Saldo</span><span>Buffer</span></div>';
@@ -2221,8 +2228,9 @@ function renderStandings(){
    const status=m.closed>=Number(dbSeason?.round_count||7)?'7/7':m.activeRound?`${m.activeRound.round_number}/7`:'–';
    const saldo=m.activeRound?money2(m.activeRound.balance):m.closed>=7?money2(0):'—';
    const medal=rank>=1&&rank<=3?['🥇 ','🥈 ','🥉 '][rank-1]:'';
-   const el=document.createElement('div'); el.className='memberRow '+cls+(me?.id===m.id?' me':''); el.tabIndex=0; el.setAttribute('role','button'); el.dataset.memberId=m.id;
-   el.innerHTML=`<span class="rankBadge">${medal}${rank}</span><span class="name nameCell"><img class="avatarSm memberAvatar" src="${p?.image||avatarSvg('?')}" alt=""><span>${p?.nick||m.name}</span></span><span class="bank">${money(m.bank)}</span><span><span class="roundState ${state}">${status}</span></span><span>${saldo}</span><span class="bufferVal">${money2(m.buffer)}</span>`;
+   const isChampion=String(m.id)===String(defendingChampionId||'');
+   const el=document.createElement('div'); el.className='memberRow '+cls+(me?.id===m.id?' me':'')+(isChampion?' championRow':''); el.tabIndex=0; el.setAttribute('role','button'); el.dataset.memberId=m.id;
+   el.innerHTML=`<span class="rankBadge">${medal}${rank}</span><span class="name nameCell"><img class="avatarSm memberAvatar" src="${p?.image||avatarSvg('?')}" alt=""><span>${p?.nick||m.name}${isChampion?'<span class="memberChampion" title="Forsvarende mester">👑</span>':''}</span></span><span class="bank">${money(m.bank)}</span><span><span class="roundState ${state}">${status}</span></span><span>${saldo}</span><span class="bufferVal">${money2(m.buffer)}</span>`;
    const open=()=>openMember(m.id); el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});host.appendChild(el);
  });
 }
@@ -2411,6 +2419,25 @@ async function loadDatabase(options={}){
   const requestedId=String(options.seasonId||selectedSeasonId||'');
   const season=(requestedId&&allSeasons.find(s=>String(s.id)===requestedId))||allSeasons.find(s=>s.active===true)||allSeasons[0];
   dbSeason=season;selectedSeasonId=String(season.id);localStorage.setItem('oddset_selected_season_id',selectedSeasonId);
+  defendingChampionId=null;defendingChampionSeasonNumber=null;
+  const prevSeason=allSeasons.find(s=>Number(s.season_number)===Number(season.season_number)-1);
+  if(prevSeason){
+    const prevTxRes=await supabaseClient.from('transactions').select('member_id,transaction_type,amount').eq('season_id',prevSeason.id);
+    if(!prevTxRes.error){
+      const bankTypes=new Set(['bank','bank_round','bank_buffer','close_bank']);
+      const sums=new Map();
+      (prevTxRes.data||[]).forEach(t=>{
+        if(!bankTypes.has(String(t.transaction_type||'')))return;
+        const id=String(t.member_id||'');
+        sums.set(id,(sums.get(id)||0)+Number(t.amount||0));
+      });
+      let best=-Infinity;
+      sums.forEach((amount,id)=>{if(amount>best){best=amount;defendingChampionId=id}});
+      if(defendingChampionId)defendingChampionSeasonNumber=Number(prevSeason.season_number);
+    }else{
+      console.warn('Kunne ikke hente forsvarende mester:',prevTxRes.error);
+    }
+  }
 
   const msRes=await supabaseClient.from('members').select('id,full_name,nickname,pin,avatar_url,is_admin,active').eq('active',true).order('full_name');
   if(msRes.error)throw new Error('members: '+dbErrorText(msRes.error));
@@ -2704,7 +2731,7 @@ document.getElementById('hallOfFameBtn')?.addEventListener('click',async()=>{
 document.querySelector('.closeHall')?.addEventListener('click',()=>overlays.hall.classList.remove('open'));
 document.querySelector('.closeHallX')?.addEventListener('click',()=>overlays.hall.classList.remove('open'));
 
-function openMember(memberId){const p=people.find(x=>x.id===memberId),m=memberData.find(x=>x.id===memberId);if(!p||!m)return;document.getElementById('memberName').textContent=p.nick||p.real;document.getElementById('memberBank').textContent=money(m.bank);document.getElementById('memberRound').textContent=m.closed>=7?'7 / 7':m.activeRound?`${m.activeRound.round_number} / 7`:`${m.closed} / 7`;document.getElementById('memberSaldo').textContent=m.activeRound?money2(m.activeRound.balance):'—';document.getElementById('memberRounds').innerHTML=m.rounds.map(r=>`<tr><td>R${r.round_number}</td><td class="${r.status==='closed'?'statusDone':r.status==='active'?'statusActive':''}">${statusUi(r.status)}</td><td>${r.status==='not_started'?'—':money2(r.balance)}</td><td>${money(r.banked)}</td></tr>`).join('');overlays.member.classList.add('open')}
+function openMember(memberId){const p=people.find(x=>x.id===memberId),m=memberData.find(x=>x.id===memberId);if(!p||!m)return;document.getElementById('memberName').textContent=p.nick||p.real;document.getElementById('memberBank').textContent=money(m.bank);document.getElementById('memberRound').textContent=m.closed>=7?'7 / 7':m.activeRound?`${m.activeRound.round_number} / 7`:`${m.closed} / 7`;document.getElementById('memberSaldo').textContent=m.activeRound?money2(m.activeRound.balance):'—';const memberChampionNote=document.getElementById('memberChampionNote');const isChampion=String(memberId)===String(defendingChampionId||'');if(memberChampionNote){memberChampionNote.style.display=isChampion?'inline-flex':'none';memberChampionNote.textContent=isChampion?`👑 Forsvarende mester${defendingChampionSeasonNumber?` · vinder af sæson ${defendingChampionSeasonNumber}`:''}`:'';}document.getElementById('memberRounds').innerHTML=m.rounds.map(r=>`<tr><td>R${r.round_number}</td><td class="${r.status==='closed'?'statusDone':r.status==='active'?'statusActive':''}">${statusUi(r.status)}</td><td>${r.status==='not_started'?'—':money2(r.balance)}</td><td>${money(r.banked)}</td></tr>`).join('');overlays.member.classList.add('open')}
 document.querySelector('.closeMember').onclick=()=>overlays.member.classList.remove('open');document.querySelector('.closeMemberX').onclick=()=>overlays.member.classList.remove('open');document.getElementById('rulesBtn').onclick=()=>overlays.rules.classList.add('open');document.querySelector('.closeRules').onclick=()=>overlays.rules.classList.remove('open');
 
 function refreshProfileUI(){
@@ -3059,7 +3086,7 @@ Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=
 <script>
 /* v97: refresh a homescreen installation when the HTML on the server has a newer version. */
 (function(){
-  const CURRENT_VERSION='111';
+  const CURRENT_VERSION='112';
   let lastCheck=0;
   let checking=false;
   async function checkForAppUpdate(){
