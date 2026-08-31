@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="oddset-app-version" content="116">
+<meta name="oddset-app-version" content="117">
 <meta name="theme-color" content="#073927">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1075,6 +1075,14 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
 
 
+/* v117: season dates / actions */
+.adminSeasonGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#newSeasonBtn:disabled,#closeSeasonBtn:disabled{opacity:.42;cursor:not-allowed;filter:saturate(.55)}
+@media(max-width:760px){
+  .adminSeasonGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  .adminSeasonGrid .fieldInput{min-height:38px;padding:7px 9px;font-size:10.5px}
+}
+
 /* v114/v115: admin registrations */
 .adminTabs{align-items:stretch}
 .adminTab{display:flex;align-items:center;justify-content:center;text-align:center;min-height:34px;line-height:1.15}
@@ -1910,7 +1918,7 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 <script>
 /* v102: versioned favicon / apple-touch-icon cache busting. */
 (function(){
-  const ICON_VERSION='116';
+  const ICON_VERSION='117';
   function versionIconLink(link){
     if(!link || !link.href)return;
     const raw=link.getAttribute('href')||'';
@@ -2098,9 +2106,9 @@ button,.profile,.memberRow,.loginUser{touch-action:manipulation;-webkit-tap-high
 
   <section class="adminPanel" data-admin-panel="season">
     <h3 style="font-size:16px;margin-top:0">Sæson</h3>
-    <div class="adminGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div>
+    <div class="adminGrid adminSeasonGrid" style="margin-top:10px"><div><label class="small">Sæson</label><input class="fieldInput" id="adminSeason" value="2026/27"></div><div><label class="small">Antal runder</label><input class="fieldInput" id="adminRounds" type="number" min="1" value="7"></div><div><label class="small">Fra dato</label><input class="fieldInput" id="adminSeasonFrom" type="date"></div><div><label class="small">Til dato</label><input class="fieldInput" id="adminSeasonTo" type="date"></div><div><label class="small">Startbeløb pr. runde</label><input class="fieldInput" id="adminStart" type="number" min="0" value="200"></div><div><label class="small">Minimumskupon</label><input class="fieldInput" id="adminMinBet" type="number" min="0" value="100"></div></div>
     <div class="adminActions" style="margin-top:12px"><button class="btn gold" id="newSeasonBtn" type="button">Start ny sæson</button><button class="btn" id="closeSeasonBtn" type="button">Luk igangværende sæson</button></div>
-    <div class="small" style="margin-top:8px">Oprettelse og lukning af sæson kobles på i et senere trin.</div>
+    <div class="small" id="adminSeasonActionHint" style="margin-top:8px">Oprettelse og lukning af sæson kobles på i et senere trin.</div>
   </section>
 
   <section class="adminPanel" data-admin-panel="registrations">
@@ -2921,11 +2929,27 @@ async function renderAdmin(){
  }catch(err){
    console.error('Kunne ikke hente admin-brugere:',err);box.innerHTML='<div class="small">Kunne ikke hente brugeroversigten.</div>';showToast('Kunne ikke hente brugere: '+dbErrorText(err));
  }
+ syncAdminSeasonUi();
+}
+function syncAdminSeasonUi(){
+ const s=dbSeason;if(!s)return;
+ const seasonEl=document.getElementById('adminSeason'),roundsEl=document.getElementById('adminRounds'),startEl=document.getElementById('adminStart'),minBetEl=document.getElementById('adminMinBet'),fromEl=document.getElementById('adminSeasonFrom'),toEl=document.getElementById('adminSeasonTo'),newBtn=document.getElementById('newSeasonBtn'),closeBtn=document.getElementById('closeSeasonBtn'),hint=document.getElementById('adminSeasonActionHint');
+ if(seasonEl)seasonEl.value=s.name||('Sæson '+(s.season_number??''));
+ if(roundsEl)roundsEl.value=Number(s.round_count||7);
+ if(startEl)startEl.value=Number(s.start_amount||200);
+ if(minBetEl)minBetEl.value=Number(s.minimum_bet||100);
+ if(fromEl){const fallback=Number(s.season_number)===3?'2026-07-20':'';fromEl.value=(s.start_date||fallback||'').slice(0,10)}
+ if(toEl)toEl.value=String(s.end_date||'').slice(0,10);
+ const active=s.active===true;
+ if(newBtn){newBtn.disabled=active;newBtn.title=active?'Den nuværende sæson skal lukkes, før en ny kan startes.':'Start ny sæson'}
+ if(closeBtn){closeBtn.disabled=!active;closeBtn.title=active?'Luk den aktive sæson.':'Sæsonen er allerede lukket.'}
+ if(hint)hint.textContent=active?'Den nuværende sæson er aktiv. Den skal lukkes, før en ny sæson kan startes. Selve start/luk-logikken kobles på senere.':'Sæsonen er lukket. En ny sæson kan herefter startes, når logikken kobles på.';
 }
 function setAdminTab(tabName){
  const name=tabName||'users';
  document.querySelectorAll('.adminTab').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));
  document.querySelectorAll('.adminPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.adminPanel===name));
+ if(name==='season')syncAdminSeasonUi();
  if(name==='registrations')initAdminRegistrations();
 }
 function adminStatusLabel(status){return status==='active'?'Aktiv':status==='closed'?'Lukket':'Ikke startet'}
@@ -3008,7 +3032,8 @@ document.getElementById('adminRegCancelBtn')?.addEventListener('click',closeAdmi
 document.getElementById('adminRegSaveBtn')?.addEventListener('click',saveAdminRegistrationEdit);
 document.getElementById('adminBtn').onclick=async()=>{const p=currentPerson();if(!p?.admin){overlays.admin.classList.remove('open');return}setAdminTab('users');overlays.admin.classList.add('open');await renderAdmin();};
 document.querySelector('.closeAdmin').onclick=()=>{closeAdminRegistrationEdit();overlays.admin.classList.remove('open')};
-['newSeasonBtn','closeSeasonBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>showToast('Sæson-funktionen kobles på databasen i et senere trin.')));
+document.getElementById('newSeasonBtn')?.addEventListener('click',()=>showToast('Oprettelse af ny sæson kobles på databasen i et senere trin.'));
+document.getElementById('closeSeasonBtn')?.addEventListener('click',()=>showToast('Lukning af sæson kobles på databasen i et senere trin.'));
 
 function confirmDiscardUnsaved(){
  if(!balanceBufferDirty)return true;
@@ -3187,7 +3212,7 @@ Object.values(overlays).filter(Boolean).forEach(o=>o.addEventListener('click',e=
 <script>
 /* v97: refresh a homescreen installation when the HTML on the server has a newer version. */
 (function(){
-  const CURRENT_VERSION='116';
+  const CURRENT_VERSION='117';
   let lastCheck=0;
   let checking=false;
   async function checkForAppUpdate(){
